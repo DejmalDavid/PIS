@@ -5,6 +5,17 @@
 		<jta-data-source>jdbc/pis</jta-data-source>
 		<class>org.fit.pis.data.Car</class>
 		<class>org.fit.pis.data.Person</class>
+		<class>org.fit.pis.data.Gol</class>
+		<class>org.fit.pis.data.Hrac</class>
+		<class>org.fit.pis.data.OblibeneTymy</class>
+		<class>org.fit.pis.data.Rozhodci</class>
+		<class>org.fit.pis.data.RozhodciZapa</class>
+		<class>org.fit.pis.data.Sestava</class>
+		<class>org.fit.pis.data.SestavaHrac</class>
+		<class>org.fit.pis.data.Stridani</class>
+		<class>org.fit.pis.data.Tym</class>
+		<class>org.fit.pis.data.Uzivatel</class>
+		<class>org.fit.pis.data.Zapa</class>
 		<properties>
             <property name="eclipselink.ddl-generation" value="create-or-extend-tables"/>
             <property name="eclipselink.ddl-generation.output-mode" value="database"/>
