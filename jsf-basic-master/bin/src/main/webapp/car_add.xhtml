@@ -1,0 +1,38 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core">
+
+<ui:composition template="template.xhtml">
+
+	<ui:define name="content">
+		<h:form>
+			<h:messages layout="table"></h:messages>
+			<p>Adding a car for
+				<h:outputText value="#{personBean.person.name} #{personBean.person.surname}"></h:outputText>
+			</p>			
+			
+			<h:panelGrid columns="2">
+				<h:outputLabel rendered="true" value="Registration"></h:outputLabel>
+				<h:inputText value="#{personBean.car.reg}" required="true">
+					<f:validateLength minimum="2" maximum="20" />
+				</h:inputText>
+				<h:outputLabel rendered="true" value="Producer"></h:outputLabel>
+				<h:inputText value="#{personBean.car.prod}" required="true">
+					<f:validateLength minimum="2" maximum="80"/>
+				</h:inputText>
+				<h:outputLabel rendered="true" value="Type"></h:outputLabel>
+				<h:inputText value="#{personBean.car.type}" required="true">
+					<f:validateLength minimum="2" maximum="80"/>
+				</h:inputText>
+				<h:commandButton action="#{personBean.actionCarAdd}" value="Insert">
+				</h:commandButton>
+			</h:panelGrid>
+		</h:form>
+	</ui:define>
+	
+</ui:composition>
+</html>
