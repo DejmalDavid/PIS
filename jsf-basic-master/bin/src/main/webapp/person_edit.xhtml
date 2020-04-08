@@ -1,0 +1,66 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core">
+
+<ui:composition template="template.xhtml">
+	<ui:define name="content">
+	
+		<h:form>
+			<h:messages layout="table"></h:messages>
+			<h:panelGrid columns="2">
+				<h:outputLabel rendered="true" value="ID"></h:outputLabel>
+				<h:outputText value="#{personBean.person.id}">
+					<f:converter converterId="idConverter"/>
+				</h:outputText>
+				<h:outputLabel rendered="true" value="Name"></h:outputLabel>
+				<h:inputText value="#{personBean.person.name}" required="true"
+					requiredMessage="Name is required"
+					validatorMessage="Invalid name">
+					<f:validateLength minimum="2" maximum="80" />
+				</h:inputText>
+				<h:outputLabel rendered="true" value="Surname"></h:outputLabel>
+				<h:inputText value="#{personBean.person.surname}" required="true">
+					<f:validateLength minimum="2" maximum="80"/>
+				</h:inputText>
+				<h:outputLabel rendered="true" value="Date of birth"></h:outputLabel>
+				<h:inputText value="#{personBean.person.born}" required="true">
+					<f:validateLength minimum="8" />
+					<f:convertDateTime/>
+				</h:inputText>
+			</h:panelGrid>
+			
+			<h2>Cars</h2>
+			<h:dataTable value="#{personBean.person.cars}"
+			             var="car">
+				<h:column>
+					<h:outputText value="#{car.reg}"></h:outputText>
+				</h:column>
+				<h:column>
+					<h:outputText value="#{car.prod}"></h:outputText>
+				</h:column>
+				<h:column>
+					<h:outputText value="#{car.type}"></h:outputText>
+				</h:column>
+				<h:column>
+					<h:commandLink action="#{personBean.actionCarDel(car)}">Delete</h:commandLink>
+				</h:column>
+			</h:dataTable>
+
+			<h:commandLink action="#{personBean.actionCarNew}">Add a car</h:commandLink>
+			
+			<p>
+			<h:commandButton action="#{personBean.actionUpdate}" value="Update">
+			</h:commandButton>
+			<h:commandButton action="cancel" value="Cancel">
+			</h:commandButton>
+			</p>
+			
+		</h:form>
+	
+	</ui:define>
+</ui:composition>
+</html>

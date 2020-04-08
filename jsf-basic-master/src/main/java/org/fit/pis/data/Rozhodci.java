@@ -12,6 +12,7 @@ import org.codehaus.jackson.annotate.JsonIgnore;
  * 
  */
 @Entity
+@Table(name="Rozhodci")
 @NamedQuery(name="Rozhodci.findAll", query="SELECT r FROM Rozhodci r")
 public class Rozhodci implements Serializable {
 	private static final long serialVersionUID = 1L;

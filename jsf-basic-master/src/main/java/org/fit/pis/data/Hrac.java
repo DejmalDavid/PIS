@@ -12,7 +12,9 @@ import java.util.List;
  * The persistent class for the hrac database table.
  * 
  */
+
 @Entity
+@Table(name="Hrac")
 @NamedQuery(name="Hrac.findAll", query="SELECT h FROM Hrac h")
 public class Hrac implements Serializable {
 	private static final long serialVersionUID = 1L;

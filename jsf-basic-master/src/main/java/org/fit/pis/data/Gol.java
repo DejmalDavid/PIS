@@ -11,9 +11,6 @@ import javax.persistence.*;
 import org.codehaus.jackson.annotate.JsonIgnore;
 import org.codehaus.jackson.annotate.JsonIgnoreProperties;
 
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
-
 import java.sql.Timestamp;
 
 
@@ -22,6 +19,7 @@ import java.sql.Timestamp;
  * 
  */
 @Entity
+@Table(name="Gol")
 @NamedQuery(name="Gol.findAll", query="SELECT g FROM Gol g")
 public class Gol implements Serializable {
 	private static final long serialVersionUID = 1L;
