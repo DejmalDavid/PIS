@@ -1,0 +1,74 @@
+<a [routerLink]="['/','team',nation]">presun</a><h2>here i am</h2>
+<mat-grid-list cols="2" rowHeight=350px>
+    <mat-grid-tile>
+        <table mat-table [dataSource]="dataSource" matSort class="mat-elevation-z8">
+
+            <!-- Position Column -->
+            <ng-container matColumnDef="position">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header> No. </th>
+            <td mat-cell *matCellDef="let element"> {{element.position}} </td>
+            </ng-container>
+
+            <!-- Flag Column -->
+            <ng-container matColumnDef="flag">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header> </th>
+                <td mat-cell *matCellDef="let element"> <span class="flag-icon flag-icon-{{element.flag}}"></span> </td>
+            </ng-container>
+            
+        
+            <!-- Name Column -->
+            <ng-container matColumnDef="name">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header> Name </th>
+            <td mat-cell *matCellDef="let element"> {{element.name}} </td>
+            </ng-container>
+        
+            <!-- Weight Column -->
+            <ng-container matColumnDef="body">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header> B </th>
+            <td mat-cell *matCellDef="let element"> {{element.body}} </td>
+            </ng-container>
+
+            <!-- Skore Column -->
+            <ng-container matColumnDef="skore">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header> Skore </th>
+                <td mat-cell *matCellDef="let element"> {{element.skore}} </td>
+            </ng-container>
+        
+            <!-- Symbol Column -->
+            <ng-container matColumnDef="zapasy">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header> Z </th>
+            <td mat-cell *matCellDef="let element"> {{element.zapasy}} </td>
+            </ng-container>
+        
+            <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+            <tr mat-row *matRowDef="let row; columns: displayedColumns;" (mouseenter)="onClick(row.name)" [routerLink]="['/','team',nation]"></tr>
+        </table>
+    </mat-grid-tile>
+    <mat-grid-tile>
+                <table mat-table [dataSource]="DSmatches">
+                    <ng-container matColumnDef="datum">
+                        <th mat-header-cell *matHeaderCellDef mat-sort-header> Hostia </th>
+                        <td mat-cell *matCellDef="let element"> {{element.datum}} </td>
+                    </ng-container>
+                     <!-- Home Column -->
+                    <ng-container matColumnDef="home">
+                        <th mat-header-cell *matHeaderCellDef mat-sort-header> Domáci </th>
+                        <td mat-cell *matCellDef="let element"> {{element.home}} </td>
+                    </ng-container>
+                     <!-- Score Column -->
+                    <ng-container matColumnDef="score">
+                        <th mat-header-cell *matHeaderCellDef mat-sort-header>  </th>
+                        <td mat-cell *matCellDef="let element"> {{element.score}} </td>
+                    </ng-container>
+                    
+                        <!-- Away Column -->
+                    <ng-container matColumnDef="away">
+                        <th mat-header-cell *matHeaderCellDef mat-sort-header> Hostia </th>
+                        <td mat-cell *matCellDef="let element"> {{element.away}} </td>
+                    </ng-container>
+
+                    <tr mat-header-row *matHeaderRowDef="displayedColumnsMatches"></tr>
+                    <tr mat-row *matRowDef="let row; columns: displayedColumnsMatches;"></tr>
+                </table>
+    </mat-grid-tile>
+</mat-grid-list>

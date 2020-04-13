@@ -1,0 +1,36 @@
+table {
+    width: auto;
+    margin-left: 10px;
+    margin-right: 10px;
+    border-radius: 25px;
+    border: 2px solid #73AD21;
+    background-color: transparent;
+}
+tr.mat-row {
+    height: 5px;
+    
+}
+tr.mat-header-row{
+    height: 8px;
+}
+.mat-column-name{
+    width: 100px;
+}
+.mat-column-body{
+    width: 0px;
+}
+.mat-cell{
+    padding-left: 10px !important;
+    padding-right: 5px !important;
+}
+.mat-header-cell{
+    padding-left: 10px !important;
+    padding-right: 5px !important;
+}
+p{
+    text-align: center;
+}
+
+a:link{
+    text-decoration: none;
+}

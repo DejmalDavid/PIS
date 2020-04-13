@@ -1,0 +1,101 @@
+<mat-grid-list cols="2" rowHeight="350px">
+    <mat-grid-tile>
+        <img src="https://cdn.countryflags.com/thumbs/slovakia/flag-3d-round-250.png" atl="image" />
+    </mat-grid-tile>
+    <mat-grid-tile [rowspan]="2" colWidth="50%" class="zapasy">
+        <table mat-table [dataSource]="DSmatches">
+            <ng-container matColumnDef="datum">
+                <th mat-header-cell *matHeaderCellDef > Datum </th>
+                <td mat-cell *matCellDef="let element"> {{element.datum}} </td>
+            </ng-container>
+            <!-- Home Column -->
+            <ng-container matColumnDef="home">
+                <th mat-header-cell *matHeaderCellDef > Domáci </th>
+                <td mat-cell *matCellDef="let element"> {{element.home}} </td>
+            </ng-container>
+            <!-- Score Column -->
+            <ng-container matColumnDef="score">
+                <th mat-header-cell *matHeaderCellDef > </th>
+                <td mat-cell *matCellDef="let element"> {{element.score}} </td>
+            </ng-container>
+
+            <!-- Away Column -->
+            <ng-container matColumnDef="away">
+                <th mat-header-cell *matHeaderCellDef > Hostia </th>
+                <td mat-cell *matCellDef="let element"> {{element.away}} </td>
+            </ng-container>
+
+            <ng-container matColumnDef="faza">
+                <th mat-header-cell *matHeaderCellDef > Fáza </th>
+                <td mat-cell *matCellDef="let element"> {{element.faza}} </td>
+            </ng-container>
+
+            <tr mat-header-row *matHeaderRowDef="displayedColumnsMatches"></tr>
+            <tr mat-row *matRowDef="let row; columns: displayedColumnsMatches;"></tr>
+        </table>
+    </mat-grid-tile>
+    <mat-grid-tile class="inline">
+        <h3>Hlavný tréner: Pavel Hapal</h3>
+        <h3>Pozícia v rebríčku FIFA: 22. miesto</h3>
+        <h3>Počet účasti na MS: 1</h3>
+        <h3>Pocet registrovaných futbalistov: 125 438</h3>
+        <h3>Národný štadion: Národný štadion v Bratislave</h3>
+        <h3>Titul majstra sveta: 0</h3>
+        <h3>Historicky najlepsi strelec: Vittek Robo</h3>
+    </mat-grid-tile>
+    <mat-grid-tile [colspan]="2" class="stats">
+        <table mat-table [dataSource]="DSplayers" matSort>
+            <ng-container matColumnDef="number">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header> # </th>
+                <td mat-cell *matCellDef="let element"> {{element.number}} </td>
+            </ng-container>
+            <!-- Home Column -->
+            <ng-container matColumnDef="name">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header> Meno </th>
+                <td mat-cell *matCellDef="let element"> {{element.name}} </td>
+            </ng-container>
+            <!-- Score Column -->
+            <ng-container matColumnDef="position">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header> Poz. </th>
+                <td mat-cell *matCellDef="let element"> {{element.position}} </td>
+            </ng-container>
+
+            <!-- Away Column -->
+            <ng-container matColumnDef="matches">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header> Zápasy </th>
+                <td mat-cell *matCellDef="let element"> {{element.matches}} </td>
+            </ng-container>
+
+            <ng-container matColumnDef="time">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header> Odohraný č. </th>
+                <td mat-cell *matCellDef="let element"> {{element.time}} </td>
+            </ng-container>
+            <!-- Score Column -->
+            <ng-container matColumnDef="goals">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header> Góly </th>
+                <td mat-cell *matCellDef="let element"> {{element.goals}} </td>
+            </ng-container>
+
+            <!-- Away Column -->
+            <ng-container matColumnDef="assist">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header> Asistencie </th>
+                <td mat-cell *matCellDef="let element"> {{element.assist}} </td>
+            </ng-container>
+
+            <ng-container matColumnDef="yellowcard">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header> Žlté k. </th>
+                <td mat-cell *matCellDef="let element"> {{element.yellowcard}} </td>
+            </ng-container>
+
+            <ng-container matColumnDef="redcard">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header> Červené k. </th>
+                <td mat-cell *matCellDef="let element"> {{element.redcard}} </td>
+            </ng-container>
+
+
+            <tr mat-header-row *matHeaderRowDef="displayedColumnsPlayers"></tr>
+            <tr mat-row *matRowDef="let row; columns: displayedColumnsPlayers;"></tr>
+        </table>
+    </mat-grid-tile>
+
+</mat-grid-list>

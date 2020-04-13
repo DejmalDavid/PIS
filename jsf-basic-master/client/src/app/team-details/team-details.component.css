@@ -1,0 +1,51 @@
+table {
+  border-collapse: collapse;
+  padding: 5px;
+  width: 80%;
+  height: 90%;
+  margin: 5%;
+  font-size: 50px;
+  border: 2px solid #73AD21;
+  border-radius: 25px;
+  background-color: transparent;
+}
+
+td {
+  font-size: 20px;
+}
+
+h3 {
+  width: 100% !important;
+  text-align: center;
+}
+
+.inline>::ng-deep .mat-figure {
+  display: inline;
+}
+
+.mat-column-flag {
+  width: 50px;
+  margin-left: 5px;
+}
+
+.mat-column-name {
+  text-align: left;
+  margin-left: 5px;
+  width: 450px;
+}
+
+.mat-column-number {
+  width: 45px;
+  margin-left: 5px;
+}
+
+.stats {
+  height: 100% !important;
+}
+
+.mat-column-matches, .mat-column-assists, .mat-column-goals, .mat-column-red, .mat-column-yellow {
+  text-align: center !important;
+}
+th.mat-sort-header-sorted {
+  color: black;
+}

@@ -13,6 +13,11 @@ import { SearchResultsComponent } from './search-results/search-results.componen
 import { TeamDetailsComponent } from './team-details/team-details.component';
 import { TopBarComponent } from './top-bar/top-bar.component';
 import { UserProfileComponent } from './user-profile/user-profile.component';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+
+import { MaterialModule } from './material/material.module';
+import { TableGroupComponent } from './table-group/table-group.component';
+import { RouterModule } from '@angular/router';
 
 
 @NgModule({
@@ -27,11 +32,19 @@ import { UserProfileComponent } from './user-profile/user-profile.component';
     SearchResultsComponent,
     TeamDetailsComponent,
     TopBarComponent,
-    UserProfileComponent
+    UserProfileComponent,
+    TableGroupComponent
   ],
   imports: [
     BrowserModule,
-    AppRoutingModule
+    AppRoutingModule,
+    BrowserAnimationsModule,
+    MaterialModule,
+    RouterModule.forRoot([
+      { path: '', component: DashboardComponent},
+      { path: 'group/:source', component: GroupDetailsComponent},
+      { path: 'team/:nation', component:TeamDetailsComponent}
+    ])
   ],
   providers: [],
   bootstrap: [AppComponent]
