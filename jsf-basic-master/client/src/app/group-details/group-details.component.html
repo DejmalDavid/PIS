@@ -45,9 +45,9 @@
         </table>
     </mat-grid-tile>
     <mat-grid-tile>
-                <table mat-table [dataSource]="DSmatches">
+                <table mat-table [dataSource]="DSmatches" matSort>
                     <ng-container matColumnDef="datum">
-                        <th mat-header-cell *matHeaderCellDef mat-sort-header> Hostia </th>
+                        <th mat-header-cell *matHeaderCellDef mat-sort-header> Datum </th>
                         <td mat-cell *matCellDef="let element"> {{element.datum}} </td>
                     </ng-container>
                      <!-- Home Column -->
