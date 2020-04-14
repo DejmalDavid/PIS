@@ -25,6 +25,9 @@ import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatIconModule } from '@angular/material/icon';
 import { MatListModule } from '@angular/material/list';
+import { TableMatchComponent } from './table-match/table-match.component';
+import {MatCardModule} from '@angular/material/card';
+import { RegisterScreenComponent } from './register-screen/register-screen.component';
 
 
 @NgModule({
@@ -40,7 +43,9 @@ import { MatListModule } from '@angular/material/list';
     TeamDetailsComponent,
     TopBarComponent,
     UserProfileComponent,
-    TableGroupComponent
+    TableGroupComponent,
+    TableMatchComponent,
+    RegisterScreenComponent
   ],
   imports: [
     BrowserModule,
@@ -53,13 +58,15 @@ import { MatListModule } from '@angular/material/list';
       { path: '', component: DashboardComponent},
       { path: 'group/:source', component: GroupDetailsComponent},
       { path: 'team/:nation', component:TeamDetailsComponent},
-      { path: 'login', component:LoginScreenComponent}
+      { path: 'login', component:LoginScreenComponent},
+      { path: 'register', component:RegisterScreenComponent}
     ]),
     LayoutModule,
     MatToolbarModule,
     MatSidenavModule,
     MatIconModule,
-    MatListModule
+    MatListModule,
+    MatCardModule
   ],
   providers: [],
   bootstrap: [AppComponent]
