@@ -1,5 +1,6 @@
 package org.fit.pis.api;
 
+import java.sql.Timestamp;
 import java.util.List;
 
 import javax.annotation.PostConstruct;
@@ -19,8 +20,15 @@ import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import javax.ws.rs.core.Response.Status;
 
+import org.fit.pis.data.Gol;
 import org.fit.pis.data.Hrac;
+import org.fit.pis.data.Sestava;
+import org.fit.pis.data.SestavaHrac;
+import org.fit.pis.data.Stridani;
+import org.fit.pis.data.Zapa;
 import org.fit.pis.service.HracManager;
+import org.json.simple.JSONArray;
+import org.json.simple.JSONObject;
 
 /*
  * TEST URL:
@@ -69,6 +77,71 @@ public class HracAPI
     		return Response.status(Status.NOT_FOUND).entity("{\"error\": \"No such person\"}").build();
     }
 
+    
+    @SuppressWarnings("unchecked")
+	@Path("/team/{id}")
+    @GET
+    @Produces(MediaType.APPLICATION_JSON)
+    public List<JSONObject> getByTeam(@PathParam("id") String idString) throws NamingException 
+    {
+    	int id = Integer.valueOf(idString);
+    	JSONArray array = new JSONArray();
+    	for(Hrac hrac:hracMgr.findAll())
+    	{
+    		//TODO if team==id
+    		JSONObject hracJson = new JSONObject();
+    		hracJson.put("name", hrac.getJmeno()+" "+ hrac.getPrijmeni());
+    		hracJson.put("position" , hrac.getPozice());
+    		hracJson.put("vek", hrac.getVek());
+    		Timestamp time = new Timestamp(0);
+    		int pocetZapasu=0;
+    		for(SestavaHrac propoj: hrac.getSestavaHracs())
+    		{
+        		Zapa zapas = propoj.getSestava1().getZapa();
+        		pocetZapasu++;
+        		//kotrola jestli nestridal
+        		for(Stridani stridani: zapas.getStridanis())
+        		{
+        			//sel dolu
+        			if(stridani.getHrac_id_in()==hrac.getId())
+        			{
+        				//TODO + 90 min - stridani.getCas()
+        			}
+        			//nebyl v zakladu
+        			else if(stridani.getHrac_id_out()==hrac.getId())
+        			{
+        				//TODO + stridani.getCas()
+        			}
+        			//dal to cele
+        			else
+        			{
+        				//TODO 90 min
+        			}
+        		}
+    		}
+    		
+    		hracJson.put("matches",pocetZapasu);
+    		
+    		int pocetGolu=0;
+			for (int i = 0; i < hrac.getGols1().size(); i++) {
+				pocetGolu++;
+			} 		
+    		hracJson.put("goals",pocetGolu);
+    		
+    		int assist=0;
+			for (int i = 0; i <  hrac.getGols2().size(); i++) {
+				assist++;
+			}
+    		hracJson.put("assist",assist);
+    		
+    		
+    		
+    		array.add(hracJson);
+    	}
+    	
+    	return array;
+    }
+    
     
     @PUT
     @Consumes(MediaType.APPLICATION_JSON)
