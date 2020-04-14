@@ -1,7 +1,7 @@
-<a [routerLink]="['/','team',nation]">presun</a><h2>here i am</h2>
-<mat-grid-list cols="2" rowHeight=350px>
+<a [routerLink]="['/','team',nation]">presun</a>
+<mat-grid-list cols="2" rowHeight=350px class="tab-group-list">
     <mat-grid-tile>
-        <table mat-table [dataSource]="dataSource" matSort class="mat-elevation-z8">
+        <table mat-table [dataSource]="dataSource" matSort>
 
             <!-- Position Column -->
             <ng-container matColumnDef="position">

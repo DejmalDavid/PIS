@@ -1,21 +1,37 @@
 .navbar {
     justify-content :space-between;
 }
-span{
-    padding-right: 1rem;
+input{
+    padding-right: 10px;
 }
 
 a:link{
     text-decoration: none;
 }
 a{
-    color:black;
+    color:white;
+}
+span {
+    font-weight: 350;
+    padding: 0px 15px;
+}
+.appname {
+    display: inline-block;
+    font-weight: 500;
+    border-right: 2px solid rgb(180, 193, 218);
 }
 .visible{
-    background-color:green;
     position:fixed;
     z-index: 1000;
 }
 .hidden{
     visibility: hidden;
+}
+
+.search-input {
+    min-width: 100px;
+    max-width: 200px;
+    width: 100%;
+    margin-top: 20px;
+    font-size: medium;
 }

@@ -1,0 +1,15 @@
+<div class="log-middle">
+    <form class="login-form" (submit)="loginUser($event)">
+        <mat-form-field class="login-full-width" appearance="outline">
+            <mat-label>Meno</mat-label>
+            <input matInput placeholder="Nickname">
+        </mat-form-field>
+
+        <mat-form-field class="login-full-width" appearance="outline">
+            <mat-label>Heslo</mat-label>
+            <input matInput placeholder="Password">
+            <mat-hint align="end">Min. 5 znakov</mat-hint>
+        </mat-form-field> 
+        <button mat-raised-button type="submit" color="primary">Login</button>
+    </form>
+</div>

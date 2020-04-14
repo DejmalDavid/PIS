@@ -10,4 +10,9 @@ export class LoginScreenComponent implements OnInit {
     constructor() { }
 
     ngOnInit() { }
+
+    loginUser(event) {
+        event.preventDefault()
+        console.log(event)
+    }
 }

@@ -1,0 +1,7 @@
+{
+    "/rest": {
+        "target": "http://localhost:8080/jsf-basic",
+        "secure": false,
+        "changeOrigin": true
+    }
+}
