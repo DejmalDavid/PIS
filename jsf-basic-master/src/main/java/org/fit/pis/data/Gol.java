@@ -27,7 +27,7 @@ public class Gol implements Serializable {
 	@Id
 	private int id;
 
-	private Timestamp gol_cas;
+	private int gol_cas;
 
 	private String gol_typ;
 
@@ -59,11 +59,11 @@ public class Gol implements Serializable {
 		this.id = id;
 	}
 
-	public Timestamp getGol_cas() {
+	public int getGol_cas() {
 		return this.gol_cas;
 	}
 
-	public void setGol_cas(Timestamp gol_cas) {
+	public void setGol_cas(int gol_cas) {
 		this.gol_cas = gol_cas;
 	}
 

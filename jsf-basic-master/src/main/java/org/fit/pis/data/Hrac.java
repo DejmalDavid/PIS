@@ -31,6 +31,11 @@ public class Hrac implements Serializable {
 	private String skill;
 
 	private int vek;
+	
+	//bi-directional many-to-one association to Tym
+	@ManyToOne
+	@JoinColumn(name="Tym_id")
+	private Tym tym;
 
 	//bi-directional many-to-one association to Gol
 	@OneToMany(mappedBy="hrac1")

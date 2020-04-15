@@ -9,7 +9,7 @@ import javax.persistence.*;
  * 
  */
 @Entity
-@Table(name="oblibene_tymy")
+@Table(name="Oblibene_tymy")
 @NamedQuery(name="OblibeneTymy.findAll", query="SELECT o FROM OblibeneTymy o")
 public class OblibeneTymy implements Serializable {
 	private static final long serialVersionUID = 1L;

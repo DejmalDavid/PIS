@@ -14,7 +14,7 @@ import java.util.List;
  * 
  */
 @Entity
-@Table(name="zapas")
+@Table(name="Zapas")
 @NamedQuery(name="Zapa.findAll", query="SELECT z FROM Zapa z")
 public class Zapa implements Serializable {
 	private static final long serialVersionUID = 1L;
@@ -32,6 +32,8 @@ public class Zapa implements Serializable {
 	private int pocet_divaku;
 
 	private String stadion;
+	
+	private int skupina;
 
 	//bi-directional many-to-one association to Gol
 	@OneToMany(mappedBy="zapa")
@@ -190,6 +192,14 @@ public class Zapa implements Serializable {
 		stridani.setZapa(null);
 
 		return stridani;
+	}
+
+	public int getSkupina() {
+		return skupina;
+	}
+
+	public void setSkupina(int skupina) {
+		this.skupina = skupina;
 	}
 
 }

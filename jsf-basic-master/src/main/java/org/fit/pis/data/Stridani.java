@@ -18,7 +18,7 @@ public class Stridani implements Serializable {
 	@Id
 	private int id;
 
-	private Timestamp cas;
+	private int cas;
 
 	private int hrac_id_in;
 
@@ -40,11 +40,11 @@ public class Stridani implements Serializable {
 		this.id = id;
 	}
 
-	public Timestamp getCas() {
+	public int getCas() {
 		return this.cas;
 	}
 
-	public void setCas(Timestamp cas) {
+	public void setCas(int cas) {
 		this.cas = cas;
 	}
 

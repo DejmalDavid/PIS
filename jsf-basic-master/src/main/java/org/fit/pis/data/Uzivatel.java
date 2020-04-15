@@ -26,7 +26,7 @@ public class Uzivatel implements Serializable {
 
 	private String email;
 
-	private int heslo;
+	private String heslo;
 
 	private String jmeno;
 
@@ -39,6 +39,14 @@ public class Uzivatel implements Serializable {
 	private List<OblibeneTymy> oblibeneTymies;
 
 	public Uzivatel() {
+	}
+
+	public Uzivatel(String email, String heslo, String jmeno, String prijmeni, int opravneni) {
+	      this.email = email;
+	      this.heslo = heslo;
+	      this.jmeno = jmeno;
+	      this.prijmeni = prijmeni;
+	      this.opravneni = opravneni;
 	}
 
 	public int getId() {
@@ -65,11 +73,11 @@ public class Uzivatel implements Serializable {
 		this.email = email;
 	}
 
-	public int getHeslo() {
+	public String getHeslo() {
 		return this.heslo;
 	}
 
-	public void setHeslo(int heslo) {
+	public void setHeslo(String heslo) {
 		this.heslo = heslo;
 	}
 

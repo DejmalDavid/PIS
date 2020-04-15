@@ -29,6 +29,10 @@ public class Tym implements Serializable {
 
 	private int skupina;
 
+	//bi-directional many-to-one association to Gol
+	@OneToMany(mappedBy="tym")
+	private List<Hrac> hracs;
+		
 	//bi-directional many-to-one association to OblibeneTymy
 	@OneToMany(mappedBy="tym")
 	private List<OblibeneTymy> oblibeneTymies;
