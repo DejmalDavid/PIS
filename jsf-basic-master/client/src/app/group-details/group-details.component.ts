@@ -5,6 +5,7 @@ import { MatTableDataSource } from '@angular/material/table';
 import { mmatches} from '../matches'
 
 
+
 @Component({
     selector: 'app-group-details',
     templateUrl: './group-details.component.html',
@@ -18,6 +19,7 @@ export class GroupDetailsComponent implements OnInit {
     displayedColumnsMatches: string[] = ['datum', 'home', 'score', 'away'];
     DSmatches = new MatTableDataSource(mmatches);
     nation:string;
+    matchID:string;
     constructor(private route: ActivatedRoute) { }
     ngOnInit() { 
         this.route.paramMap.subscribe(params => {
@@ -40,5 +42,8 @@ export class GroupDetailsComponent implements OnInit {
     }
     onClick(home){
         this.nation = home;
+    }
+    onHover(id){
+        this.matchID = id;
     }
 }

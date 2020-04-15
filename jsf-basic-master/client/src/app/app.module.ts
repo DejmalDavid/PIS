@@ -53,7 +53,8 @@ import { MatListModule } from '@angular/material/list';
       { path: '', component: DashboardComponent},
       { path: 'group/:source', component: GroupDetailsComponent},
       { path: 'team/:nation', component:TeamDetailsComponent},
-      { path: 'login', component:LoginScreenComponent}
+      { path: 'login', component:LoginScreenComponent},
+      { path: 'match/:matchID', component:MatchDetailsComponent}
     ]),
     LayoutModule,
     MatToolbarModule,
