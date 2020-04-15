@@ -19,8 +19,11 @@ import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import javax.ws.rs.core.Response.Status;
 
+import org.fit.pis.data.Sestava;
 import org.fit.pis.data.Zapa;
 import org.fit.pis.service.ZapaManager;
+import org.json.simple.JSONArray;
+import org.json.simple.JSONObject;
 
 /*
  * TEST URL:
@@ -55,7 +58,100 @@ public class ZapaAPI
     	System.out.println("API3");
     	return zapaMgr.findAll();
     }
+    
+    @SuppressWarnings("unchecked")
+	@Path("/team/{id}")
+    @GET
+    @Produces(MediaType.APPLICATION_JSON)
+    public List<JSONObject> getByTeam(@PathParam("id") String idString) throws NamingException 
+    {
+    	JSONArray array = new JSONArray();
+    	
+    	for(Zapa zapas:zapaMgr.findAll())
+    	{
+    		JSONObject zapasJson = new JSONObject();
+    		
+        	for(Sestava sestava:zapas.getSestavas())
+        	{
+        		if(sestava.getTym().getId()==Integer.valueOf(idString))
+        		{
+        				
+        			//0=domaci
+        			if(sestava.getHostujici()==0)
+        			{
+        				zapasJson.put("home", sestava.getTym().getNazev());
+        				zapasJson.put("datum",zapas.getDatum());
+        				zapasJson.put("score", zapas.getDomaci_tym_skore()+":"+zapas.getHost_tym_skore());
+        			}
+        			//1=hoste
+        			else if(sestava.getHostujici()==1)
+        			{
+        				zapasJson.put("away", sestava.getTym().getNazev());
+        			}	
+        		}
+        		
+        	}
+        	//neni prazdny
+        	if(zapasJson.isEmpty()==false)
+        	{
+        		array.add(zapasJson);
+        	}
+      	
+        	
+    	}
+    	
+    	
+    	return array;
+    }
+    
 
+    @SuppressWarnings("unchecked")
+	@Path("/group/{id}")
+    @GET
+    @Produces(MediaType.APPLICATION_JSON)
+    public List<JSONObject> getByGroup(@PathParam("id") String idString) throws NamingException 
+    {
+    	JSONArray array = new JSONArray();
+    	
+    	for(Zapa zapas:zapaMgr.findAll())
+    	{
+    		JSONObject zapasJson = new JSONObject();
+    		
+        	for(Sestava sestava:zapas.getSestavas())
+        	{
+        		if(sestava.getTym().getSkupina()==Integer.valueOf(idString))
+        		{
+        				
+        			//0=domaci
+        			if(sestava.getHostujici()==0)
+        			{
+        				zapasJson.put("home", sestava.getTym().getNazev());
+        				zapasJson.put("datum",zapas.getDatum());
+        				zapasJson.put("score", zapas.getDomaci_tym_skore()+":"+zapas.getHost_tym_skore());
+        			}
+        			//1=hoste
+        			else if(sestava.getHostujici()==1)
+        			{
+        				zapasJson.put("away", sestava.getTym().getNazev());
+        			}	
+        		}
+        		
+        	}
+        	//neni prazdny
+        	if(zapasJson.isEmpty()==false)
+        	{
+        		array.add(zapasJson);
+        	}
+      	
+        	
+    	}
+    	
+    	
+    	return array;
+    }
+    
+    
+    
     @Path("/{id}")
     @GET
     @Produces(MediaType.APPLICATION_JSON)

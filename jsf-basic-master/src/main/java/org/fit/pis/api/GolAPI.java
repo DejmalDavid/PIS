@@ -61,16 +61,6 @@ public class GolAPI
     @Produces(MediaType.APPLICATION_JSON)
     public List<JSONObject> getJson() throws NamingException 
     {
-    	/*
-    	System.out.println("API3");
-    	List<GolOutput> seznam = new ArrayList<>();
-
-    	for (Gol gol :  golMgr.findAll()) {
-        	System.out.println(gol.getHrac2().getPrijmeni());
-    		seznam.add(new GolOutput(gol.getId(), gol.getGol_cas(), gol.getGol_typ(), gol.getPolovina_zapasu(), gol.getZapa().getId(), gol.getHrac1().getPrijmeni(), gol.getHrac2().getPrijmeni()));
-    	}
-    	*/
-    	
     	JSONArray array = new JSONArray();
     	
     	
