@@ -72,6 +72,7 @@ import { FavoriteComponent } from './favorite/favorite.component';
       { path: 'group/:source', component: GroupDetailsComponent},
       { path: 'team/:nation', component:TeamDetailsComponent},
       { path: 'login', component:LoginScreenComponent},
+      { path: 'match/:matchID', component:MatchDetailsComponent},
       { path: 'register', component:RegisterScreenComponent},
       { path: 'matches', component:TableMatchesComponent},
       { path: 'admin', component:AdminComponent, canActivate: [AuthGuard]},

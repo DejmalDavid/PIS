@@ -1,0 +1,50 @@
+h1{
+    font-size: 150px;
+}
+.stats{
+    height: 150% !important;
+    padding:0;
+}
+
+  table {
+    background-color:transparent;
+    width: 100%;
+  }
+
+  .mat-column-numberHome{
+    text-align: left;
+    width:15px;
+  }
+  .mat-column-playerHome{
+    text-align: left;
+  }
+
+  .mat-column-numberAway{
+    text-align: right;
+    width:25px;
+    padding-right:35px;
+  }
+  .mat-column-playerAway{
+    text-align: right;
+    padding-right: 10px;
+    
+  }
+
+  .headCenter{
+    padding-right: 0px !important;
+  }
+  ::ng-deep .mat-sort-header-container.ng-tns-c117-4{
+    padding-left: 15px !important;
+  }
+
+  ::ng-deep .mat-sort-header-container.ng-tns-c117-3{
+    float:right;
+  }
+  .obr{
+    float:left;
+    display: contents;
+  }
+  .obrHome{
+    float:right;
+    display: contents;
+  }
