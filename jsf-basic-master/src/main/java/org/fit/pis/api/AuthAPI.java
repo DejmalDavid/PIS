@@ -28,6 +28,7 @@ import javax.ws.rs.core.Response.Status;
 import org.fit.pis.back.UzivatelBean;
 import org.fit.pis.data.Uzivatel;
 import org.fit.pis.service.UzivatelManager;
+import org.json.simple.JSONObject;
 
 /*
  * http://localhost:8080/jsf-basic/rest/auth
@@ -55,11 +56,13 @@ public class AuthAPI
     
     @Path("/login")
     @POST
-    public Response login(@Context final HttpServletRequest request) {
+    @Produces(MediaType.APPLICATION_JSON)
+    public JSONObject login(@Context final HttpServletRequest request) {
     	String email = "";
-    	email = request.getParameter("email");
+    	email = request.getParameter("username");
         String password = "";
         password = request.getParameter("password");
+        JSONObject response = new JSONObject();
         
         if (uzivatelMgr.existWithEmail(email)) {
         	
@@ -67,36 +70,45 @@ public class AuthAPI
         	
         	if(password.contentEquals(foundUser.getHeslo())) {
         		//final Token token = AuthUtils.createToken(request.getRemoteHost(), foundUser.get().id);
-        		return Response.status(Status.OK).entity("LOGIN_OK_MSG").build();
+        		response.put("Success", true);
+        		//return Response.status(Status.OK).entity("LOGIN_OK_MSG").build();
         	}
         	else
-        		return Response.status(Status.UNAUTHORIZED).entity("LOGIN_ERROR_MSG").build();
+        		response.put("Success", false);
+        		//return Response.status(Status.UNAUTHORIZED).entity("LOGIN_ERROR_MSG").build();
           }
         else
-        	return Response.status(Status.UNAUTHORIZED).entity("LOGIN_ERROR_MSG").build();
+        	response.put("Success", false);
+        	//return Response.status(Status.UNAUTHORIZED).entity("LOGIN_ERROR_MSG").build();
+        return response;
         
     	 
     }
     
     @Path("/registration")
     @POST
-    public Response Registration(@Context final HttpServletRequest request) {
-    	String email = request.getParameter("email");
+    @Produces(MediaType.APPLICATION_JSON)
+    public JSONObject Registration(@Context final HttpServletRequest request) {
+    	String email = request.getParameter("username");
         String password = request.getParameter("password");
         String fname = request.getParameter("fname");
         String lname = request.getParameter("lname");
         int role = Integer.parseInt(request.getParameter("role"));
+        JSONObject response = new JSONObject();
         
       
         if (uzivatelMgr.existWithEmail(email)) {
-        	 return Response.status(Status.NOT_ACCEPTABLE).entity("REG_EXIST_MSG").build();
+        	 response.put("Success", false);
+        	 //return Response.status(Status.NOT_ACCEPTABLE).entity("REG_EXIST_MSG").build();
           }
         else {
         	Uzivatel uzivatelNew = new Uzivatel(email, password, fname, lname, role);
         	uzivatelMgr.insert(uzivatelNew);
-        	return Response.status(Status.OK).entity("REG_OK_MSG").build();
+        	response.put("Success", true);
+        	//return Response.status(Status.OK).entity("REG_OK_MSG").build();
     	 
         }
+        return response;
     } 
 
 }
