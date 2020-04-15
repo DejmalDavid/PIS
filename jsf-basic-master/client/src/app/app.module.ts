@@ -1,5 +1,6 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
+import { HttpClientModule } from '@angular/common/http'; 
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -28,6 +29,15 @@ import { MatListModule } from '@angular/material/list';
 import { TableMatchComponent } from './table-match/table-match.component';
 import {MatCardModule} from '@angular/material/card';
 import { RegisterScreenComponent } from './register-screen/register-screen.component';
+import { TableMatchesComponent } from './table-matches/table-matches.component';
+import { MatTableModule } from '@angular/material/table';
+import { MatPaginatorModule } from '@angular/material/paginator';
+import { MatSortModule } from '@angular/material/sort';
+import { AdminComponent } from './admin/admin.component';
+import { AuthGuard } from './auth.guard';
+import { AuthService } from './auth.service';
+import { ApiService } from './api.service';
+import { FavoriteComponent } from './favorite/favorite.component';
 
 
 @NgModule({
@@ -45,7 +55,10 @@ import { RegisterScreenComponent } from './register-screen/register-screen.compo
     UserProfileComponent,
     TableGroupComponent,
     TableMatchComponent,
-    RegisterScreenComponent
+    RegisterScreenComponent,
+    TableMatchesComponent,
+    AdminComponent,
+    FavoriteComponent
   ],
   imports: [
     BrowserModule,
@@ -59,16 +72,23 @@ import { RegisterScreenComponent } from './register-screen/register-screen.compo
       { path: 'group/:source', component: GroupDetailsComponent},
       { path: 'team/:nation', component:TeamDetailsComponent},
       { path: 'login', component:LoginScreenComponent},
-      { path: 'register', component:RegisterScreenComponent}
+      { path: 'register', component:RegisterScreenComponent},
+      { path: 'matches', component:TableMatchesComponent},
+      { path: 'admin', component:AdminComponent, canActivate: [AuthGuard]},
+      { path: 'favorite', component:FavoriteComponent}
     ]),
     LayoutModule,
     MatToolbarModule,
     MatSidenavModule,
     MatIconModule,
     MatListModule,
-    MatCardModule
+    MatCardModule,
+    HttpClientModule,
+    MatTableModule,
+    MatPaginatorModule,
+    MatSortModule
   ],
-  providers: [],
+  providers: [AuthService, ApiService, AuthGuard],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

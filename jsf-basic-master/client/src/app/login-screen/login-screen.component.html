@@ -3,12 +3,12 @@
         <form class="login-form" (submit)="loginUser($event)">
             <mat-form-field class="login-full-width" appearance="outline">
                 <mat-label>Meno</mat-label>
-                <input matInput placeholder="Nickname">
+                <input matInput placeholder="Nickname" id="username">
             </mat-form-field>
 
             <mat-form-field class="login-full-width" appearance="outline">
                 <mat-label>Heslo</mat-label>
-                <input matInput type="password" placeholder="Password">
+                <input matInput type="password" placeholder="Password" id="password">
                 <mat-hint align="end">Min. 5 znakov</mat-hint>
             </mat-form-field> 
             <button mat-raised-button type="submit" color="primary">Login</button>
