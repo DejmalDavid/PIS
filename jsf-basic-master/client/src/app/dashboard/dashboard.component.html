@@ -1,29 +1,54 @@
-<mat-grid-list cols="6" rowHeight=175px>
-  <mat-grid-tile>
-    <app-table-group  [source]="'A'"></app-table-group>
-  </mat-grid-tile>
-  <mat-grid-tile>
-    <app-table-group  [source]="'B'"></app-table-group>
-  </mat-grid-tile>
-  <mat-grid-tile>
-    <app-table-group  [source]="'C'"></app-table-group>
-  </mat-grid-tile>
-  <mat-grid-tile>
-    <app-table-group  [source]="'D'"></app-table-group>
-  </mat-grid-tile>
-</mat-grid-list>
+<div class="grid-div">
+  <mat-card class="example-card" class="mat-elevation-z8">
+    <mat-grid-list cols="1" rowHeight=175px id="left-groups">
+      <mat-grid-tile>
+        <app-table-group  [source]="'A'"></app-table-group>
+      </mat-grid-tile>
+      <mat-grid-tile>
+        <app-table-group  [source]="'B'"></app-table-group>
+      </mat-grid-tile>
+      <mat-grid-tile>
+        <app-table-group  [source]="'C'"></app-table-group>
+      </mat-grid-tile>
+      <mat-grid-tile>
+        <app-table-group  [source]="'D'"></app-table-group>
+      </mat-grid-tile>
+    </mat-grid-list>
+  </mat-card>
 
-<mat-grid-list cols="6" rowHeight=175px>
-  <mat-grid-tile>
-    <app-table-group  [source]="'E'"></app-table-group>
-  </mat-grid-tile>
-  <mat-grid-tile>
-    <app-table-group  [source]="'F'"></app-table-group>
-  </mat-grid-tile>
-  <mat-grid-tile>
-    <app-table-group  [source]="'G'"></app-table-group>
-  </mat-grid-tile>
-  <mat-grid-tile>
-    <app-table-group  [source]="'H'"></app-table-group>
-  </mat-grid-tile>
-</mat-grid-list>
+  <mat-card class="example-card" class="mat-elevation-z8">
+    <div class="spider-main">
+      <mat-grid-list cols="1" rowHeight=85px id="matches-1">
+        <mat-grid-tile [rowspan]="3">
+          <app-table-match [source]="'8'"></app-table-match>
+        </mat-grid-tile>
+        <mat-grid-tile [rowspan]="2">
+          <app-table-match [source]="'4'"></app-table-match>
+        </mat-grid-tile>
+        <mat-grid-tile [rowspan]="2">
+          <app-table-match [source]="'2'"></app-table-match>
+        </mat-grid-tile>
+        <mat-grid-tile [rowspan]="2">
+          <app-table-match [source]="'2'"></app-table-match>
+        </mat-grid-tile>
+      </mat-grid-list>  
+    </div>
+  </mat-card>
+
+  <mat-card class="example-card" class="mat-elevation-z8">
+    <mat-grid-list cols="1" rowHeight=175px id="right-groups">
+      <mat-grid-tile>
+        <app-table-group  [source]="'E'"></app-table-group>
+      </mat-grid-tile>
+      <mat-grid-tile>
+        <app-table-group  [source]="'F'"></app-table-group>
+      </mat-grid-tile>
+      <mat-grid-tile>
+        <app-table-group  [source]="'G'"></app-table-group>
+      </mat-grid-tile>
+      <mat-grid-tile>
+        <app-table-group  [source]="'H'"></app-table-group>
+      </mat-grid-tile>
+    </mat-grid-list>
+  </mat-card>
+</div>

@@ -1,5 +1,6 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
+import { HttpClientModule } from '@angular/common/http'; 
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -25,6 +26,18 @@ import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatIconModule } from '@angular/material/icon';
 import { MatListModule } from '@angular/material/list';
+import { TableMatchComponent } from './table-match/table-match.component';
+import {MatCardModule} from '@angular/material/card';
+import { RegisterScreenComponent } from './register-screen/register-screen.component';
+import { TableMatchesComponent } from './table-matches/table-matches.component';
+import { MatTableModule } from '@angular/material/table';
+import { MatPaginatorModule } from '@angular/material/paginator';
+import { MatSortModule } from '@angular/material/sort';
+import { AdminComponent } from './admin/admin.component';
+import { AuthGuard } from './auth.guard';
+import { AuthService } from './auth.service';
+import { ApiService } from './api.service';
+import { FavoriteComponent } from './favorite/favorite.component';
 
 
 @NgModule({
@@ -40,7 +53,12 @@ import { MatListModule } from '@angular/material/list';
     TeamDetailsComponent,
     TopBarComponent,
     UserProfileComponent,
-    TableGroupComponent
+    TableGroupComponent,
+    TableMatchComponent,
+    RegisterScreenComponent,
+    TableMatchesComponent,
+    AdminComponent,
+    FavoriteComponent
   ],
   imports: [
     BrowserModule,
@@ -54,15 +72,27 @@ import { MatListModule } from '@angular/material/list';
       { path: 'group/:source', component: GroupDetailsComponent},
       { path: 'team/:nation', component:TeamDetailsComponent},
       { path: 'login', component:LoginScreenComponent},
+<<<<<<< HEAD
       { path: 'match/:matchID', component:MatchDetailsComponent}
+=======
+      { path: 'register', component:RegisterScreenComponent},
+      { path: 'matches', component:TableMatchesComponent},
+      { path: 'admin', component:AdminComponent, canActivate: [AuthGuard]},
+      { path: 'favorite', component:FavoriteComponent}
+>>>>>>> 7a0f33aaa8699888922e9f1a3ad904375e33b316
     ]),
     LayoutModule,
     MatToolbarModule,
     MatSidenavModule,
     MatIconModule,
-    MatListModule
+    MatListModule,
+    MatCardModule,
+    HttpClientModule,
+    MatTableModule,
+    MatPaginatorModule,
+    MatSortModule
   ],
-  providers: [],
+  providers: [AuthService, ApiService, AuthGuard],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
