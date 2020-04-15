@@ -72,14 +72,11 @@ import { FavoriteComponent } from './favorite/favorite.component';
       { path: 'group/:source', component: GroupDetailsComponent},
       { path: 'team/:nation', component:TeamDetailsComponent},
       { path: 'login', component:LoginScreenComponent},
-<<<<<<< HEAD
-      { path: 'match/:matchID', component:MatchDetailsComponent}
-=======
+      { path: 'match/:matchID', component:MatchDetailsComponent},
       { path: 'register', component:RegisterScreenComponent},
       { path: 'matches', component:TableMatchesComponent},
       { path: 'admin', component:AdminComponent, canActivate: [AuthGuard]},
       { path: 'favorite', component:FavoriteComponent}
->>>>>>> 7a0f33aaa8699888922e9f1a3ad904375e33b316
     ]),
     LayoutModule,
     MatToolbarModule,
