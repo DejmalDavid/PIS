@@ -1,6 +1,6 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { MatTableDataSource } from '@angular/material/table';
-import { mmatches8, mmatches4, mmatches2 } from '../matches';
+import { mmatches8, mmatches4, mmatches2, mmatches1 } from '../matches';
 
 @Component({
   selector: 'app-table-match',
@@ -14,17 +14,25 @@ export class TableMatchComponent implements OnInit {
 
   constructor() { }
 
-  @Input() source :string;
+  @Input() source: string;
+  faza: string;
   ngOnInit(): void {
     switch (this.source) {
       case "8":
         this.dataSource = new MatTableDataSource(mmatches8);
+        this.faza = "Osemfinále";
         break;
       case "4":
         this.dataSource = new MatTableDataSource(mmatches4);
+        this.faza = "Štvrťfinále";
         break;
       case "2":
         this.dataSource = new MatTableDataSource(mmatches2);
+        this.faza = "Semifinále";
+        break;
+      case "1":
+        this.dataSource = new MatTableDataSource(mmatches1);
+        this.faza = "Finále";
         break;
     }
   }

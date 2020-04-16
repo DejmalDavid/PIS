@@ -29,3 +29,7 @@ export const mmatches2 = [
     {datum:'1.1.2001',home: 'Maďarsko', score: '2:0', away: 'Slovensko', faza:'skupina'},
     {datum:'1.1.2001',home: 'Maďarsko', score: '23:0', away: 'Slovensko', faza:'skupina'},
   ];
+
+  export const mmatches1 = [
+    {datum:'1.1.2001',home: 'Maďarsko', score: '2:0', away: 'Slovensko', faza:'skupina'},
+  ];

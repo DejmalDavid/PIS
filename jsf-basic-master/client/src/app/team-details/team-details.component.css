@@ -23,15 +23,12 @@ h3 {
   display: inline;
 }
 
-.mat-column-flag {
-  width: 50px;
-  margin-left: 5px;
-}
+
 
 .mat-column-name {
   text-align: left;
   margin-left: 5px;
-  width: 450px;
+  width: 100%;
 }
 
 .mat-column-number {
@@ -41,6 +38,14 @@ h3 {
 
 .stats {
   height: 100% !important;
+  overflow: scroll;
+}
+.statsTable{
+  display: block;
+  height: fit-content;
+}
+.stats>::ng-deep .mat-figure {
+  height: fit-content;
 }
 
 .mat-column-matches, .mat-column-assists, .mat-column-goals, .mat-column-red, .mat-column-yellow {

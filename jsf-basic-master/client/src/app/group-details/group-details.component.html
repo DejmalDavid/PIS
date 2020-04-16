@@ -1,7 +1,7 @@
 <a [routerLink]="['/','team',nation]">presun</a>
 <mat-grid-list cols="2" rowHeight=350px class="tab-group-list">
     <mat-grid-tile>
-        <table mat-table [dataSource]="dataSource" matSort>
+        <table mat-table [dataSource]="dataSource" matSort class=tableGroup>
 
             <!-- Position Column -->
             <ng-container matColumnDef="position">
@@ -31,7 +31,7 @@
             <!-- Skore Column -->
             <ng-container matColumnDef="skore">
                 <th mat-header-cell *matHeaderCellDef mat-sort-header> Skore </th>
-                <td mat-cell *matCellDef="let element"> {{element.skore}} </td>
+                <td mat-cell *matCellDef="let element"> {{element.score}} </td>
             </ng-container>
         
             <!-- Symbol Column -->
@@ -41,7 +41,7 @@
             </ng-container>
         
             <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-            <tr mat-row *matRowDef="let row; columns: displayedColumns;" (mouseenter)="onClick(row.name)" [routerLink]="['/','team',nation]"></tr>
+            <tr mat-row *matRowDef="let row; columns: displayedColumns;" (mouseenter)="onClick(row.id)" [routerLink]="['/','team',nation]"></tr>
         </table>
     </mat-grid-tile>
     <mat-grid-tile>
