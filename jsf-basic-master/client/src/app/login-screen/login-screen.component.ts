@@ -21,33 +21,43 @@ export class LoginScreenComponent implements OnInit {
         const username = target.querySelector('#username').value
         const password = target.querySelector('#password').value
 
-        // this.Auth.getUserDetails(username, password).subscribe(
-        //     data => {
-        //         if (data.success) {
-        //             /// sdd
-        //         }
-        //         else {
-        //             window.alert("Not logged nor admin")
-        //         }
+        this.Auth.loginUser(username, password).subscribe(
+            data => {
+                if (data.Success) {
+                    if (username == "admin") {
+                        this.router.navigate(['admin'])
+                        this.Auth.setIsAdmin(true)
+                        console.log("admin logged")
+                    }
+                    else {
+                        this.router.navigate(['/'])
+                        this.Auth.setIsLogged(true)
+                        console.log("user logged")
+                    }
+                }
+                else {
+                    console.log(data)
+                    window.alert("Nesprávne heslo alebo meno")
+                }
+            }
+        )
+
+        // if (this.Auth.getUserDetails(username, password).success) {
+        //     if (username == "admin") {
+        //         this.router.navigate(['admin'])
+        //         this.Auth.setIsAdmin(true)
+        //         console.log("admin logged")
         //     }
-        // )
+        //     else {
+        //         this.router.navigate(['/'])
+        //         this.Auth.setIsLogged(true)
+        //         console.log("user logged")
+        //     }
+        // }
+        // else {
+        //     window.alert("Nesprávne heslo alebo meno")
+        // }
 
-        if (this.Auth.getUserDetails(username, password).success) {
-            if (username == "admin") {
-                this.router.navigate(['admin'])
-                this.Auth.setIsAdmin(true)
-                console.log("admin logged")
-            }
-            else {
-                this.router.navigate(['/'])
-                this.Auth.setIsLogged(true)
-                console.log("user logged")
-            }
-        }
-        else {
-            window.alert("Nesprávne heslo alebo meno")
-        }
-
-        console.log(username, password)
+        //console.log(username, password)
     }
 }

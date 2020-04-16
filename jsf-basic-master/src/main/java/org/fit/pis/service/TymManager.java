@@ -5,6 +5,7 @@ import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.persistence.TypedQuery;
 
 import org.fit.pis.data.Tym;
 
@@ -41,6 +42,9 @@ public class TymManager
     {
     	System.out.println("Manager");
     	return em.createQuery("SELECT r FROM Tym r", Tym.class).getResultList();
+    }
+    public List<Tym> findAllFavorite(int id){
+    	return em.createQuery("SELECT DISTINCT t FROM OblibeneTymy o JOIN o.tym t WHERE o.uzivatel.id = :id", Tym.class).setParameter("id",id).getResultList();
     }
 
 }

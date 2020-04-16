@@ -5,12 +5,14 @@ import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.persistence.TypedQuery;
 
 import org.fit.pis.data.Sestava;
+import org.fit.pis.data.Tym;
 
 
 /**
- * @author dejmal
+ * @author kalabza
  */
 @Stateless
 public class SestavaManager 
@@ -40,9 +42,13 @@ public class SestavaManager
     public List<Sestava> findAll()
     {
     	System.out.println("Manager");
-    	return em.createQuery("SELECT r FROM Sestava r", Sestava.class).getResultList();
+    	return em.createQuery("SELECT s FROM Sestava s", Sestava.class).getResultList();
     }
-    
-
-
+    /*
+    public List<Sestava> findSestavaByZapas(int id)
+    {
+    	System.out.println("Manager");
+    	return em.createQuery("SELECT s FROM Zapa z JOIN z.sestavas s WHERE z.id = :id", Sestava.class).setParameter("id",id).getResultList();
+    }
+	*/
 }

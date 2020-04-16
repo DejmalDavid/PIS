@@ -7,6 +7,7 @@ import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 
 import org.fit.pis.data.OblibeneTymy;
+import org.fit.pis.data.Tym;
 
 
 /**
@@ -41,11 +42,6 @@ public class OblibeneTymyManager
     {
     	System.out.println("Manager");
     	return em.createQuery("SELECT o FROM Oblibene_tymy o", OblibeneTymy.class).getResultList();
-    }
-    public List<OblibeneTymy> findAllByUzivatel(int id)
-    {
-    	System.out.println("Manager");
-    	return em.createQuery("SELECT o FROM Oblibene_tymy o WHERE o.UZIVATEL_ID = :id", OblibeneTymy.class).setParameter("id",id).getResultList();
     }
 
 }

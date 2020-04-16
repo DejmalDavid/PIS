@@ -1,6 +1,9 @@
 import { Injectable, EventEmitter, Output } from '@angular/core';
 import { HttpClient } from '@angular/common/http'
 
+interface myData {
+  Success: boolean;
+}
 
 @Injectable({
   providedIn: 'root'
@@ -12,34 +15,23 @@ export class AuthService {
   private isLogged = false;
   username: string;
 
-  DATA_Y = {success:true}
-  DATA_N = {success:false}
-
   constructor(private http: HttpClient) { }
 
-  // getUserDetails(username, password) {
-  //   return this.http.post('/rest/auth', {
-  //     username,
-  //     password
-  //   })
-  // }
+  loginUser(email, heslo) {
+    return this.http.post<myData>('rest/auth/login', {
+      email,
+      heslo
+    })
+  }
 
-  getUserDetails(username, password) {
-    if (password == "admin" && username == "admin") {
-      console.log("Y")
-      this.username = username
-      return this.DATA_Y;
-    }
-    else if (password == "user" && username == "user") {
-      console.log("Y")
-      this.username = username
-      return this.DATA_Y;
-    }
-    else {
-      console.log("N")
-      this.username = "Signin"
-      return this.DATA_N;
-    }
+  registerUser(email, jmeno, prijmeni, heslo, opravneni) {
+    return this.http.post<myData>('rest/auth/registration', {
+      email,
+      jmeno,
+      prijmeni,
+      heslo,
+      opravneni
+    })
   }
 
   setIsAdmin(value: boolean) {
