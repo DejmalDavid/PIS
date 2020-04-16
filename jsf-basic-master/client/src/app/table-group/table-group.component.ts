@@ -1,6 +1,7 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { MatTableDataSource } from '@angular/material/table';
 import { GROUPA, GROUPB, GROUPC, GROUPD, GROUPE, GROUPF, GROUPG, GROUPH} from '../teams';
+import { ApiService } from '../api.service';
 
 
 export interface PeriodicElement {
@@ -22,35 +23,49 @@ export class TableGroupComponent implements OnInit {
   displayedColumns: string[] = ['position', 'name', 'zapasy', 'body'];
   dataSource = new MatTableDataSource();
   
-  
+  constructor(private api: ApiService) {  
+  }
   @Input() source :string;
   ngOnInit() {
-    switch (this.source) {
-      case "A":
-        this.dataSource = new MatTableDataSource(GROUPA);
-        break;
-      case "B":
-        this.dataSource = new MatTableDataSource(GROUPB);
-        break;
-      case "C":
-        this.dataSource = new MatTableDataSource(GROUPC);
-        break;
-      case "D":
-        this.dataSource = new MatTableDataSource(GROUPD);
-        break;
-      case "E":
-        this.dataSource = new MatTableDataSource(GROUPE);
-        break;
-      case "F":
-        this.dataSource = new MatTableDataSource(GROUPF);
-        break;
-      case "G":
-        this.dataSource = new MatTableDataSource(GROUPG);
-        break;
+    this.api.getAllTeams().subscribe(teams => { 
+     
+      
+      switch (this.source) {
+        case "A":
+          var team1 = JSON.parse(JSON.stringify(teams[0]));
+          this.dataSource = new MatTableDataSource(team1[1]);
+          break;
+        case "B":
+          var team1 = JSON.parse(JSON.stringify(teams[1]));
+          this.dataSource = new MatTableDataSource(team1[2]);
+          break;
+        case "C":
+          var team1 = JSON.parse(JSON.stringify(teams[2]));
+          this.dataSource = new MatTableDataSource(team1[3]);
+          break;
+        case "D":
+          var team1 = JSON.parse(JSON.stringify(teams[3]));
+          this.dataSource = new MatTableDataSource(team1[4]);
+          break;
+        case "E":
+          var team1 = JSON.parse(JSON.stringify(teams[4]));
+          this.dataSource = new MatTableDataSource(team1[5]);
+          break;
+        case "F":
+          var team1 = JSON.parse(JSON.stringify(teams[5]));
+          this.dataSource = new MatTableDataSource(team1[6]);
+          break;
+        case "G":
+          var team1 = JSON.parse(JSON.stringify(teams[6]));
+          this.dataSource = new MatTableDataSource(team1[7]);
+          break;
+      
+        default:
+          var team1 = JSON.parse(JSON.stringify(teams[0]));
+          this.dataSource = new MatTableDataSource(team1[1]);
+          break;
+      }
+  });
     
-      default:
-        this.dataSource = new MatTableDataSource(GROUPH);
-        break;
-    }
   }
 }

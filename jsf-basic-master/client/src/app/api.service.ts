@@ -14,4 +14,8 @@ export class ApiService {
       console.log(data)
     })
   }
+
+  getAllTeams() {
+    return this.http.get("rest/tym/list");
+  }
 }
