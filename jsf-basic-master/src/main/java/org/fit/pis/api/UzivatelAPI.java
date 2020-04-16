@@ -121,20 +121,17 @@ public class UzivatelAPI
     @Path("/oblibene/{email}")
     @GET
     @Produces(MediaType.APPLICATION_JSON) 
-    public List<Tym>  getOblibene(@PathParam("email") String email) throws NamingException 
+    public Response  getOblibene(@PathParam("email") String email) throws NamingException 
     {
     	Uzivatel u = uzivatelMgr.findWithEmail(email);
 
     	List<Tym> ot = tymMgr.findAllFavorite(u.getId());
-
+    	
     	if(ot != null)
-    		return ot;
-    	else
-    	{	
-    		List<Tym> t = tymMgr.findAll();
-    		return t;
-    	}
-
+    		return Response.ok(ot).build();
+    	else	
+    		return Response.status(Status.NOT_FOUND).entity("{\"Success\": \"false\"}").build();
+    		
     }
   
 }
