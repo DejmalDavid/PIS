@@ -38,6 +38,7 @@ import { AuthGuard } from './auth.guard';
 import { AuthService } from './auth.service';
 import { ApiService } from './api.service';
 import { FavoriteComponent } from './favorite/favorite.component';
+import { LogGuard } from './log.guard';
 
 
 @NgModule({
@@ -76,7 +77,7 @@ import { FavoriteComponent } from './favorite/favorite.component';
       { path: 'register', component:RegisterScreenComponent},
       { path: 'matches', component:TableMatchesComponent},
       { path: 'admin', component:AdminComponent, canActivate: [AuthGuard]},
-      { path: 'favorite', component:FavoriteComponent}
+      { path: 'favorite', component:FavoriteComponent, canActivate: [LogGuard]}
     ]),
     LayoutModule,
     MatToolbarModule,
@@ -89,7 +90,7 @@ import { FavoriteComponent } from './favorite/favorite.component';
     MatPaginatorModule,
     MatSortModule
   ],
-  providers: [AuthService, ApiService, AuthGuard],
+  providers: [AuthService, ApiService, AuthGuard, LogGuard],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
