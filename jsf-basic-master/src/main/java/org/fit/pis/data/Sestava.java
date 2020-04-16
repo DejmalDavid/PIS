@@ -2,6 +2,9 @@ package org.fit.pis.data;
 
 import java.io.Serializable;
 import javax.persistence.*;
+
+import org.codehaus.jackson.annotate.JsonIgnore;
+
 import java.util.List;
 
 
@@ -84,6 +87,7 @@ public class Sestava implements Serializable {
 		this.tym = tym;
 	}
 
+	@JsonIgnore
 	public List<SestavaHrac> getSestavaHracs1() {
 		return this.sestavaHracs1;
 	}
@@ -106,6 +110,7 @@ public class Sestava implements Serializable {
 		return sestavaHracs1;
 	}
 
+	@JsonIgnore
 	public List<SestavaHrac> getSestavaHracs2() {
 		return this.sestavaHracs2;
 	}

@@ -97,6 +97,9 @@ public class HracAPI
     		hracJson.put("vek", hrac.getVek());
     		int pocetZapasu=0;
     		
+			for (int i = 0; i < hrac.getSestavaHracs().size(); i++) {
+				pocetZapasu++;
+			} 
     		hracJson.put("matches",pocetZapasu);
     		
     		int pocetGolu=0;
@@ -119,7 +122,7 @@ public class HracAPI
     	
     	return array;
     }
-    
+        
     
     @PUT
     @Consumes(MediaType.APPLICATION_JSON)

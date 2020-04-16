@@ -170,6 +170,7 @@ public class Hrac implements Serializable {
 		return sestavaHrac;
 	}
 	
+	@JsonIgnore
 	public Tym getTym() {
 		return tym;
 	}
