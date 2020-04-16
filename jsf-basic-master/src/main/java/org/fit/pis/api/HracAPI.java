@@ -89,36 +89,13 @@ public class HracAPI
     	for(Hrac hrac:hracMgr.findAll())
     	{
     		//TODO if team==id
+    		if(hrac.getTym().getId()==Integer.valueOf(idString))
+    		{
     		JSONObject hracJson = new JSONObject();
     		hracJson.put("name", hrac.getJmeno()+" "+ hrac.getPrijmeni());
     		hracJson.put("position" , hrac.getPozice());
     		hracJson.put("vek", hrac.getVek());
-    		Timestamp time = new Timestamp(0);
     		int pocetZapasu=0;
-    		for(SestavaHrac propoj: hrac.getSestavaHracs())
-    		{
-        		Zapa zapas = propoj.getSestava1().getZapa();
-        		pocetZapasu++;
-        		//kotrola jestli nestridal
-        		for(Stridani stridani: zapas.getStridanis())
-        		{
-        			//sel dolu
-        			if(stridani.getHrac_id_in()==hrac.getId())
-        			{
-        				//TODO + 90 min - stridani.getCas()
-        			}
-        			//nebyl v zakladu
-        			else if(stridani.getHrac_id_out()==hrac.getId())
-        			{
-        				//TODO + stridani.getCas()
-        			}
-        			//dal to cele
-        			else
-        			{
-        				//TODO 90 min
-        			}
-        		}
-    		}
     		
     		hracJson.put("matches",pocetZapasu);
     		
@@ -137,6 +114,7 @@ public class HracAPI
     		
     		
     		array.add(hracJson);
+    		}
     	}
     	
     	return array;

@@ -169,5 +169,14 @@ public class Hrac implements Serializable {
 
 		return sestavaHrac;
 	}
+	
+	public Tym getTym() {
+		return tym;
+	}
+
+	public void setTym(Tym tym) {
+		this.tym = tym;
+	}
+
 
 }
