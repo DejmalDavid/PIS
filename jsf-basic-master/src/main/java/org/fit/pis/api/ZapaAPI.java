@@ -21,7 +21,9 @@ import javax.ws.rs.core.Response;
 import javax.ws.rs.core.Response.Status;
 
 import org.fit.pis.data.Sestava;
+import org.fit.pis.data.Tym;
 import org.fit.pis.data.Zapa;
+import org.fit.pis.service.SestavaManager;
 import org.fit.pis.service.ZapaManager;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
@@ -36,6 +38,8 @@ public class ZapaAPI
 {
 	@EJB
 	private ZapaManager zapaMgr; 
+	@EJB
+	private SestavaManager sestavaMgr; 
     @Context
     private UriInfo context;
 
@@ -194,5 +198,51 @@ public class ZapaAPI
     	else
     		return Response.status(Status.NOT_FOUND).entity("{\"Success\": \"false\"}").build();
 	}
+    
+    @SuppressWarnings("unchecked")
+	@Path("/zapas/all")
+    @GET
+    @Produces(MediaType.APPLICATION_JSON)
+    public List<JSONObject> getAllZapas() throws NamingException 
+    {
+    	   	
+    	JSONArray array = new JSONArray();   	
+    	JSONObject domaciJson = new JSONObject();
+		JSONObject hosteJson = new JSONObject();
+
+    	for(Zapa z :  zapaMgr.findAll())
+    	{    	
+    		JSONArray arrayZapa = new JSONArray(); 
+    		JSONObject zapaJson = new JSONObject();
+    		JSONObject tym1Json = new JSONObject();
+			JSONObject tym2Json = new JSONObject();
+
+
+    		for (Sestava s : sestavaMgr.findAll()) {
+    			//Tym t = s.getTym();
+    			if (s.getHostujici() == 1)
+    				tym1Json.put("s", s.getZapa().getId());
+    				//tym1Json.put("s", s.getId());
+    			/*
+    			tym1Json.put("zid", z.getId());
+    			if((s.getZapa().getId() == z.getId()) && (s.getHostujici() == 0)) {
+    				tym1Json.put("ID", t.getId());
+    			}
+    			else if(s.getHostujici() == 1) {
+    				tym2Json.put("ID", t.getId());	
+    			}
+    			*/
+    		}
+    		domaciJson.put("Domaci", tym1Json);
+			hosteJson.put("Hoste", tym2Json);
+			arrayZapa.add(domaciJson);
+			arrayZapa.add(hosteJson);
+			zapaJson.put(z.getId(), arrayZapa);
+
+			array.add(zapaJson);
+    	}
+		
+		return array;
+    }
 
 }
