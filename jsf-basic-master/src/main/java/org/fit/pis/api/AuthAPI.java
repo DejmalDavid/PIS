@@ -7,6 +7,9 @@ import java.util.Optional;
 import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
 import javax.ejb.Stateless;
+import javax.json.Json;
+import javax.json.JsonBuilderFactory;
+import javax.json.JsonObject;
 import javax.naming.NamingException;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
@@ -21,6 +24,8 @@ import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.Context;
 import javax.ws.rs.core.UriInfo;
+import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.XmlRootElement;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import javax.ws.rs.core.Response.Status;
@@ -56,18 +61,19 @@ public class AuthAPI
     
     @Path("/login")
     @POST
+    @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
-    public JSONObject login(@Context final HttpServletRequest request) {
+    public JSONObject login(Uzivatel u) {
     	String email = "";
-    	email = request.getParameter("username");
+    	email = u.getEmail();
         String password = "";
-        password = request.getParameter("password");
-        JSONObject response = new JSONObject();
+        password = u.getHeslo();
+        JSONObject response = new JSONObject();      
         
         if (uzivatelMgr.existWithEmail(email)) {
         	
         	Uzivatel foundUser = uzivatelMgr.findWithEmail(email);
-        	
+        	 
         	if(password.contentEquals(foundUser.getHeslo())) {
         		//final Token token = AuthUtils.createToken(request.getRemoteHost(), foundUser.get().id);
         		response.put("Success", true);
@@ -87,13 +93,14 @@ public class AuthAPI
     
     @Path("/registration")
     @POST
+    @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
-    public JSONObject Registration(@Context final HttpServletRequest request) {
-    	String email = request.getParameter("username");
-        String password = request.getParameter("password");
-        String fname = request.getParameter("fname");
-        String lname = request.getParameter("lname");
-        int role = Integer.parseInt(request.getParameter("role"));
+    public JSONObject Registration(Uzivatel u) {
+    	String email = u.getEmail();
+        String password = u.getHeslo();
+        String fname =  u.getJmeno();
+        String lname = u.getPrijmeni();
+        int role = u.getOpravneni();
         JSONObject response = new JSONObject();
         
       

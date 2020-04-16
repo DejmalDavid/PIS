@@ -7,6 +7,7 @@ import javax.ejb.EJB;
 import javax.ejb.Stateless;
 import javax.naming.NamingException;
 import javax.ws.rs.Consumes;
+import javax.ws.rs.DELETE;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
 import javax.ws.rs.PUT;
@@ -27,7 +28,7 @@ import org.json.simple.JSONObject;
 
 /*
  * TEST URL:
- * http://localhost:8080/jsf-basic/rest/Zapas/list
+ * http://localhost:8080/jsf-basic/rest/zapas/list
  */
 @Stateless
 @Path("/zapas")
@@ -155,14 +156,13 @@ public class ZapaAPI
     @Path("/{id}")
     @GET
     @Produces(MediaType.APPLICATION_JSON)
-    public Response getJsonSingle(@PathParam("id") String idString) throws NamingException 
+    public Response getJsonSingle(@PathParam("id") int id) throws NamingException 
     {
-    	int id = Integer.valueOf(idString);
-    	Zapa p = zapaMgr.find(id);
-    	if (p != null)
-    		return Response.ok(p).build();
+    	Zapa zapas = zapaMgr.find(id);
+    	if (zapas != null)
+    		return Response.ok(zapas).build();
     	else
-    		return Response.status(Status.NOT_FOUND).entity("{\"error\": \"No such person\"}").build();
+    		return Response.status(Status.NOT_FOUND).entity("{\"Success\": \"false\"}").build();
     }
 
     
@@ -176,11 +176,23 @@ public class ZapaAPI
     
     @POST
     @Consumes(MediaType.APPLICATION_JSON)
-    @Produces(MediaType.TEXT_PLAIN)
-    public String postJson(Zapa person)
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response postJson(Zapa zapas)
     {
-    	zapaMgr.save(person);
-    	return "ok";
+    	zapaMgr.save(zapas);
+    	return Response.status(Status.OK).entity("{\"Success\": \"true\"}").build();
     }
+    
+    @Path("/{id}")
+	@DELETE
+	@Produces({ MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML })
+	public Response deleteZapaById(@PathParam("id") int id) {
+    	Zapa zapas = zapaMgr.find(id);
+    	zapaMgr.remove(zapas);
+    	if (zapas != null)
+    		return Response.status(Status.OK).entity("{\"Success\": \"true\"}").build();
+    	else
+    		return Response.status(Status.NOT_FOUND).entity("{\"Success\": \"false\"}").build();
+	}
 
 }
