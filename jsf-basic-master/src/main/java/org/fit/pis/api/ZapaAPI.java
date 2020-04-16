@@ -62,13 +62,51 @@ public class ZapaAPI
     {
     }
     
-    @Path("/list")
+    @SuppressWarnings("unchecked")
+	@Path("/list")
     @GET
     @Produces(MediaType.APPLICATION_JSON)
-    public List<Zapa> getJson() throws NamingException 
+    public List<JSONObject> getJson() throws NamingException 
     {
-    	System.out.println("API3");
-    	return zapaMgr.findAll();
+    	JSONArray array = new JSONArray();
+    	
+    	for(Zapa zapas:zapaMgr.findAll())
+    	{
+    		JSONObject zapasJson = new JSONObject();
+    		
+        	for(Sestava sestava:zapas.getSestavas())
+        	{
+			
+        			//0=domaci
+        			if(sestava.getHostujici()==0)
+        			{
+        				zapasJson.put("home", sestava.getTym().getNazev());
+        				String pattern = "hh:mm dd.MM";
+        				SimpleDateFormat simpleDateFormat = new SimpleDateFormat(pattern);
+        				String date = simpleDateFormat.format(zapas.getDatum());
+        				
+        				zapasJson.put("datum",date);
+        				zapasJson.put("id", zapas.getId());
+        				zapasJson.put("score", zapas.getDomaci_tym_skore()+":"+zapas.getHost_tym_skore());
+        			}
+        			//1=hoste
+        			else if(sestava.getHostujici()==1)
+        			{
+        				zapasJson.put("away", sestava.getTym().getNazev());
+        			}	
+        		
+        	}
+        	//neni prazdny
+        	if(zapasJson.isEmpty()==false)
+        	{
+        		array.add(zapasJson);
+        	}
+      	
+        	
+    	}
+    	
+    	
+    	return array;
     }
     
     @SuppressWarnings("unchecked")
@@ -100,6 +138,7 @@ public class ZapaAPI
             				String date = simpleDateFormat.format(zapas.getDatum());
             				
             				zapasJson.put("datum",date);
+            				zapasJson.put("id", zapas.getId());
             				zapasJson.put("score", zapas.getDomaci_tym_skore()+":"+zapas.getHost_tym_skore());
             			}
             			//1=hoste
@@ -151,6 +190,7 @@ public class ZapaAPI
         				String date = simpleDateFormat.format(zapas.getDatum());
         				
         				zapasJson.put("datum",date);
+        				zapasJson.put("id", zapas.getId());
         				zapasJson.put("score", zapas.getDomaci_tym_skore()+":"+zapas.getHost_tym_skore());
         			}
         			//1=hoste
@@ -182,7 +222,6 @@ public class ZapaAPI
     @Produces(MediaType.APPLICATION_JSON)
     public JSONObject getJsonSingle(@PathParam("id") int idString) throws NamingException 
     {
-    	System.out.println("Jedem bomby");
     	JSONObject zapasJson = new JSONObject();
     	
     	int id = Integer.valueOf(idString);
@@ -255,15 +294,22 @@ public class ZapaAPI
 				JSONObject sestavaJson = new JSONObject();
 				
 				sestavaJson.put("kapitan", sestava.getKapitan_id());
-				sestavaJson.put("tym", sestava.getTym());		
+				sestavaJson.put("tym", sestava.getTym().getNazev());		
 				
-				/*
+				
+				JSONArray poleHraci= new JSONArray();
 				for(SestavaHrac sesHrac:sestava.getSestavaHracs2())
 				{
-					System.out.println("Ahoj");
-					
+					Hrac hrac = sesHrac.getHrac();
+					JSONObject hracJson = new JSONObject();
+		    		hracJson.put("name", hrac.getJmeno()+" "+ hrac.getPrijmeni());
+		    		hracJson.put("position" , hrac.getPozice());
+		    		hracJson.put("vek", hrac.getVek());
+		    		hracJson.put("id", hrac.getId());
+		    		
+					poleHraci.add(hracJson);	
 				}
-				*/
+				sestavaJson.put("sestava", poleHraci);
 				
 				//domaci=0
 				if(sestava.getHostujici()==0)
