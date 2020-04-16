@@ -18,4 +18,14 @@ export class ApiService {
   getAllTeams() {
     return this.http.get("rest/tym/list");
   }
+
+  getGroup(n:string){
+    return this.http.get("rest/tym/list/"+n);
+  }
+  getGroupMatches(n:string){
+    return this.http.get("rest/zapas/group/"+n)
+  }
+  getNationPlayers(n:string){
+    return this.http.get("rest/hrac/team/"+n)
+  }
 }
