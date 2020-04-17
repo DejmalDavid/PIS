@@ -37,4 +37,7 @@ export class ApiService {
   getNationPlayers(n:string){
     return this.http.get("rest/hrac/team/"+n)
   }
+  getDetailMatch(n:string){
+    return this.http.get("rest/zapas/"+n)
+  }
 }

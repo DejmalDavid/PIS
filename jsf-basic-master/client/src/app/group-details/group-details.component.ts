@@ -19,7 +19,7 @@ export class GroupDetailsComponent implements OnInit {
     displayedColumns: string[] = ['position', 'flag', 'name', 'zapasy', 'skore', 'body'];
     dataSource = new MatTableDataSource();
     displayedColumnsMatches: string[] = ['datum', 'home', 'score', 'away'];
-    DSmatches = new MatTableDataSource(mmatches);
+    DSmatches = new MatTableDataSource();
     nation: string;
     icon = flagsIcon;
     matchID: string;
