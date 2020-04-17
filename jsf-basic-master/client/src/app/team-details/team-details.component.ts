@@ -20,14 +20,14 @@ export class TeamDetailsComponent implements OnInit {
     displayedColumnsMatches: string[] = ['datum', 'home', 'score', 'away','faza'];
     DSmatches = new MatTableDataSource(mmatches);
     
-    displayedColumnsPlayers: string[] = ['number', 'name', 'position','matches','goals','assist'];
+    displayedColumnsPlayers: string[] = ['number', 'name', 'vek','position','matches','goals','assist'];
     DSplayers = new MatTableDataSource(players);
     
     @ViewChild(MatSort, {static: true}) sort: MatSort;
 
     imgSrc:string;
     ngOnInit() {
-        this.DSplayers.sort = this.sort;
+        
 
         this.route.paramMap.subscribe(params => {
             
@@ -35,6 +35,7 @@ export class TeamDetailsComponent implements OnInit {
             this.imgSrc = flags[(+id)-1];
             this.api.getNationPlayers(id).subscribe((data: [])=>{
                 this.DSplayers=new MatTableDataSource(data);
+                this.DSplayers.sort = this.sort;
             })
         });
      }

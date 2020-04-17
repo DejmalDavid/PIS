@@ -48,7 +48,7 @@ h3 {
   height: fit-content;
 }
 
-.mat-column-matches, .mat-column-assists, .mat-column-goals, .mat-column-red, .mat-column-yellow {
+.mat-column-matches, .mat-column-assist, .mat-column-goals, .mat-column-position, .mat-column-vek {
   text-align: center !important;
 }
 th.mat-sort-header-sorted {

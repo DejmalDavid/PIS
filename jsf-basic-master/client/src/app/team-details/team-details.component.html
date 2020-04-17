@@ -82,15 +82,12 @@
                 <td mat-cell *matCellDef="let element"> {{element.assist}} </td>
             </ng-container>
 
-            <ng-container matColumnDef="yellowcard">
-                <th mat-header-cell *matHeaderCellDef mat-sort-header> Žlté k. </th>
-                <td mat-cell *matCellDef="let element"> {{element.yellowcard}} </td>
+            <ng-container matColumnDef="vek">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header> Vek </th>
+                <td mat-cell *matCellDef="let element"> {{element.vek}} </td>
             </ng-container>
 
-            <ng-container matColumnDef="redcard">
-                <th mat-header-cell *matHeaderCellDef mat-sort-header> Červené k. </th>
-                <td mat-cell *matCellDef="let element"> {{element.redcard}} </td>
-            </ng-container>
+            
 
 
             <tr mat-header-row *matHeaderRowDef="displayedColumnsPlayers"></tr>

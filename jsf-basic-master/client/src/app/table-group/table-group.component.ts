@@ -2,6 +2,7 @@ import { Component, OnInit, Input } from '@angular/core';
 import { MatTableDataSource } from '@angular/material/table';
 import { GROUPA, GROUPB, GROUPC, GROUPD, GROUPE, GROUPF, GROUPG, GROUPH} from '../teams';
 import { ApiService } from '../api.service';
+import { ActivatedRoute } from '@angular/router';
 
 
 export interface PeriodicElement {
@@ -15,7 +16,7 @@ export interface PeriodicElement {
 
 @Component({
   selector: 'app-table-group',
-  templateUrl: './table-group.component.html',
+  templateUrl: './table-group.component.html', 
   styleUrls: ['./table-group.component.css']
 })
 export class TableGroupComponent implements OnInit {
@@ -23,8 +24,9 @@ export class TableGroupComponent implements OnInit {
   displayedColumns: string[] = ['position', 'name', 'zapasy', 'body'];
   dataSource = new MatTableDataSource();
   
-  constructor(private api: ApiService) {  
+  constructor(private route: ActivatedRoute, private api: ApiService) {  
   }
+  nation: string;
   @Input() source :string;
   ngOnInit() {
     this.api.getAllTeams().subscribe(teams => { 
@@ -68,4 +70,7 @@ export class TableGroupComponent implements OnInit {
   });
     
   }
+  onClick(home) {
+    this.nation = home;
+}
 }

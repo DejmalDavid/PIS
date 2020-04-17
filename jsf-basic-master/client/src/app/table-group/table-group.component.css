@@ -34,3 +34,6 @@ p{
 a:link{
     text-decoration: none;
 }
+table td{
+    cursor:pointer;
+}
