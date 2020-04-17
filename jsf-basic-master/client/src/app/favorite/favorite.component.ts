@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { MatTableDataSource } from '@angular/material/table';
 import { ApiService } from '../api.service';
 import { AuthService } from '../auth.service';
+import { flagsIcon } from '../img';
 
 @Component({
   selector: 'app-favorite',
@@ -12,6 +13,7 @@ export class FavoriteComponent implements OnInit {
 
   displayedColumns: string[] = ['flag', 'name', 'city', 'group', 'couch'];
   dataSource = new MatTableDataSource();
+  icon = flagsIcon;
 
   constructor(private api: ApiService, private auth: AuthService) { }
 
