@@ -255,6 +255,7 @@ public class ZapaAPI
 	        	golJson.put("zapas-id", gol.getZapa().getId());	
 	        	golJson.put("hrac1",  gol.getHrac1().getPrijmeni());	   
 	        	golJson.put("hrac2",   gol.getHrac2().getPrijmeni());
+	        	golJson.put("id_team", gol.getHrac1().getTym().getId());
 				poleGolu.add(golJson);
 			}
 			
@@ -295,7 +296,7 @@ public class ZapaAPI
 				
 				sestavaJson.put("kapitan", sestava.getKapitan_id());
 				sestavaJson.put("tym", sestava.getTym().getNazev());		
-				
+				sestavaJson.put("id_team", sestava.getTym().getId());
 				
 				JSONArray poleHraci= new JSONArray();
 				for(SestavaHrac sesHrac:sestava.getSestavaHracs2())
