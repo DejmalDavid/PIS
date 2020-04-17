@@ -1,6 +1,7 @@
 package org.fit.pis.api;
 
 import java.sql.Timestamp;
+import java.text.SimpleDateFormat;
 import java.util.List;
 
 import javax.annotation.PostConstruct;
@@ -139,6 +140,53 @@ public class HracAPI
     {
     	hracMgr.save(person);
     	return "ok";
+    }
+    
+    @SuppressWarnings("unchecked")
+	@Path("/stats/{id}")
+    @GET
+    @Produces(MediaType.APPLICATION_JSON)
+    public List<JSONObject> getStats(@PathParam("id") int id) throws NamingException 
+    {
+    	Hrac h = hracMgr.find(id);
+    	JSONArray array = new JSONArray();
+    	JSONObject zapasJson = new JSONObject();
+    	
+    	int zapasu = 0;
+    	int golu = 0;
+    	int assists = 0;
+    	
+    	for(SestavaHrac sh : h.getSestavaHracs())
+    	{
+        		zapasu++;
+    	}
+        for(Gol g : h.getGols1())
+        {
+        		golu++;
+        	}
+        for(Gol g : h.getGols2())
+        {
+        		assists++;
+        	}
+        
+        zapasJson.put("tym", h.getTym().getNazev());
+        zapasJson.put("jmeno", h.getJmeno());
+        zapasJson.put("prijmeni", h.getPrijmeni());
+        zapasJson.put("vek", h.getVek());
+        zapasJson.put("cislo", h.getPozice());
+        zapasJson.put("skill", h.getSkill());
+        zapasJson.put("zapasu",zapasu);
+		zapasJson.put("golu", golu);
+		zapasJson.put("assist", assists);
+        			
+    	//neni prazdny
+    	if(zapasJson.isEmpty()==false)
+    	{
+    		array.add(zapasJson);
+    	}
+    	
+    	
+    	return array;
     }
 
 }

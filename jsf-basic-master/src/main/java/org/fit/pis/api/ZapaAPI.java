@@ -360,7 +360,7 @@ public class ZapaAPI
     	else
     		return Response.status(Status.NOT_FOUND).entity("{\"Success\": \"false\"}").build();
 	}
-    
+    /*
     @SuppressWarnings("unchecked")
 	@Path("/zapas/all")
     @GET
@@ -385,7 +385,7 @@ public class ZapaAPI
     			if (s.getHostujici() == 1)
     				tym1Json.put("s", s.getZapa().getId());
     				//tym1Json.put("s", s.getId());
-    			/*
+    			
     			tym1Json.put("zid", z.getId());
     			if((s.getZapa().getId() == z.getId()) && (s.getHostujici() == 0)) {
     				tym1Json.put("ID", t.getId());
@@ -393,7 +393,7 @@ public class ZapaAPI
     			else if(s.getHostujici() == 1) {
     				tym2Json.put("ID", t.getId());	
     			}
-    			*/
+    			
     		}
     		domaciJson.put("Domaci", tym1Json);
 			hosteJson.put("Hoste", tym2Json);
@@ -406,5 +406,5 @@ public class ZapaAPI
 		
 		return array;
     }
-
+    */
 }
