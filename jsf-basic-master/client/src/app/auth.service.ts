@@ -13,7 +13,7 @@ export class AuthService {
   
   private isAdmin = false;
   private isLogged = false;
-  username: string;
+  private username: string;
 
   constructor(private http: HttpClient) { }
 
@@ -40,7 +40,7 @@ export class AuthService {
   } 
 
   get getIsAdmin() {
-    return this.isAdmin
+    return this.isAdmin;
   }
 
   setIsLogged(value: boolean) {
@@ -49,13 +49,21 @@ export class AuthService {
   } 
 
   get getIsLogged() {
-    return this.isLogged
+    return this.isLogged;
+  }
+
+  setName(value: string) {
+    this.username = value;
+  } 
+
+  get getName() {
+    return this.username;
   }
 
   logout() {
     this.isAdmin = false;
     this.isLogged = false;
-    this.username = "Signin"
+    this.username = "Signin";
     this.getLoggedInName.emit(this.username);
   }
 

@@ -7,7 +7,14 @@ import { Component, OnInit } from '@angular/core';
 })
 
 export class DashboardComponent implements OnInit {
+    spinner = true;
+    content = "none";
     constructor() { }
 
-    ngOnInit() { }
+    ngOnInit() { 
+        setTimeout(() => {
+            this.spinner = false;
+            this.content = "flex";
+        }, 1500)
+    }
 }

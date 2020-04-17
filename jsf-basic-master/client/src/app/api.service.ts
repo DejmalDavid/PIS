@@ -1,6 +1,14 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 
+export interface TableMatchesItem {
+  datum: string;
+  home: string;
+  score: string;
+  away: string;
+  id: number;
+}
+
 @Injectable({
   providedIn: 'root'
 })
@@ -9,10 +17,11 @@ export class ApiService {
   constructor(private http: HttpClient) { }
 
   getAllMatches() {
-    return this.http.get("rest/zapas/list")
-    .subscribe(data => {
-      console.log(data)
-    })
+    return this.http.get<TableMatchesItem[]>("rest/zapas/list");
+  }
+
+  getFavTeams(n:string) {
+    return this.http.get<any[]>("rest/uzivatel/oblibene/"+n);
   }
 
   getAllTeams() {

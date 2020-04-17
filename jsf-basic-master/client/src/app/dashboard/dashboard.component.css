@@ -32,3 +32,8 @@ mat-grid-list {
     min-width: 280px;
     height: 300px;
 }
+
+mat-spinner {
+    margin: auto;
+    margin-top: 50px;
+}

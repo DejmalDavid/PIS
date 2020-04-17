@@ -3,35 +3,33 @@ import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { map } from 'rxjs/operators';
 import { Observable, of as observableOf, merge } from 'rxjs';
+import { ApiService } from '../api.service';
 
 // TODO: Replace this with your own data model type
 export interface TableMatchesItem {
-  name: string;
+  datum: string;
+  home: string;
+  score: string;
+  away: string;
   id: number;
 }
 
 // TODO: replace this with real data from your application
 const EXAMPLE_DATA: TableMatchesItem[] = [
-  {id: 1, name: 'Hydrogen'},
-  {id: 2, name: 'Helium'},
-  {id: 3, name: 'Lithium'},
-  {id: 4, name: 'Beryllium'},
-  {id: 5, name: 'Boron'},
-  {id: 6, name: 'Carbon'},
-  {id: 7, name: 'Nitrogen'},
-  {id: 8, name: 'Oxygen'},
-  {id: 9, name: 'Fluorine'},
-  {id: 10, name: 'Neon'},
-  {id: 11, name: 'Sodium'},
-  {id: 12, name: 'Magnesium'},
-  {id: 13, name: 'Aluminum'},
-  {id: 14, name: 'Silicon'},
-  {id: 15, name: 'Phosphorus'},
-  {id: 16, name: 'Sulfur'},
-  {id: 17, name: 'Chlorine'},
-  {id: 18, name: 'Argon'},
-  {id: 19, name: 'Potassium'},
-  {id: 20, name: 'Calcium'},
+  {
+    datum: "06:59 28.03",
+    score: "2:1",
+    away: "Russia",
+    id: 1,
+    home: "Nigeria"
+  }, 
+  {
+    datum: "07:59 29.03",
+    score: "0:1",
+    away: "Italy",
+    id: 1,
+    home: "France"
+  }
 ];
 
 /**
@@ -40,11 +38,11 @@ const EXAMPLE_DATA: TableMatchesItem[] = [
  * (including sorting, pagination, and filtering).
  */
 export class TableMatchesDataSource extends DataSource<TableMatchesItem> {
-  data: TableMatchesItem[] = EXAMPLE_DATA;
+  data: TableMatchesItem[] = [];
   paginator: MatPaginator;
   sort: MatSort;
 
-  constructor() {
+  constructor(private api: ApiService) {
     super();
   }
 
@@ -56,8 +54,12 @@ export class TableMatchesDataSource extends DataSource<TableMatchesItem> {
   connect(): Observable<TableMatchesItem[]> {
     // Combine everything that affects the rendered data into one update
     // stream for the data-table to consume.
+    this.api.getAllMatches().subscribe(data => {
+      this.data = data as TableMatchesItem[]
+    });
+
     const dataMutations = [
-      observableOf(this.data),
+      this.api.getAllMatches(),
       this.paginator.page,
       this.sort.sortChange
     ];
@@ -94,7 +96,10 @@ export class TableMatchesDataSource extends DataSource<TableMatchesItem> {
     return data.sort((a, b) => {
       const isAsc = this.sort.direction === 'asc';
       switch (this.sort.active) {
-        case 'name': return compare(a.name, b.name, isAsc);
+        case 'datum': return compare(a.datum, b.datum, isAsc);
+        case 'home': return compare(a.home, b.home, isAsc);
+        case 'score': return compare(a.score, b.score, isAsc);
+        case 'away': return compare(a.away, b.away, isAsc);
         case 'id': return compare(+a.id, +b.id, isAsc);
         default: return 0;
       }

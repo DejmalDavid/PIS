@@ -1,1 +1,35 @@
-<p>favorite works!</p>
+<table mat-table [dataSource]="dataSource" matSort class=tableGroup>
+
+    <!-- Position Column -->
+    <ng-container matColumnDef="flag">
+    <th mat-header-cell *matHeaderCellDef mat-sort-header> Vlajka </th>
+    <td mat-cell *matCellDef="let element"> <span class="flag-icon flag-icon-{{element.flag}}"></span> </td>
+    </ng-container>
+
+    <!-- Flag Column -->
+    <ng-container matColumnDef="name">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header> Názov </th>
+        <td mat-cell *matCellDef="let element"> {{element.nazev}} </td>
+    </ng-container>
+
+    <!-- Name Column -->
+    <ng-container matColumnDef="city">
+    <th mat-header-cell *matHeaderCellDef mat-sort-header> Mesto </th>
+    <td mat-cell *matCellDef="let element"> {{element.mesto}} </td>
+    </ng-container>
+
+    <!-- Weight Column -->
+    <ng-container matColumnDef="group">
+    <th mat-header-cell *matHeaderCellDef mat-sort-header> Skupina </th>
+    <td mat-cell *matCellDef="let element"> {{element.skupina}} </td>
+    </ng-container>
+
+    <!-- Skore Column -->
+    <ng-container matColumnDef="couch">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header> Tréner </th>
+        <td mat-cell *matCellDef="let element"> {{element.kouc}} </td>
+    </ng-container>
+
+    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+    <tr mat-row *matRowDef="let row; columns: displayedColumns;" [routerLink]="['/','team',row.id]"></tr>
+</table>

@@ -19,11 +19,10 @@ export class TableMatchesComponent implements AfterViewInit, OnInit {
   constructor (private api: ApiService) {}
 
   /** Columns displayed in the table. Columns IDs can be added, removed, or reordered. */
-  displayedColumns = ['id', 'name'];
+  displayedColumns = ['datum', 'home', 'score', 'away'];
 
   ngOnInit() {
-    this.dataSource = new TableMatchesDataSource();
-    this.api.getAllMatches();
+    this.dataSource = new TableMatchesDataSource(this.api);
   }
 
   ngAfterViewInit() {

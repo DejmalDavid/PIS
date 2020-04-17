@@ -27,11 +27,13 @@ export class LoginScreenComponent implements OnInit {
                     if (username == "admin") {
                         this.router.navigate(['admin'])
                         this.Auth.setIsAdmin(true)
+                        this.Auth.setName(username)
                         console.log("admin logged")
                     }
                     else {
                         this.router.navigate(['/'])
                         this.Auth.setIsLogged(true)
+                        this.Auth.setName(username)
                         console.log("user logged")
                     }
                 }
@@ -41,23 +43,5 @@ export class LoginScreenComponent implements OnInit {
                 }
             }
         )
-
-        // if (this.Auth.getUserDetails(username, password).success) {
-        //     if (username == "admin") {
-        //         this.router.navigate(['admin'])
-        //         this.Auth.setIsAdmin(true)
-        //         console.log("admin logged")
-        //     }
-        //     else {
-        //         this.router.navigate(['/'])
-        //         this.Auth.setIsLogged(true)
-        //         console.log("user logged")
-        //     }
-        // }
-        // else {
-        //     window.alert("Nesprávne heslo alebo meno")
-        // }
-
-        //console.log(username, password)
     }
 }
