@@ -60,3 +60,21 @@ h1{
 ::ng-deep .right .mat-figure{
   display: block !important;
 }
+/*.right tr:nth-child(n+1):nth-child(-n+11){
+  background-color: aqua;
+}
+.mat-header-row{
+  background-color: transparent !important;
+}
+*/
+td p{
+  display: contents;
+  color: rgba(0, 0, 0, 0.4);
+}
+::ng-deep .skoreClass .mat-figure{
+  display: grid !important;
+  grid-template-rows: 1fr 1fr 5fr;
+}
+::ng-deep .skoreClass .mat-figure h1, ::ng-deep .skoreClass .mat-figure h3{
+text-align: center;
+}
