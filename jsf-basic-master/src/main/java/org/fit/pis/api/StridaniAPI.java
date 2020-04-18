@@ -19,26 +19,26 @@ import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import javax.ws.rs.core.Response.Status;
 
-import org.fit.pis.data.Rozhodci;
-import org.fit.pis.service.RozhodciManager;
+import org.fit.pis.data.Stridani;
+import org.fit.pis.service.StridaniManager;
 
 /*
  * TEST URL:
- * http://localhost:8080/jsf-basic/rest/rozhodci/list
+ * http://localhost:8080/jsf-basic/rest/stridani/list
  */
 @Stateless
-@Path("/rozhodci")
-public class RozhodciAPI 
+@Path("/stridani")
+public class StridaniAPI 
 {
 	@EJB
-	private RozhodciManager rozhodciMgr; 
+	private StridaniManager sMgr; 
     @Context
     private UriInfo context;
 
     /**
      * Default constructor. 
      */
-    public RozhodciAPI() 
+    public StridaniAPI() 
     {
     }
 
@@ -50,10 +50,10 @@ public class RozhodciAPI
     @Path("/list")
     @GET
     @Produces(MediaType.APPLICATION_JSON)
-    public List<Rozhodci> getJson() throws NamingException 
+    public List<Stridani> getJson() throws NamingException 
     {
     	System.out.println("API3");
-    	return rozhodciMgr.findAll();
+    	return sMgr.findAll();
     }
 
     @Path("/{id}")
@@ -62,18 +62,18 @@ public class RozhodciAPI
     public Response getJsonSingle(@PathParam("id") String idString) throws NamingException 
     {
     	int id = Integer.valueOf(idString);
-    	Rozhodci p = rozhodciMgr.find(id);
+    	Stridani p = sMgr.find(id);
     	if (p != null)
     		return Response.ok(p).build();
     	else
-    		return Response.status(Status.NOT_FOUND).entity("{\"error\": \"No such person\"}").build();
+    		return Response.status(Status.NOT_FOUND).entity("{\"Success\": \"false\"}").build();
     }
 
     
     @PUT
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.TEXT_PLAIN)
-    public Response putJson(List<Rozhodci> content) 
+    public Response putJson(List<Stridani> content) 
     {
     	return Response.status(Response.Status.NOT_IMPLEMENTED).entity("This is not available now").build();
     }
@@ -81,9 +81,9 @@ public class RozhodciAPI
     @POST
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.TEXT_PLAIN)
-    public String postJson(Rozhodci person)
+    public String postJson(Stridani o)
     {
-    	rozhodciMgr.save(person);
+    	sMgr.save(o);
     	return "ok";
     }
 
