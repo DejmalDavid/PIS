@@ -19,26 +19,26 @@ import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import javax.ws.rs.core.Response.Status;
 
-import org.fit.pis.data.Rozhodci;
-import org.fit.pis.service.RozhodciManager;
+import org.fit.pis.data.SestavaHrac;
+import org.fit.pis.service.SestavaHracManager;
 
 /*
  * TEST URL:
- * http://localhost:8080/jsf-basic/rest/rozhodci/list
+ * http://localhost:8080/jsf-basic/rest/sestavahrac/list
  */
 @Stateless
-@Path("/rozhodci")
-public class RozhodciAPI 
+@Path("/sestavahrac")
+public class SestavaHracAPI 
 {
 	@EJB
-	private RozhodciManager rozhodciMgr; 
+	private SestavaHracManager shMgr; 
     @Context
     private UriInfo context;
 
     /**
      * Default constructor. 
      */
-    public RozhodciAPI() 
+    public SestavaHracAPI() 
     {
     }
 
@@ -50,10 +50,10 @@ public class RozhodciAPI
     @Path("/list")
     @GET
     @Produces(MediaType.APPLICATION_JSON)
-    public List<Rozhodci> getJson() throws NamingException 
+    public List<SestavaHrac> getJson() throws NamingException 
     {
     	System.out.println("API3");
-    	return rozhodciMgr.findAll();
+    	return shMgr.findAll();
     }
 
     @Path("/{id}")
@@ -62,7 +62,7 @@ public class RozhodciAPI
     public Response getJsonSingle(@PathParam("id") String idString) throws NamingException 
     {
     	int id = Integer.valueOf(idString);
-    	Rozhodci p = rozhodciMgr.find(id);
+    	SestavaHrac p = shMgr.find(id);
     	if (p != null)
     		return Response.ok(p).build();
     	else
@@ -73,7 +73,7 @@ public class RozhodciAPI
     @PUT
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.TEXT_PLAIN)
-    public Response putJson(List<Rozhodci> content) 
+    public Response putJson(List<SestavaHrac> content) 
     {
     	return Response.status(Response.Status.NOT_IMPLEMENTED).entity("This is not available now").build();
     }
@@ -81,9 +81,9 @@ public class RozhodciAPI
     @POST
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.TEXT_PLAIN)
-    public String postJson(Rozhodci person)
+    public String postJson(SestavaHrac o)
     {
-    	rozhodciMgr.save(person);
+    	shMgr.save(o);
     	return "ok";
     }
 
