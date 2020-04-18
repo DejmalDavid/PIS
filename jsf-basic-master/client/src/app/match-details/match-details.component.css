@@ -29,7 +29,13 @@ h1{
     padding-right: 10px;
     
   }
-
+  h2{
+    width: 100%;
+  }
+  ::ng-deep .flagTile .mat-figure{
+    display: flow-root !important;
+    text-align: center;
+  }
   .headCenter{
     padding-right: 0px !important;
   }
@@ -48,3 +54,9 @@ h1{
     float:right;
     display: contents;
   }
+  ::ng-deep .left .mat-figure{
+    display: block !important;
+}
+::ng-deep .right .mat-figure{
+  display: block !important;
+}

@@ -4,6 +4,7 @@ import { ActivatedRoute } from '@angular/router';
 import { MatTableDataSource } from '@angular/material/table';
 import { mmatches } from '../matches'
 import { ApiService } from '../api.service';
+import { flagsIcon } from '../img';
 
 
 
@@ -18,12 +19,14 @@ export class GroupDetailsComponent implements OnInit {
     displayedColumns: string[] = ['position', 'flag', 'name', 'zapasy', 'skore', 'body'];
     dataSource = new MatTableDataSource();
     displayedColumnsMatches: string[] = ['datum', 'home', 'score', 'away'];
-    DSmatches = new MatTableDataSource(mmatches);
+    DSmatches = new MatTableDataSource();
     nation: string;
+    icon = flagsIcon;
     matchID: string;
     constructor(private route: ActivatedRoute,
         private api: ApiService) { }
     ngOnInit() {
+        
         this.route.paramMap.subscribe(params => {
             switch (params.get('source')) {
                 case "A":
@@ -93,4 +96,9 @@ export class GroupDetailsComponent implements OnInit {
     onHover(id) {
         this.matchID = id;
     }
+    setIcon(id){
+        alert(id);
+        return flagsIcon[id]
+    }
+
 }
