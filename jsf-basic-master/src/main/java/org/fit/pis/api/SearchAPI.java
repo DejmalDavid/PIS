@@ -61,13 +61,14 @@ public class SearchAPI
     {
     }
     
+    
     @SuppressWarnings("unchecked")
 	@Path("/{string}")
     @GET
     @Produces(MediaType.APPLICATION_JSON)
     public List<JSONObject> getJsonSingle(@PathParam("string") String string) throws NamingException 
     {
-    	JSONObject zapasJson = new JSONObject();
+
     	JSONObject tymyJson = new JSONObject();
     	JSONObject zapasyJson = new JSONObject();
     	JSONArray allJson = new JSONArray();
@@ -86,39 +87,53 @@ public class SearchAPI
     	tymyJson.put("Tymy", tymypoleJson);
     	allJson.add(tymyJson);
     	
-    	/* TODO DAGO
+    	//Kala je kus lamaka
     	for(Zapa zapas : zapaMgr.findAll()) {
 
     			Boolean flag = false;
 				String pattern = "hh:mm dd.MM";
 				SimpleDateFormat simpleDateFormat = new SimpleDateFormat(pattern);
 				String date = simpleDateFormat.format(zapas.getDatum());
-				
+		    	JSONObject zapasJson = new JSONObject();
 				
 
 				for(Sestava sestava: zapas.getSestavas())
 				{
-					JSONObject sestavaJson = new JSONObject();
-					
-					sestavaJson.put("kapitan", sestava.getKapitan_id());
-					sestavaJson.put("tym", sestava.getTym().getNazev());		
-					
-					
-					//domaci=0
-					if(sestava.getHostujici()==0)
-					{
-						zapasJson.put("domaci", sestavaJson);	
-					}
-					else
-					{
-						zapasJson.put("hoste", sestavaJson);
+					System.out.println("NAZEV:" + sestava.getTym().getNazev().toLowerCase() + " obsahuje:" + string + "?" + sestava.getTym().getNazev().toLowerCase().contains(string.toLowerCase()));
+					if(sestava.getTym().getNazev().toLowerCase().contains(string.toLowerCase())) {
+						flag = true;
+						System.out.println("ID:" + zapas.getId());
 					}
 
-					if(sestava.getTym().getNazev().contains(string)) {
-						flag = true;
-					}
+
 				}
 				if(flag) {	
+					for(Sestava sestava: zapas.getSestavas())
+					{
+						System.out.println("NAZEV:" + sestava.getTym().getNazev().toLowerCase() + " obsahuje:" + string + "?" + sestava.getTym().getNazev().toLowerCase().contains(string.toLowerCase()));
+						if(sestava.getTym().getNazev().toLowerCase().contains(string.toLowerCase())) {
+							flag = true;
+							System.out.println("ID:" + zapas.getId());
+						}
+					
+						JSONObject sestavaJson = new JSONObject();
+						
+						sestavaJson.put("kapitan", sestava.getKapitan_id());
+						sestavaJson.put("tym", sestava.getTym().getNazev());		
+						
+						
+						//domaci=0
+						if(sestava.getHostujici()==0)
+						{
+							zapasJson.put("domaci", sestavaJson);	
+						}
+						else
+						{
+							zapasJson.put("hoste", sestavaJson);
+						}
+
+
+					}
 					zapasJson.put("id",zapas.getId());
 					zapasJson.put("datum",date);
 					zapasJson.put("domaci_goly",zapas.getDomaci_tym_skore());
@@ -127,12 +142,13 @@ public class SearchAPI
 					zapasJson.put("stadion",zapas.getStadion());
 					zapasJson.put("skupina",zapas.getSkupina());
 					zapasypoleJson.add(zapasJson);
+					flag=false;
 				}
 	    	}
     	
     	zapasyJson.put("Zapasy",zapasypoleJson);
     	allJson.add(zapasyJson);
-    	*/
+    	
     	
     	return allJson;
     }
