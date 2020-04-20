@@ -163,6 +163,60 @@ public class ZapaAPI
     	return array;
     }
     
+    @SuppressWarnings("unchecked")
+	@Path("/faze")
+    @GET
+    @Produces(MediaType.APPLICATION_JSON)
+    public List<JSONObject> getFaze() throws NamingException 
+    {
+    	JSONArray array = new JSONArray();
+    	
+    	int[] skupiny = {10,11,12,13,14};
+
+    	for(int skupina : skupiny)
+    	{
+    		JSONArray pole = new JSONArray();
+    		JSONObject skupinaJson = new JSONObject();
+    	
+	    	for(Zapa zapas:zapaMgr.findAll())
+	    	{	
+	    		if(zapas.getSkupina()==skupina)
+	    		{
+	    			JSONObject zapasJson = new JSONObject();
+       				String pattern = "hh:mm dd.MM";
+    				SimpleDateFormat simpleDateFormat = new SimpleDateFormat(pattern);
+    				String date = simpleDateFormat.format(zapas.getDatum());
+    				zapasJson.put("datum",date);
+    				zapasJson.put("id", zapas.getId());
+    				zapasJson.put("score", zapas.getDomaci_tym_skore()+":"+zapas.getHost_tym_skore());
+    				
+    				String home = "Domaci";
+    				String away = "Hoste";
+    				
+	    			for(Sestava sestava:zapas.getSestavas())
+	            	{
+	            			//0=domaci
+	            			if(sestava.getHostujici()==0)
+	            			{
+	            				home= sestava.getTym().getNazev();
+	            			}
+	            			//1=hoste
+	            			else if(sestava.getHostujici()==1)
+	            			{
+	            				away=sestava.getTym().getNazev();
+	            			}	
+	            	}
+	    			zapasJson.put("home", home);
+	    			zapasJson.put("away", away);
+	    			pole.add(zapasJson);
+	            	}
+	    		}
+	    	
+	    	skupinaJson.put(String.valueOf(skupina), pole);	
+	    	array.add(skupinaJson);	
+	    	}	
+    	return array;
+    }
 
     @SuppressWarnings("unchecked")
 	@Path("/group/{id}")
@@ -175,32 +229,36 @@ public class ZapaAPI
     	for(Zapa zapas:zapaMgr.findAll())
     	{
     		JSONObject zapasJson = new JSONObject();
+    		if(zapas.getSkupina()==9)
+    		{
+    			for(Sestava sestava:zapas.getSestavas())
+            	{
+            		if(sestava.getTym().getSkupina()==Integer.valueOf(idString))
+            		{
+            				
+            			//0=domaci
+            			if(sestava.getHostujici()==0)
+            			{
+            				zapasJson.put("home", sestava.getTym().getNazev());
+            				String pattern = "hh:mm dd.MM";
+            				SimpleDateFormat simpleDateFormat = new SimpleDateFormat(pattern);
+            				String date = simpleDateFormat.format(zapas.getDatum());
+            				
+            				zapasJson.put("datum",date);
+            				zapasJson.put("id", zapas.getId());
+            				zapasJson.put("score", zapas.getDomaci_tym_skore()+":"+zapas.getHost_tym_skore());
+            			}
+            			//1=hoste
+            			else if(sestava.getHostujici()==1)
+            			{
+            				zapasJson.put("away", sestava.getTym().getNazev());
+            			}	
+            		}
+            		
+            	}
+    		}
     		
-        	for(Sestava sestava:zapas.getSestavas())
-        	{
-        		if(sestava.getTym().getSkupina()==Integer.valueOf(idString))
-        		{
-        				
-        			//0=domaci
-        			if(sestava.getHostujici()==0)
-        			{
-        				zapasJson.put("home", sestava.getTym().getNazev());
-        				String pattern = "hh:mm dd.MM";
-        				SimpleDateFormat simpleDateFormat = new SimpleDateFormat(pattern);
-        				String date = simpleDateFormat.format(zapas.getDatum());
-        				
-        				zapasJson.put("datum",date);
-        				zapasJson.put("id", zapas.getId());
-        				zapasJson.put("score", zapas.getDomaci_tym_skore()+":"+zapas.getHost_tym_skore());
-        			}
-        			//1=hoste
-        			else if(sestava.getHostujici()==1)
-        			{
-        				zapasJson.put("away", sestava.getTym().getNazev());
-        			}	
-        		}
-        		
-        	}
+        	
         	//neni prazdny
         	if(zapasJson.isEmpty()==false)
         	{
@@ -270,6 +328,7 @@ public class ZapaAPI
 				stridaniJson.put("cas", stridani.getCas());
 				stridaniJson.put("id_in",stridani.getHrac_id_in());
 				stridaniJson.put("id_out",stridani.getHrac_id_out());
+				stridaniJson.put("id_stridani",stridani.getId());
 				poleStridani.add(stridaniJson);
 			}
 			

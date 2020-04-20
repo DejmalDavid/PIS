@@ -24,6 +24,7 @@ import org.fit.pis.data.Sestava;
 import org.fit.pis.data.Tym;
 import org.fit.pis.data.Zapa;
 import org.fit.pis.service.TymManager;
+import org.fit.pis.service.ZapaManager;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 
@@ -62,7 +63,6 @@ public class TymAPI
     	JSONArray array = new JSONArray();   	
     	int[] skupiny = {1,2,3,4,5,6,7,8};
 
-
     	for(int skupina : skupiny)
     	{
     		
@@ -81,47 +81,56 @@ public class TymAPI
                 	int golDostane = 0;
                 	int golDane= 0;
                 	int zapasy= 0;
-                	//TODO - hledam pocet zapasu a pocet vyher(na body)
+                	//hledam pocet zapasu a pocet vyher(na body)
                 	for(Sestava sestava: tym.getSestavas())
                 	{
-                		//TODO - domaci == 0 = true
+                		//domaci == 0 = true
                 		if(sestava.getHostujici()==0)
                 		{
-                			//Jsem domaci
                         	Zapa zapas=sestava.getZapa();
-                        	zapasy++;
-                        	golDostane+=zapas.getHost_tym_skore();
-                        	golDane+=zapas.getDomaci_tym_skore();
-                        	//vyhra
-                        	if(zapas.getDomaci_tym_skore()>zapas.getHost_tym_skore())
-                        	{
-                        		body+=3;
-                        	}
-                        	//remiza
-                        	else if(zapas.getDomaci_tym_skore()==zapas.getHost_tym_skore())
-                        	{
-                        		body+=1;
-                        	}
-                        	//prohra takze +0
+                			//jedna se o zapas skupiny
+                			if(zapas.getSkupina()==9)
+                			{
+                    			//Jsem domaci
+                            	zapasy++;
+                            	golDostane+=zapas.getHost_tym_skore();
+                            	golDane+=zapas.getDomaci_tym_skore();
+                            	//vyhra
+                            	if(zapas.getDomaci_tym_skore()>zapas.getHost_tym_skore())
+                            	{
+                            		body+=3;
+                            	}
+                            	//remiza
+                            	else if(zapas.getDomaci_tym_skore()==zapas.getHost_tym_skore())
+                            	{
+                            		body+=1;
+                            	}
+                            	//prohra takze +0
+                			}
+
                 		}
                 		else if(sestava.getHostujici()==1)
                 		{
                 			//sem hostujici
                         	Zapa zapas=sestava.getZapa();
-                        	zapasy++;
-                        	golDane+=zapas.getHost_tym_skore();
-                        	golDostane+=zapas.getDomaci_tym_skore();
-                        	//vyhra
-                        	if(zapas.getDomaci_tym_skore()<zapas.getHost_tym_skore())
-                        	{
-                        		body+=3;
-                        	}
-                        	//remiza
-                        	else if(zapas.getDomaci_tym_skore()==zapas.getHost_tym_skore())
-                        	{
-                        		body+=1;
-                        	}
-                        	//prohra takze +0
+                			//jedna se o zapas skupiny
+                			if(zapas.getSkupina()==9)
+                			{
+	                        	zapasy++;
+	                        	golDane+=zapas.getHost_tym_skore();
+	                        	golDostane+=zapas.getDomaci_tym_skore();
+	                        	//vyhra
+	                        	if(zapas.getDomaci_tym_skore()<zapas.getHost_tym_skore())
+	                        	{
+	                        		body+=3;
+	                        	}
+	                        	//remiza
+	                        	else if(zapas.getDomaci_tym_skore()==zapas.getHost_tym_skore())
+	                        	{
+	                        		body+=1;
+	                        	}
+	                        	//prohra takze +0
+                			}
                 		}
 
                 	}      
@@ -131,9 +140,10 @@ public class TymAPI
                 	//pridani do pole
                 	pole.add(tymJson);
 				}
-    		   					
+
+    						
         	} 
-    		
+    		 		
     		skupinaJson.put(String.valueOf(skupina), pole);	   		
     		array.add(skupinaJson);	
     	}
@@ -177,39 +187,47 @@ public class TymAPI
                 		{
                 			//Jsem domaci
                         	Zapa zapas=sestava.getZapa();
-                        	zapasy++;
-                        	golDostane+=zapas.getHost_tym_skore();
-                        	golDane+=zapas.getDomaci_tym_skore();
-                        	//vyhra
-                        	if(zapas.getDomaci_tym_skore()>zapas.getHost_tym_skore())
-                        	{
-                        		body+=3;
-                        	}
-                        	//remiza
-                        	else if(zapas.getDomaci_tym_skore()==zapas.getHost_tym_skore())
-                        	{
-                        		body+=1;
-                        	}
-                        	//prohra takze +0
+                			//jedna se o zapas skupiny
+                			if(zapas.getSkupina()==9)
+                			{
+	                        	zapasy++;
+	                        	golDostane+=zapas.getHost_tym_skore();
+	                        	golDane+=zapas.getDomaci_tym_skore();
+	                        	//vyhra
+	                        	if(zapas.getDomaci_tym_skore()>zapas.getHost_tym_skore())
+	                        	{
+	                        		body+=3;
+	                        	}
+	                        	//remiza
+	                        	else if(zapas.getDomaci_tym_skore()==zapas.getHost_tym_skore())
+	                        	{
+	                        		body+=1;
+	                        	}
+	                        	//prohra takze +0
+                			}
                 		}
                 		else if(sestava.getHostujici()==1)
                 		{
                 			//sem hostujici
                         	Zapa zapas=sestava.getZapa();
-                        	zapasy++;
-                        	golDane+=zapas.getHost_tym_skore();
-                        	golDostane+=zapas.getDomaci_tym_skore();
-                        	//vyhra
-                        	if(zapas.getDomaci_tym_skore()<zapas.getHost_tym_skore())
-                        	{
-                        		body+=3;
-                        	}
-                        	//remiza
-                        	else if(zapas.getDomaci_tym_skore()==zapas.getHost_tym_skore())
-                        	{
-                        		body+=1;
-                        	}
-                        	//prohra takze +0
+                			//jedna se o zapas skupiny
+                			if(zapas.getSkupina()==9)
+                			{
+	                        	zapasy++;
+	                        	golDane+=zapas.getHost_tym_skore();
+	                        	golDostane+=zapas.getDomaci_tym_skore();
+	                        	//vyhra
+	                        	if(zapas.getDomaci_tym_skore()<zapas.getHost_tym_skore())
+	                        	{
+	                        		body+=3;
+	                        	}
+	                        	//remiza
+	                        	else if(zapas.getDomaci_tym_skore()==zapas.getHost_tym_skore())
+	                        	{
+	                        		body+=1;
+	                        	}
+	                        	//prohra takze +0
+                			}
                 		}
 
                 	}      
@@ -218,8 +236,7 @@ public class TymAPI
                 	tymJson.put("body", body );
                 	//pridani do pole
                 	pole.add(tymJson);
-				}
-    		   					
+				}   		   					
         	}
     		
     		skupinaJson.put(String.valueOf(skupina), pole);	   		
