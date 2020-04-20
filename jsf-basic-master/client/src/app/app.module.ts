@@ -40,6 +40,9 @@ import { AuthService } from './auth.service';
 import { ApiService } from './api.service';
 import { FavoriteComponent } from './favorite/favorite.component';
 import { LogGuard } from './log.guard';
+import { SuperadminComponent } from './superadmin/superadmin.component';
+import { SuperGuard } from './super.guard';
+import { LoginGuard } from './login.guard';
 
 
 @NgModule({
@@ -60,7 +63,8 @@ import { LogGuard } from './log.guard';
     RegisterScreenComponent,
     TableMatchesComponent,
     AdminComponent,
-    FavoriteComponent
+    FavoriteComponent,
+    SuperadminComponent
   ],
   imports: [
     BrowserModule,
@@ -73,11 +77,12 @@ import { LogGuard } from './log.guard';
       { path: '', component: DashboardComponent},
       { path: 'group/:source', component: GroupDetailsComponent},
       { path: 'team/:nation', component:TeamDetailsComponent},
-      { path: 'login', component:LoginScreenComponent},
+      { path: 'login', component:LoginScreenComponent, canActivate: [LoginGuard]},
       { path: 'match/:matchID', component:MatchDetailsComponent},
       { path: 'register', component:RegisterScreenComponent},
       { path: 'matches', component:TableMatchesComponent},
       { path: 'admin', component:AdminComponent, canActivate: [AuthGuard]},
+      { path: 'superadmin', component:SuperadminComponent, canActivate: [SuperGuard]},
       { path: 'favorite', component:FavoriteComponent, canActivate: [LogGuard]}
     ]),
     LayoutModule,
@@ -92,7 +97,7 @@ import { LogGuard } from './log.guard';
     MatSortModule,
     MatProgressSpinnerModule
   ],
-  providers: [AuthService, ApiService, AuthGuard, LogGuard],
+  providers: [AuthService, ApiService, AuthGuard, LogGuard, SuperGuard, LoginGuard],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

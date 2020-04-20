@@ -3,10 +3,11 @@
     <div>
         <span class="appname"><a  [routerLink]="['/']"> MS vo futbale</a></span>
         <span><a  [routerLink]="['matches']"> Zápasy</a></span>
-        <span *ngIf="!isAdmin && !isLogged"><a  [routerLink]="['login']">Login</a></span>
-        <span *ngIf="isAdmin"><a  [routerLink]="['admin']">Admin</a></span>
+        <span *ngIf="!isAdmin && !isLogged && !isSuperAdmin"><a  [routerLink]="['login']">Login</a></span>
+        <span *ngIf="isAdmin || isSuperAdmin"><a  [routerLink]="['admin']">Admin</a></span>
         <span *ngIf="isLogged"><a  [routerLink]="['favorite']">Obľúbené</a></span>
-        <span *ngIf="isLogged || isAdmin"><a  [routerLink]="['/']" (click)="logout()">Odhlásiť</a></span>
+        <span *ngIf="isSuperAdmin"><a  [routerLink]="['superadmin']">Správa</a></span>
+        <span *ngIf="isLogged || isAdmin || isSuperAdmin"><a  [routerLink]="['/']" (click)="logout()">Odhlásiť</a></span>
     </div>
     <form class="search-input">
         <mat-form-field appearance="fill">

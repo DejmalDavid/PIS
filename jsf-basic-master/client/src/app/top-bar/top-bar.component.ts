@@ -8,6 +8,7 @@ import { AuthService } from '../auth.service';
 })
 
 export class TopBarComponent implements OnInit {
+    isSuperAdmin = this.auth.getIsSuperAdmin;
     isAdmin = this.auth.getIsAdmin;
     isLogged = this.auth.getIsAdmin;
     username: string;
@@ -21,10 +22,10 @@ export class TopBarComponent implements OnInit {
 
     private changeName(name: string): void {
         console.log("change name " + name)
+        this.isSuperAdmin = this.auth.getIsSuperAdmin;
         this.isAdmin = this.auth.getIsAdmin;
         this.isLogged = this.auth.getIsLogged;
         this.username = name;
-        console.log(this.isAdmin, this.isLogged)
     }
 
     logout() {

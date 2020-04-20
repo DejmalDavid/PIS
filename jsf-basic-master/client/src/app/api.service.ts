@@ -16,6 +16,10 @@ export class ApiService {
 
   constructor(private http: HttpClient) { }
 
+  getUserInfo(n:string) {
+    return this.http.get<any>("rest/uzivatel/email/"+n);
+  }
+
   getAllMatches() {
     return this.http.get<TableMatchesItem[]>("rest/zapas/list");
   }
