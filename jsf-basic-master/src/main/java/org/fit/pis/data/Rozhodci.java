@@ -28,7 +28,7 @@ public class Rozhodci implements Serializable {
 	private String zeme;
 
 	//bi-directional many-to-one association to RozhodciZapa
-	@OneToMany(mappedBy="rozhodci")
+	@OneToMany(mappedBy="rozhodci",orphanRemoval=true)
 	private List<RozhodciZapa> rozhodciZapas;
 
 	public Rozhodci() {
