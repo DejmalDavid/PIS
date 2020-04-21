@@ -40,6 +40,14 @@ export class AuthService {
     })
   }
 
+ /* deleteMatch(id) {
+    return this.http.post<myData>('rest/auth/registration', {
+      id
+    })
+  }*/
+
+
+
   setIsAdmin(value: boolean) {
       this.isAdmin = value;
       localStorage.setItem('adminIn', value.toString());

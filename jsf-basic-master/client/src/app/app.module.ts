@@ -40,6 +40,8 @@ import { AuthService } from './auth.service';
 import { ApiService } from './api.service';
 import { FavoriteComponent } from './favorite/favorite.component';
 import { LogGuard } from './log.guard';
+import { FormsModule } from '@angular/forms';
+
 
 
 @NgModule({
@@ -90,7 +92,8 @@ import { LogGuard } from './log.guard';
     MatTableModule,
     MatPaginatorModule,
     MatSortModule,
-    MatProgressSpinnerModule
+    MatProgressSpinnerModule,
+    FormsModule
   ],
   providers: [AuthService, ApiService, AuthGuard, LogGuard],
   bootstrap: [AppComponent]
