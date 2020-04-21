@@ -42,6 +42,10 @@
         <h3>Národný štadion: Národný štadion v Bratislave</h3>
         <h3>Titul majstra sveta: 0</h3>
         <h3>Historicky najlepsi strelec: Vittek Robo</h3>
+        <div class="cbutton">
+            <button *ngIf="isLogged && !inFavs" mat-raised-button color="primary" (click)="addFav()">Pridať do obľúbených</button>
+            <button *ngIf="isLogged && inFavs" mat-raised-button color="accent" (click)="deleteFav()">Odobrať z obľúbených</button>
+        </div>
     </mat-grid-tile>
     <mat-grid-tile [colspan]="2" class="stats">
         <table mat-table [dataSource]="DSplayers" matSort class="statsTable">

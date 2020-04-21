@@ -11,7 +11,7 @@ export class AppComponent {
   constructor (private auth: AuthService) {}
 
   ngOnInit() { 
-      this.auth.refreshState();
+    this.auth.refreshState();
   }
 
   title = 'client';

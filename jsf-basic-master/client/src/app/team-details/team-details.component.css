@@ -23,8 +23,6 @@ h3 {
   display: inline;
 }
 
-
-
 .mat-column-name {
   text-align: left;
   margin-left: 5px;
@@ -53,4 +51,9 @@ h3 {
 }
 th.mat-sort-header-sorted {
   color: black;
+}
+
+.cbutton {
+    display: flex;
+    justify-content: center;
 }

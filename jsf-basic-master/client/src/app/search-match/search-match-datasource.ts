@@ -4,9 +4,10 @@ import { MatSort } from '@angular/material/sort';
 import { map } from 'rxjs/operators';
 import { Observable, of as observableOf, merge } from 'rxjs';
 import { ApiService } from '../api.service';
+import { Router, ActivatedRoute } from '@angular/router';
 
 // TODO: Replace this with your own data model type
-export interface TableMatchesItem {
+export interface SearchMatchItem {
   datum: string;
   home: string;
   score: string;
@@ -15,16 +16,17 @@ export interface TableMatchesItem {
 }
 
 /**
- * Data source for the TableMatches view. This class should
+ * Data source for the SearchMatch view. This class should
  * encapsulate all logic for fetching and manipulating the displayed data
  * (including sorting, pagination, and filtering).
  */
-export class TableMatchesDataSource extends DataSource<TableMatchesItem> {
-  data: TableMatchesItem[] = [];
+export class SearchMatchDataSource extends DataSource<SearchMatchItem> {
+  data: SearchMatchItem[] = [];
   paginator: MatPaginator;
   sort: MatSort;
+  name: string;
 
-  constructor(private api: ApiService) {
+  constructor(private api: ApiService, private route: ActivatedRoute) {
     super();
   }
 
@@ -33,15 +35,19 @@ export class TableMatchesDataSource extends DataSource<TableMatchesItem> {
    * the returned stream emits new items.
    * @returns A stream of the items to be rendered.
    */
-  connect(): Observable<TableMatchesItem[]> {
+  connect(): Observable<SearchMatchItem[]> {
     // Combine everything that affects the rendered data into one update
     // stream for the data-table to consume.
-    this.api.getAllMatches().subscribe(data => {
-      this.data = data as TableMatchesItem[]
+    this.route.params.subscribe(event => {
+      this.name = event.name;
     });
 
+    this.api.getSearch(this.name).subscribe(data => {
+      this.data = data[1].Zapasy as SearchMatchItem[]
+    })
+
     const dataMutations = [
-      this.api.getAllMatches(),
+      this.api.getSearch(this.name),
       this.paginator.page,
       this.sort.sortChange
     ];
@@ -61,7 +67,7 @@ export class TableMatchesDataSource extends DataSource<TableMatchesItem> {
    * Paginate the data (client-side). If you're using server-side pagination,
    * this would be replaced by requesting the appropriate data from the server.
    */
-  private getPagedData(data: TableMatchesItem[]) {
+  private getPagedData(data: SearchMatchItem[]) {
     const startIndex = this.paginator.pageIndex * this.paginator.pageSize;
     return data.splice(startIndex, this.paginator.pageSize);
   }
@@ -70,7 +76,7 @@ export class TableMatchesDataSource extends DataSource<TableMatchesItem> {
    * Sort the data (client-side). If you're using server-side sorting,
    * this would be replaced by requesting the appropriate data from the server.
    */
-  private getSortedData(data: TableMatchesItem[]) {
+  private getSortedData(data: SearchMatchItem[]) {
     if (!this.sort.active || this.sort.direction === '') {
       return data;
     }

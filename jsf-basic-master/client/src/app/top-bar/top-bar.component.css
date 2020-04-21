@@ -29,9 +29,14 @@ span {
 }
 
 .search-input {
+    display: inline-block;
     min-width: 100px;
     max-width: 200px;
     width: 100%;
     margin-top: 20px;
     font-size: medium;
+}
+
+.comb {
+    max-width: 100px;
 }
