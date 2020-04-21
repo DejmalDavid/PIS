@@ -40,6 +40,8 @@ import { AuthService } from './auth.service';
 import { ApiService } from './api.service';
 import { FavoriteComponent } from './favorite/favorite.component';
 import { LogGuard } from './log.guard';
+import { FormsModule } from '@angular/forms';
+
 import { SuperadminComponent } from './superadmin/superadmin.component';
 import { SuperGuard } from './super.guard';
 import { LoginGuard } from './login.guard';
@@ -104,6 +106,7 @@ import { LoadingComponent } from './loading/loading.component';
     MatPaginatorModule,
     MatSortModule,
     MatProgressSpinnerModule,
+    FormsModule,
     MatSelectModule
   ],
   providers: [AuthService, ApiService, AuthGuard, LogGuard, SuperGuard, LoginGuard],

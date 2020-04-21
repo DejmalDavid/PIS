@@ -1,0 +1,20 @@
+<mat-grid-list cols="2" rowHeight="150px">
+    <mat-grid-tile>
+        <div>
+            <h2>Vyber zapas a tim</h2>
+            <form (ngSubmit)="chreateSquad(form1)" #form1="ngForm">
+                <mat-select [(ngModel)]="zapas.tim_id" name="tim" placeholder="tim">
+                    <mat-option *ngFor="let hrac1 of zostava" [value]=hrac1.id>
+                        {{hrac1.name}}
+                    </mat-option>
+                </mat-select>
+
+                <input type="text" [(ngModel)]="zapas.id" name="time" id="" placeholder="ID zapasu">
+                <input type="submit" name="createMatch" value="submit">
+            </form>
+        </div>
+    </mat-grid-tile>
+    <mat-grid-tile>
+        
+    </mat-grid-tile>
+</mat-grid-list>

@@ -54,6 +54,27 @@ public class TymAPI
     }
     
     @SuppressWarnings("unchecked")
+ 	@Path("/all")
+     @GET
+     @Produces(MediaType.APPLICATION_JSON)
+     public List<JSONObject> getAll() throws NamingException 
+     {
+     	   	
+     	JSONArray array = new JSONArray();   	
+   		
+     	for (Tym tym :  tymMgr.findAll()) {
+     			
+                JSONObject tymJson = new JSONObject();
+                 	tymJson.put("id", tym.getId());	   
+                 	tymJson.put("name", tym.getNazev() );
+  
+                 	array.add(tymJson);	
+ 				}
+     	return array;
+
+     }
+    
+    @SuppressWarnings("unchecked")
 	@Path("/list")
     @GET
     @Produces(MediaType.APPLICATION_JSON)

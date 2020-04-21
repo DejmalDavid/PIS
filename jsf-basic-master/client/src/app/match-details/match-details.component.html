@@ -1,11 +1,92 @@
+<button mat-raised-button color="primary" [routerLink]="['/','novazostava']">Nova Zostava</button>
+<mat-grid-list cols="4" rowHeight="150px">
+    <mat-grid-tile>
+        
+        <div class="addgoal">
+            <h2>pridat gol</h2>
+            <form (ngSubmit)="newGoal(form1)" #form1="ngForm"> 
+                <mat-select [(ngModel)]="goal.hrac1" name="hrac1" placeholder="hrac1">
+                    <mat-option *ngFor="let hrac1 of zostava" [value]=hrac1.id >
+                        {{hrac1.name}}
+                    </mat-option>
+                </mat-select>
+        
+                <input type="text" [(ngModel)]="goal.gol_cas" name="time" id="" placeholder="Minuta">
+                <mat-select [(ngModel)]="goal.hrac2" name="hrac2" placeholder="hrac2">
+                    <mat-option *ngFor="let hrac2 of zostava" [value]=hrac2.id >
+                        {{hrac2.name}}
+                    </mat-option>
+                </mat-select>
+                
+                <input type="submit" name="AddGoal" value="submit">
+            </form>
+        </div>
+    </mat-grid-tile>
+    <mat-grid-tile>
+        <div class="addgoal">
+            <h2>Zmazat gol</h2>
+            <form (ngSubmit)="deleteGoal(form1)" #form1="ngForm"> 
+                <mat-select [(ngModel)]="deletegoal" name="deleteSub" placeholder="allGoals">
+                    <mat-option *ngFor="let gol of allGoals" [value]=gol.id >
+                        {{gol.cas}} {{gol.hrac1}}
+                    </mat-option>
+                </mat-select>
+                
+                <input type="submit" name="DeleteGOal" value="Delete">
+            </form>
+        </div>
+    </mat-grid-tile>
+    <mat-grid-tile>
+        <div >
+            <h2>Pridat striedanie</h2>
+            <form (ngSubmit)="newStriedanie(form1)" #form1="ngForm"> 
+                <mat-select [(ngModel)]="striedanie.hrac_id_in" name="in" placeholder="Hrac In">
+                    <mat-option *ngFor="let hrac1 of zostava" [value]=hrac1.id >
+                        {{hrac1.name}}
+                    </mat-option>
+                </mat-select>
+                <mat-select [(ngModel)]="striedanie.hrac_id_out" name="out" placeholder="Hrac Out">
+                    <mat-option *ngFor="let hrac1 of zostava" [value]=hrac1.id >
+                        {{hrac1.name}}
+                    </mat-option>
+                </mat-select>
+                <input type="text" [(ngModel)]="striedanie.cas" name="timeStriedanie" id="" placeholder="Minuta Striedania">
+                <input type="submit" name="DeleteGOal" value="Delete">
+            </form>
+        </div>
+    </mat-grid-tile>
+    <mat-grid-tile>
+        <div class="addgoal">
+            <h2>Zmazat gol</h2>
+            <form (ngSubmit)="deleteGoal(form1)" #form1="ngForm"> 
+                <mat-select [(ngModel)]="deletegoal" name="allGoals" placeholder="allGoals">
+                    <mat-option *ngFor="let gol of allGoals" [value]=gol.id >
+                        {{gol.cas}} {{gol.hrac1}}
+                    </mat-option>
+                </mat-select>
+                
+                <input type="submit" name="DeleteGOal" value="Delete">
+            </form>
+        </div>
+    </mat-grid-tile>
+
+</mat-grid-list>
+<div *ngIf="isAdmin" class="save">
+    <button mat-mini-fab color="accent" (click)="sendPost()">Save</button>
+</div> 
 <mat-grid-list cols="6" rowHeight="350px">
+
     <mat-grid-tile [colspan]="2" class="flagTile">
         <h2>{{domaciTim}}</h2>
         <img src="{{domaciFlag}}" atl="image" />
     </mat-grid-tile>
     <mat-grid-tile [colspan]="2" class="skoreClass"> 
         <h3>Dátum: {{datum}}</h3>
-        <h3>Štadión:{{stadion}} | Počet divákov:{{divaci}} | Rozhodca: {{rozhodca}}</h3>
+        <div class="infoMatch">
+            <h3>Štadión:</h3><h3 *ngIf=!isAdmin>{{stadion}}</h3><input  type="text" *ngIf=isAdmin>{{stadion}}/>
+            <h3> | Počet divákov:</h3><h3 *ngIf=!isAdmin>{{divaci}}</h3>
+            <h3> | Rozhodca:</h3><h3 *ngIf=!isAdmin> {{rozhodca}}</h3>
+        </div>
         <h1>{{score}}</h1>
     </mat-grid-tile>
     <mat-grid-tile [colspan]="2" class="flagTile">
@@ -22,7 +103,11 @@
              <!-- Home Column -->
             <ng-container matColumnDef="playerHome">
                 <th mat-header-cell *matHeaderCellDef mat-sort-header> Player </th>
-                <td mat-cell *matCellDef="let element"> {{element.name}} <div class="obrHome" *ngFor="let item of arrayOne(element.goals);"><img src="https://img.icons8.com/pastel-glyph/64/000000/football2.png" height="25" atl="image"/></div></td>
+                <td mat-cell *matCellDef="let element"> {{element.name}}
+                    <div class="obrHome" *ngFor="let item of arrayOne(element.goals);let i = index;">
+                        <img src="https://img.icons8.com/pastel-glyph/64/000000/football2.png" height="25" atl="image" matTooltip="{{showTime(element,i)}}"/>
+                    </div>
+                </td>
                 <!--<td mat-cell *matCellDef="let element"> {{element.name}} </td>-->
                 
             </ng-container>
@@ -41,7 +126,18 @@
              <!-- Home Column -->
             <ng-container matColumnDef="playerAway">
                 <th mat-header-cell *matHeaderCellDef mat-sort-header class="headRight"> Player </th>
-                <td mat-cell *matCellDef="let element"><p>{{element.in}} {{element.out}}</p> <img src ="assets/arrow.png" height="25" *ngIf="element.in"/><img src ="assets/arrowDOwn.png" height="25" *ngIf="element.out"/><div class="obr" *ngFor="let item of arrayOne(element.goals);"><img src="https://img.icons8.com/pastel-glyph/64/000000/football2.png" height="25" atl="image"/></div> {{element.name}} </td>
+                <td mat-cell *matCellDef="let element"><p>{{element.in}} {{element.out}}</p> <img src ="assets/arrow.png" height="25" *ngIf="element.in"/><img src ="assets/arrowDOwn.png" height="25" *ngIf="element.out"/>
+                    <div class="obr" *ngFor="let item of arrayOne(element.goals);"><img src="https://img.icons8.com/pastel-glyph/64/000000/football2.png" height="25" atl="image"/>
+                    </div> 
+                    <!--<div class="editGoals" *ngIf="isAdmin">
+                        <button mat-mini-fab color="accent" (click)="addGoal(element)">
+                            <mat-icon>plus_one</mat-icon>
+                        </button>
+                        <button mat-mini-fab color="accent" (click)="removeGoal(element)">
+                            <mat-icon>exposure_neg_1</mat-icon>
+                        </button>
+                    </div> -->
+                    {{element.name}} </td>
                 <!--<td mat-cell *matCellDef="let element"> {{element.name}} </td>-->
                 
             </ng-container>
@@ -50,4 +146,6 @@
             <tr mat-row *matRowDef="let row; columns: displayedColumnsSquadAway;"></tr>
         </table>
     </mat-grid-tile>
+        
+   
 </mat-grid-list>

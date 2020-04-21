@@ -60,13 +60,7 @@ h1{
 ::ng-deep .right .mat-figure{
   display: block !important;
 }
-/*.right tr:nth-child(n+1):nth-child(-n+11){
-  background-color: aqua;
-}
-.mat-header-row{
-  background-color: transparent !important;
-}
-*/
+
 td p{
   display: contents;
   color: rgba(0, 0, 0, 0.4);
@@ -77,4 +71,25 @@ td p{
 }
 ::ng-deep .skoreClass .mat-figure h1, ::ng-deep .skoreClass .mat-figure h3{
 text-align: center;
+}
+
+.editGoals{
+  float:right;
+  display: contents;
+}
+.save{
+  text-align: center;
+}
+.infoMatch{
+  display: flex;
+}
+.timeInput{
+  width: 30px;
+}
+mat-select{
+  background-color: white;
+  width: fit-content;
+}
+::ng-deep mat-select .mat-select-trigger{
+  width: 200px;
 }

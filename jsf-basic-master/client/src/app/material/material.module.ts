@@ -5,6 +5,8 @@ import { MatTableModule} from '@angular/material/table';
 import {MatGridListModule} from '@angular/material/grid-list';
 import { MatSortModule } from '@angular/material/sort';
 import {MatCardModule} from '@angular/material/card';
+import {MatTooltipModule} from '@angular/material/tooltip';
+import {MatSelectModule} from '@angular/material/select';
 
 
 const material = [
@@ -13,7 +15,9 @@ const material = [
   MatTableModule,
   MatGridListModule,
   MatSortModule,
-  MatCardModule
+  MatCardModule,
+  MatTooltipModule,
+  MatSelectModule
 ]
 
 @NgModule({

@@ -41,6 +41,13 @@ export class AuthService {
     })
   }
 
+ /* deleteMatch(id) {
+    return this.http.post<myData>('rest/auth/registration', {
+      id
+    })
+  }*/
+
+
   setRights(value: number) {
       if (value == 1) {
         localStorage.setItem('valid', value.toString());

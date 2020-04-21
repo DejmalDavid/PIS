@@ -1,10 +1,11 @@
 import { Component, OnInit } from '@angular/core';
-import { mmatches } from '../matches';
 import { ActivatedRoute } from '@angular/router';
 import { MatTableDataSource } from '@angular/material/table';
 import { players } from '../players';
 import { ApiService } from '../api.service';
 import { flags } from '../img';
+import { AuthService } from '../auth.service';
+
 
 @Component({
     selector: 'app-match-details',
@@ -27,15 +28,20 @@ export class MatchDetailsComponent implements OnInit {
     domaciFlag: string;
     stadion: string; divaci: string; datum: string; rozhodca: string
 
-    constructor(private route: ActivatedRoute, private api: ApiService) {
+    isAdmin = this.auth.getIsAdmin;
+    assistIn:string;timeIn:any;
+    showAddGoal=false;
+    showAddGoalText="+1";
+    zostava;
+    allGoals;
+    id;
+    constructor(private route: ActivatedRoute, private api: ApiService, private auth: AuthService) {
     }
     ngOnInit() {
-
-
         this.route.paramMap.subscribe(params => {
-            var id = params.get('matchID');
-            this.api.getDetailMatch(id).subscribe(data => {
-                var r= data['Rozhodci'][0];
+            this.id = params.get('matchID');
+            this.api.getDetailMatch(this.id).subscribe(data => {
+                var r = data['Rozhodci'][0];
                 this.rozhodca = r['jmeno'];
                 this.datum = (data['datum']);
                 this.divaci = data['pocet_divaku'];
@@ -43,22 +49,30 @@ export class MatchDetailsComponent implements OnInit {
                 var hoste = data['hoste'];
                 var domaci = data['domaci'];
                 var goly = data['Goly'];
+                this.allGoals=goly;
                 var striedanie = data['Stridani'];
                 this.hostiaFlag = flags[hoste['id_team'] - 1];
                 this.domaciFlag = flags[domaci['id_team'] - 1];
 
                 var domaciSquad = domaci['sestava'];
+                
                 var hosteSquad = hoste['sestava'];
+                this.zostava=domaciSquad.concat(hosteSquad);
                 domaciSquad.forEach(function (element, i) {
                     if (i < 11)
                         element.poz = "11";
                     else
                         element.poz = "N";
-                    element.goals = 0;
-
+                    element.goals=0;
+                    element.goalsTime=[];
+                    element.ass=[];
                     goly.forEach(element2 => {
-                        if (element['name'].includes(element2['hrac1']))
+                        if (element['name'].includes(element2['hrac1'])){
                             element.goals++;
+                            element.goalsTime.push(element2.cas);
+                            element.ass.push(element2.hrac2);
+                            console.log(element['name'],element2['hrac1'],element.goals)
+                        }
                     });
                 });
                 hosteSquad.forEach(function (element, i) {
@@ -116,5 +130,69 @@ export class MatchDetailsComponent implements OnInit {
         var arr = new Array(+n);
 
         return arr;
+    }
+    addGoal(n,a:string) {
+        
+        if (this.showAddGoalText=="+1"){ 
+            this.showAddGoalText="OK";
+            this.showAddGoal=true;
+        }
+        else{
+            this.showAddGoalText="OK";
+            n.goalsTime.push(a);
+            n.ass.push(n.assistIn);
+            this.showAddGoalText="+1";
+            this.showAddGoal=false;
+            n.goals++;
+            console.log(this.timeIn);
+        }
+        
+    }
+    loginUser(event) {
+        event.preventDefault()
+        const target = event.target
+        const username = target.querySelector('#username').value
+        console.log(username);
+    }
+    removeGoal(n) {
+        if (n.goals > 0)
+            n.goals--;
+    }
+    sendPost(){
+
+    }
+    showTime(n,id){
+        return "minuta:"+n.goalsTime[id]+"| assist:"+n.ass[id];
+    }
+    selected:string;
+    goal={
+        id:0,
+        gol_cas:0,
+        gol_typ:"",
+        polovina_zapasu:"",
+        zapa:0,
+        hrac1:"",
+        hrac2:""
+        
+    };
+    striedanie={
+        id:0,
+        cas:0,
+        hrac_id_in:"",
+        hrac_id_out:"",
+        zapa:0
+
+    };
+    deletegoal;
+    newGoal(e){
+        this.goal.zapa=+this.id;
+        console.log(this.goal);
+    }
+    deleteGoal(e){
+        console.log(this.deletegoal);
+    }
+    newStriedanie(e){
+        this.striedanie.zapa=+this.id;
+        console.log(this.striedanie);
     }
 }
