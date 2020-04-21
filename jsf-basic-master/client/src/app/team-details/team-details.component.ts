@@ -21,6 +21,7 @@ export class TeamDetailsComponent implements OnInit {
     isLogged: boolean;
     teamId: number;
     inFavs = false;
+    matchID:string;
 
     displayedColumnsMatches: string[] = ['datum', 'home', 'score', 'away','faza'];
     DSmatches = new MatTableDataSource(mmatches);
@@ -64,5 +65,8 @@ export class TeamDetailsComponent implements OnInit {
     deleteFav() {
         console.log("delete fav")
         this.inFavs = false;
+    }
+    onHover(id) {
+        this.matchID = id;
     }
 }

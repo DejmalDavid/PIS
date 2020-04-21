@@ -47,7 +47,47 @@ export class AuthService {
     })
   }*/
 
-
+  sendGoal(id,gol_cas,gol_typ,polovina_zapasu,zapa,hrac1,hrac2) {
+    return this.http.post<myData>('rest/gol', {
+      id,
+      gol_cas,
+      gol_typ,
+      polovina_zapasu,
+      zapa,
+      hrac1,
+      hrac2
+    })
+  }
+  deleteGoal(id) {
+    return this.http.delete('rest/gol/'+id, {
+    })
+  }
+  sendSub(id,cas,hrac_id_in,hrac_id_out,zapa) {
+    return this.http.post('rest/stridani', {
+      id,
+      cas,
+      hrac_id_in,
+      hrac_id_out,
+      zapa
+    })
+  }
+  deleteSub(id) {
+    return this.http.delete('rest/stridani/'+id, {
+    })
+  }
+  initSquad(zapa,tym){
+    return this.http.post('rest/sestava/', {
+      zapa,
+      tym
+    })
+    
+  }
+  sendSquad(hrac:string){
+    return this.http.post('rest/sestavahrac/',{
+      hrac
+   
+    })
+  }
   setRights(value: number) {
       if (value == 1) {
         localStorage.setItem('valid', value.toString());

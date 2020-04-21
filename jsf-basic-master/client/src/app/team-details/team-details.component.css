@@ -38,10 +38,12 @@ h3 {
   height: 100% !important;
   overflow: scroll;
 }
-.statsTable{
+
+.statsTable {
   display: block;
   height: fit-content;
 }
+
 .stats>::ng-deep .mat-figure {
   height: fit-content;
 }
@@ -49,11 +51,16 @@ h3 {
 .mat-column-matches, .mat-column-assist, .mat-column-goals, .mat-column-position, .mat-column-vek {
   text-align: center !important;
 }
+
 th.mat-sort-header-sorted {
   color: black;
 }
 
 .cbutton {
-    display: flex;
-    justify-content: center;
+  display: flex;
+  justify-content: center;
+}
+
+.match td {
+  cursor: pointer;
 }

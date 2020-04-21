@@ -62,4 +62,13 @@ export class ApiService {
   getDetailMatch(n:string){
     return this.http.get("rest/zapas/"+n)
   }
+  getAllTeam(){
+    return this.http.get("rest/tym/all");
+  }
+  getPlayers(n:number){
+    return this.http.get("rest/hrac/team/"+n);
+  }
+  getVyradovaciaFaza(){
+    return this.http.get("rest/zapas/faze");
+  }
 }
