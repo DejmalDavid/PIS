@@ -118,6 +118,20 @@ public class UzivatelAPI
        		return Response.status(Status.NOT_FOUND).entity("{\"Success\": \"false\"}").build();
    	}
     
+    @Path("/email/{email}")
+    @GET
+    @Produces(MediaType.APPLICATION_JSON) 
+    public Response  getUzivatel(@PathParam("email") String email) throws NamingException 
+    {
+    	Uzivatel ot = uzivatelMgr.findWithEmail(email);
+    	
+    	if(ot != null)
+    		return Response.ok(ot).build();
+    	else	
+    		return Response.status(Status.NOT_FOUND).entity("{\"Success\": \"false\"}").build();
+    		
+    }
+    
     @Path("/oblibene/{email}")
     @GET
     @Produces(MediaType.APPLICATION_JSON) 

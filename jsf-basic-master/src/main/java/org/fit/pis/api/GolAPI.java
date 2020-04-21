@@ -14,6 +14,7 @@ import javax.naming.NamingException;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.ws.rs.Consumes;
+import javax.ws.rs.DELETE;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
 import javax.ws.rs.PUT;
@@ -27,6 +28,9 @@ import javax.ws.rs.core.Response;
 import javax.ws.rs.core.Response.Status;
 
 import org.fit.pis.data.Gol;
+import org.fit.pis.data.Sestava;
+import org.fit.pis.data.SestavaHrac;
+import org.fit.pis.data.Stridani;
 import org.fit.pis.models.GolOutput;
 import org.fit.pis.service.GolManager;
 
@@ -106,8 +110,63 @@ public class GolAPI
     public String postJson(Gol gol)
     {
     	golMgr.save(gol);
+    	
+    	
+		for(Sestava sestava: gol.getZapa().getSestavas())
+		{
+			for(SestavaHrac sesHrac:sestava.getSestavaHracs2())
+			{
+				if(sesHrac.getHrac().getId()==gol.getHrac1().getId())
+				{
+					if(sestava.getHostujici()==0)
+					{//sem domaci
+						gol.getZapa().setDomaci_tym_skore(gol.getZapa().getDomaci_tym_skore()+1);
+					}
+					else 
+					{
+						gol.getZapa().setHost_tym_skore(gol.getZapa().getHost_tym_skore()+1);
+					}
+				}
+			}
+		}
     	return "ok";
     }
 
+    @Path("/{id}")
+	@DELETE
+	@Produces(MediaType.APPLICATION_JSON)
+	public Response deleteGolById(@PathParam("id") int id) {
+    	Gol gol = golMgr.find(id);
+    	golMgr.remove(gol);
+    	if (gol != null)
+    	{
+    		for(Sestava sestava: gol.getZapa().getSestavas())
+    		{
+    			for(SestavaHrac sesHrac:sestava.getSestavaHracs2())
+    			{
+    				if(sesHrac.getHrac().getId()==gol.getHrac1().getId())
+    				{
+    					if(sestava.getHostujici()==0)
+    					{//sem domaci
+    						gol.getZapa().setDomaci_tym_skore(gol.getZapa().getDomaci_tym_skore()-1);
+    					}
+    					else 
+    					{
+    						gol.getZapa().setHost_tym_skore(gol.getZapa().getHost_tym_skore()-1);
+    					}
+    				}
+    			}
+    		}
+    	
+    		return Response.status(Status.OK).entity("{\"Success\": \"true\"}").build();
+    	}
+    	else
+    	{
+    		return Response.status(Status.NOT_FOUND).entity("{\"Success\": \"false\"}").build();
+    	}
+    	
+    	
+	}
+    
 }
 

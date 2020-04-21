@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { AuthService } from '../auth.service';
 import { Router } from '@angular/router';
+import { ApiService } from '../api.service';
 
 @Component({
     selector: 'app-login-screen',
@@ -11,7 +12,7 @@ import { Router } from '@angular/router';
 export class LoginScreenComponent implements OnInit {
     data;
     
-    constructor(private Auth: AuthService, private router: Router) { }
+    constructor(private Auth: AuthService, private router: Router, private api: ApiService) { }
 
     ngOnInit() { }
 
@@ -24,18 +25,28 @@ export class LoginScreenComponent implements OnInit {
         this.Auth.loginUser(username, password).subscribe(
             data => {
                 if (data.Success) {
-                    if (username == "admin") {
-                        this.router.navigate(['admin'])
-                        this.Auth.setIsAdmin(true)
-                        this.Auth.setName(username)
-                        console.log("admin logged")
-                    }
-                    else {
-                        this.router.navigate(['/'])
-                        this.Auth.setIsLogged(true)
-                        this.Auth.setName(username)
-                        console.log("user logged")
-                    }
+                    this.api.getUserInfo(username).subscribe(info => {
+                        this.Auth.setRights(info.opravneni)                                           
+                        if (this.Auth.getIsLogged) {
+                            this.router.navigate(['/'])                    
+                            this.Auth.setName(username)
+                            console.log("user logged")
+                        }
+                        else if (this.Auth.getIsAdmin) {
+                            this.router.navigate(['admin'])
+                            this.Auth.setName(username)
+                            console.log("admin logged")
+                        }
+                        else if (this.Auth.getIsSuperAdmin) {
+                            this.router.navigate(['superadmin'])
+                            this.Auth.setName(username)
+                            console.log("superadmin logged")
+                        }
+                        else {
+                            console.log(data)
+                            window.alert("Chyba prihlásenia")
+                        }
+                    })
                 }
                 else {
                     console.log(data)

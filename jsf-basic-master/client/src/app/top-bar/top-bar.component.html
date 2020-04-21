@@ -3,16 +3,24 @@
     <div>
         <span class="appname"><a  [routerLink]="['/']"> MS vo futbale</a></span>
         <span><a  [routerLink]="['matches']"> Zápasy</a></span>
-        <span *ngIf="!isAdmin && !isLogged"><a  [routerLink]="['login']">Login</a></span>
-        <span *ngIf="isAdmin"><a  [routerLink]="['admin']">Admin</a></span>
+        <span *ngIf="!isAdmin && !isLogged && !isSuperAdmin"><a  [routerLink]="['login']">Login</a></span>
+        <span *ngIf="isAdmin || isSuperAdmin"><a  [routerLink]="['admin']">Admin</a></span>
         <span *ngIf="isLogged"><a  [routerLink]="['favorite']">Obľúbené</a></span>
-        <span *ngIf="isLogged || isAdmin"><a  [routerLink]="['/']" (click)="logout()">Odhlásiť</a></span>
+        <span *ngIf="isSuperAdmin"><a  [routerLink]="['superadmin']">Správa</a></span>
+        <span *ngIf="isLogged || isAdmin || isSuperAdmin"><a  [routerLink]="['/']" (click)="logout()">Odhlásiť</a></span>
     </div>
-    <form class="search-input">
-        <mat-form-field appearance="fill">
-          <input matInput placeholder="Vyhľadávanie">
+    <div>
+        <mat-form-field appearance="fill" class="search-input comb">
+            <mat-select [(value)]="searchMode">
+            <mat-option value="Tymy">Tím</mat-option>
+            <mat-option value="Zapasy">Zápas</mat-option>
+            </mat-select>
         </mat-form-field>
-    </form>    
+        <mat-form-field appearance="fill" class="search-input">
+            <input *ngIf="searchMode == 'Tymy'" matInput (keyup.enter)="search($event)" placeholder="Vyhľadaj tím">
+            <input *ngIf="searchMode == 'Zapasy'" matInput (keyup.enter)="search($event)" placeholder="Vyhľadaj zápas">
+        </mat-form-field>
+    </div>    
 </mat-toolbar>
 <mat-toolbar class="navbar hidden">
     <span><a  [routerLink]="['/']"> MS vo futbale</a></span>

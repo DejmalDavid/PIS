@@ -11,16 +11,17 @@ interface myData {
 export class AuthService {
   @Output() getLoggedInName: EventEmitter<any> = new EventEmitter();
   
-  private isAdmin = localStorage.getItem('adminIn') || false
-  private isLogged = localStorage.getItem('loggedIn') || false
+  private isSuperAdmin = false
+  private isAdmin = false
+  private isLogged = false
   private username = localStorage.getItem('username') || 'Signin'
 
   constructor(private http: HttpClient) { }
 
   refreshState() {
-    this.setIsAdmin(JSON.parse(localStorage.getItem('adminIn') || 'false'))
-    this.setIsLogged(JSON.parse(localStorage.getItem('loggedIn') || 'false'))
+    this.setRights(parseInt(localStorage.getItem('valid') || '0'))
     this.setName(localStorage.getItem('username') || 'Signin')
+    console.log(this.isSuperAdmin, this.isAdmin, this.isLogged, this.username)
   }
 
   loginUser(email, heslo) {
@@ -47,30 +48,48 @@ export class AuthService {
   }*/
 
 
+  setRights(value: number) {
+      if (value == 1) {
+        localStorage.setItem('valid', value.toString());
+        this.isLogged = true;
+      }
+      else if (value == 2) {
+        localStorage.setItem('valid', value.toString());
+        this.isAdmin = true;
+      }
+      else if (value == 3) {
+        localStorage.setItem('valid', value.toString());
+        this.isSuperAdmin = true;
+      }
+      else {
+        this.logout()
+      }
+  }
+
+  get getIsSuperAdmin() {
+    return this.isSuperAdmin;
+  }
 
   setIsAdmin(value: boolean) {
       this.isAdmin = value;
-      localStorage.setItem('adminIn', value.toString());
-      this.getLoggedInName.emit(this.username);
   } 
 
   get getIsAdmin() {
-    return JSON.parse(localStorage.getItem('adminIn') || this.isAdmin.toString());
+    return this.isAdmin;
   }
 
   setIsLogged(value: boolean) {
     this.isLogged = value;
-    localStorage.setItem('loggedIn', value.toString());
-    this.getLoggedInName.emit(this.username);
   } 
 
   get getIsLogged() {
-    return JSON.parse(localStorage.getItem('loggedIn') || this.isLogged.toString());
+    return this.isLogged;
   }
 
   setName(value: string) {
     this.username = value;
     localStorage.setItem('username', value);
+    this.getLoggedInName.emit(this.username);
   } 
 
   get getName() {
@@ -78,13 +97,12 @@ export class AuthService {
   }
 
   logout() {
+    this.isSuperAdmin = false;
     this.isAdmin = false;
     this.isLogged = false;
     this.username = "Signin";
-    localStorage.setItem('adminIn', 'false');
-    localStorage.setItem('loggedIn', 'false');
     localStorage.setItem('username', 'Signin');
+    localStorage.setItem('valid', '0');
     this.getLoggedInName.emit(this.username);
   }
-
 }

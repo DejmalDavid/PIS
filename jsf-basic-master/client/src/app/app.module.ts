@@ -10,7 +10,6 @@ import { LoginScreenComponent } from './login-screen/login-screen.component';
 import { MatchDetailsComponent } from './match-details/match-details.component';
 import { MatchListComponent } from './match-list/match-list.component';
 import { PlayerDetailsComponent } from './player-details/player-details.component';
-import { SearchResultsComponent } from './search-results/search-results.component';
 import { TeamDetailsComponent } from './team-details/team-details.component';
 import { TopBarComponent } from './top-bar/top-bar.component';
 import { UserProfileComponent } from './user-profile/user-profile.component';
@@ -34,6 +33,7 @@ import { TableMatchesComponent } from './table-matches/table-matches.component';
 import { MatTableModule } from '@angular/material/table';
 import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatSortModule } from '@angular/material/sort';
+import {MatSelectModule} from '@angular/material/select';
 import { AdminComponent } from './admin/admin.component';
 import { AuthGuard } from './auth.guard';
 import { AuthService } from './auth.service';
@@ -42,6 +42,12 @@ import { FavoriteComponent } from './favorite/favorite.component';
 import { LogGuard } from './log.guard';
 import { FormsModule } from '@angular/forms';
 
+import { SuperadminComponent } from './superadmin/superadmin.component';
+import { SuperGuard } from './super.guard';
+import { LoginGuard } from './login.guard';
+import { SearchTeamComponent } from './search-team/search-team.component';
+import { SearchMatchComponent } from './search-match/search-match.component';
+import { LoadingComponent } from './loading/loading.component';
 
 
 @NgModule({
@@ -53,7 +59,6 @@ import { FormsModule } from '@angular/forms';
     MatchDetailsComponent,
     MatchListComponent,
     PlayerDetailsComponent,
-    SearchResultsComponent,
     TeamDetailsComponent,
     TopBarComponent,
     UserProfileComponent,
@@ -62,7 +67,11 @@ import { FormsModule } from '@angular/forms';
     RegisterScreenComponent,
     TableMatchesComponent,
     AdminComponent,
-    FavoriteComponent
+    FavoriteComponent,
+    SuperadminComponent,
+    SearchTeamComponent,
+    SearchMatchComponent,
+    LoadingComponent
   ],
   imports: [
     BrowserModule,
@@ -75,12 +84,16 @@ import { FormsModule } from '@angular/forms';
       { path: '', component: DashboardComponent},
       { path: 'group/:source', component: GroupDetailsComponent},
       { path: 'team/:nation', component:TeamDetailsComponent},
-      { path: 'login', component:LoginScreenComponent},
+      { path: 'login', component:LoginScreenComponent, canActivate: [LoginGuard]},
       { path: 'match/:matchID', component:MatchDetailsComponent},
       { path: 'register', component:RegisterScreenComponent},
       { path: 'matches', component:TableMatchesComponent},
       { path: 'admin', component:AdminComponent, canActivate: [AuthGuard]},
-      { path: 'favorite', component:FavoriteComponent, canActivate: [LogGuard]}
+      { path: 'superadmin', component:SuperadminComponent, canActivate: [SuperGuard]},
+      { path: 'favorite', component:FavoriteComponent, canActivate: [LogGuard]},
+      { path: 'search/matches/:name', component:SearchMatchComponent},
+      { path: 'search/teams/:name', component:SearchTeamComponent},
+      { path: 'loading/:url/:data', component:LoadingComponent},
     ]),
     LayoutModule,
     MatToolbarModule,
@@ -93,9 +106,10 @@ import { FormsModule } from '@angular/forms';
     MatPaginatorModule,
     MatSortModule,
     MatProgressSpinnerModule,
-    FormsModule
+    FormsModule,
+    MatSelectModule
   ],
-  providers: [AuthService, ApiService, AuthGuard, LogGuard],
+  providers: [AuthService, ApiService, AuthGuard, LogGuard, SuperGuard, LoginGuard],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
