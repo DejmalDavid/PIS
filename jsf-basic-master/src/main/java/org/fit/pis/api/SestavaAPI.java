@@ -14,6 +14,7 @@ import javax.ws.rs.PUT;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
+import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.Context;
 import javax.ws.rs.core.UriInfo;
 import javax.ws.rs.core.MediaType;
@@ -77,10 +78,10 @@ public class SestavaAPI
     
 
     @SuppressWarnings("unchecked")
-	@Path("/zapas/team/{id_team}{id_zapas}")
+	//@Path("/zapas/team/{id_team}{id_zapas}")
     @GET
     @Produces(MediaType.APPLICATION_JSON)
-    public List<JSONObject> getByIDs(@PathParam("id_team") String idTeam,@PathParam("id_zapas") String idZapas) throws NamingException 
+    public List<JSONObject> getByIDs(@QueryParam("id_team") String idTeam,@QueryParam("id_zapas") String idZapas) throws NamingException 
     {
     	JSONArray array = new JSONArray();
     	
@@ -93,6 +94,7 @@ public class SestavaAPI
 					JSONObject sestavaJson = new JSONObject();
 					sestavaJson.put("id_sestava", sestava.getId());
 					sestavaJson.put("id_team", sestava.getTym().getId());
+					sestavaJson.put("team_name", sestava.getTym().getNazev());
 					sestavaJson.put("id_zapas", sestava.getZapa().getId());
 					sestavaJson.put("hoste", sestava.getHostujici());
 					array.add(sestavaJson);
