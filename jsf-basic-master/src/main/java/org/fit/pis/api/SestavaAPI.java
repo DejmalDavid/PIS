@@ -23,6 +23,7 @@ import javax.ws.rs.core.Response.Status;
 import org.fit.pis.data.Sestava;
 import org.fit.pis.data.SestavaHrac;
 import org.fit.pis.service.SestavaManager;
+import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 
 /*
@@ -74,22 +75,33 @@ public class SestavaAPI
     }
 
     
-    @Path("/zapas/{id}")
+
+    @SuppressWarnings("unchecked")
+	@Path("/zapas/team/{id_team}{id_zapas}")
     @GET
     @Produces(MediaType.APPLICATION_JSON)
-    public JSONObject getByMatch(@PathParam("id") String idString) throws NamingException 
+    public List<JSONObject> getByIDs(@PathParam("id_team") String idTeam,@PathParam("id_zapas") String idZapas) throws NamingException 
     {
-    	JSONObject sestavaJson = new JSONObject();
+    	JSONArray array = new JSONArray();
+    	
 		for(Sestava sestava:sestavaMgr.findAll())
 		{
-			for(SestavaHrac sesHrac:sestava.getSestavaHracs2())
+			if(sestava.getTym().getId()==Integer.valueOf(idTeam))
 			{
-				System.out.println("Ahoj");
-				
+				if(sestava.getZapa().getId()==Integer.valueOf(idZapas))
+				{
+					JSONObject sestavaJson = new JSONObject();
+					sestavaJson.put("id_sestava", sestava.getId());
+					sestavaJson.put("id_team", sestava.getTym().getId());
+					sestavaJson.put("id_zapas", sestava.getZapa().getId());
+					sestavaJson.put("hoste", sestava.getHostujici());
+					array.add(sestavaJson);
+				}
 			}
 		}
-    	return sestavaJson;
+    	return array;
     }
+    
     
     @PUT
     @Consumes(MediaType.APPLICATION_JSON)
