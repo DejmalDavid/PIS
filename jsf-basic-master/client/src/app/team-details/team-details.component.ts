@@ -6,6 +6,7 @@ import {MatSort} from '@angular/material/sort';
 import { ActivatedRoute } from '@angular/router';
 import { ApiService } from '../api.service';
 import { flags } from '../img';
+import { AuthService } from '../auth.service';
 
 @Component({
     selector: 'app-team-details',
@@ -15,7 +16,11 @@ import { flags } from '../img';
 
 export class TeamDetailsComponent implements OnInit {
     constructor(private route: ActivatedRoute,
-        private api: ApiService) { }
+        private api: ApiService, private auth: AuthService) { }
+
+    isLogged: boolean;
+    teamId: number;
+    inFavs = false;
 
     displayedColumnsMatches: string[] = ['datum', 'home', 'score', 'away','faza'];
     DSmatches = new MatTableDataSource(mmatches);
@@ -28,15 +33,36 @@ export class TeamDetailsComponent implements OnInit {
     imgSrc:string;
     ngOnInit() {
         
-
+        this.isLogged = this.auth.getIsLogged
         this.route.paramMap.subscribe(params => {
-            
-            var id = params.get('nation');
-            this.imgSrc = flags[(+id)-1];
-            this.api.getNationPlayers(id).subscribe((data: [])=>{
+            this.teamId = parseInt(params.get('nation'));
+            this.imgSrc = flags[(this.teamId)-1];
+            this.api.getNationPlayers(this.teamId.toString()).subscribe((data: [])=>{
                 this.DSplayers=new MatTableDataSource(data);
                 this.DSplayers.sort = this.sort;
             })
         });
-     }
+
+        this.api.getFavTeams(this.auth.getName).subscribe(data => {
+            for (let i = 0; i<data.length; i++) {
+                if (data[i].id == this.teamId) {
+                    this.inFavs = true;
+                }
+            }
+        })
+    }
+
+    addFav() {
+        this.api.getUserInfo(this.auth.getName).subscribe(data => {
+            this.api.addFavTeam(data.id, this.teamId).subscribe(() => {
+                console.log("added" + this.teamId)
+            });
+        })
+        this.inFavs = true;
+    }
+
+    deleteFav() {
+        console.log("delete fav")
+        this.inFavs = false;
+    }
 }

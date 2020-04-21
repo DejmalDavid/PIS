@@ -10,7 +10,6 @@ import { LoginScreenComponent } from './login-screen/login-screen.component';
 import { MatchDetailsComponent } from './match-details/match-details.component';
 import { MatchListComponent } from './match-list/match-list.component';
 import { PlayerDetailsComponent } from './player-details/player-details.component';
-import { SearchResultsComponent } from './search-results/search-results.component';
 import { TeamDetailsComponent } from './team-details/team-details.component';
 import { TopBarComponent } from './top-bar/top-bar.component';
 import { UserProfileComponent } from './user-profile/user-profile.component';
@@ -34,6 +33,7 @@ import { TableMatchesComponent } from './table-matches/table-matches.component';
 import { MatTableModule } from '@angular/material/table';
 import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatSortModule } from '@angular/material/sort';
+import {MatSelectModule} from '@angular/material/select';
 import { AdminComponent } from './admin/admin.component';
 import { AuthGuard } from './auth.guard';
 import { AuthService } from './auth.service';
@@ -43,6 +43,9 @@ import { LogGuard } from './log.guard';
 import { SuperadminComponent } from './superadmin/superadmin.component';
 import { SuperGuard } from './super.guard';
 import { LoginGuard } from './login.guard';
+import { SearchTeamComponent } from './search-team/search-team.component';
+import { SearchMatchComponent } from './search-match/search-match.component';
+import { LoadingComponent } from './loading/loading.component';
 
 
 @NgModule({
@@ -54,7 +57,6 @@ import { LoginGuard } from './login.guard';
     MatchDetailsComponent,
     MatchListComponent,
     PlayerDetailsComponent,
-    SearchResultsComponent,
     TeamDetailsComponent,
     TopBarComponent,
     UserProfileComponent,
@@ -64,7 +66,10 @@ import { LoginGuard } from './login.guard';
     TableMatchesComponent,
     AdminComponent,
     FavoriteComponent,
-    SuperadminComponent
+    SuperadminComponent,
+    SearchTeamComponent,
+    SearchMatchComponent,
+    LoadingComponent
   ],
   imports: [
     BrowserModule,
@@ -83,7 +88,10 @@ import { LoginGuard } from './login.guard';
       { path: 'matches', component:TableMatchesComponent},
       { path: 'admin', component:AdminComponent, canActivate: [AuthGuard]},
       { path: 'superadmin', component:SuperadminComponent, canActivate: [SuperGuard]},
-      { path: 'favorite', component:FavoriteComponent, canActivate: [LogGuard]}
+      { path: 'favorite', component:FavoriteComponent, canActivate: [LogGuard]},
+      { path: 'search/matches/:name', component:SearchMatchComponent},
+      { path: 'search/teams/:name', component:SearchTeamComponent},
+      { path: 'loading/:url/:data', component:LoadingComponent},
     ]),
     LayoutModule,
     MatToolbarModule,
@@ -95,7 +103,8 @@ import { LoginGuard } from './login.guard';
     MatTableModule,
     MatPaginatorModule,
     MatSortModule,
-    MatProgressSpinnerModule
+    MatProgressSpinnerModule,
+    MatSelectModule
   ],
   providers: [AuthService, ApiService, AuthGuard, LogGuard, SuperGuard, LoginGuard],
   bootstrap: [AppComponent]
