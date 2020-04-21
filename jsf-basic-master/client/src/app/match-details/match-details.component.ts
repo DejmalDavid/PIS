@@ -28,13 +28,14 @@ export class MatchDetailsComponent implements OnInit {
     domaciFlag: string;
     stadion: string; divaci: string; datum: string; rozhodca: string
 
-    isAdmin = this.auth.getIsAdmin;
+    isAdmin = this.auth.getIsSuperAdmin;
     assistIn:string;timeIn:any;
     showAddGoal=false;
     showAddGoalText="+1";
     zostava;
     allGoals;
     id;
+    striedanie;
     constructor(private route: ActivatedRoute, private api: ApiService, private auth: AuthService) {
     }
     ngOnInit() {
@@ -50,7 +51,8 @@ export class MatchDetailsComponent implements OnInit {
                 var domaci = data['domaci'];
                 var goly = data['Goly'];
                 this.allGoals=goly;
-                var striedanie = data['Stridani'];
+                this.striedanie = data['Stridani'];
+                var s=data['Stridani']
                 this.hostiaFlag = flags[hoste['id_team'] - 1];
                 this.domaciFlag = flags[domaci['id_team'] - 1];
 
@@ -86,7 +88,7 @@ export class MatchDetailsComponent implements OnInit {
                         if (element['name'].includes(element2['hrac1']))
                             element.goals++;
                     });
-                    striedanie.forEach(element3 => {
+                    s.forEach(element3 => {
                         if (element['id'] == element3['id_out']) {
                             element.out = element3['id_in'];
                         }
@@ -175,24 +177,44 @@ export class MatchDetailsComponent implements OnInit {
         hrac2:""
         
     };
-    striedanie={
+
+    deletegoal;
+    newGoal(e){
+        this.goal.zapa=+this.id;
+        //console.log(this.goal);
+        this.auth.sendGoal(this.goal.id,this.goal.gol_cas,this.goal.gol_typ,this.goal.polovina_zapasu,this.goal.zapa,this.goal.hrac1,this.goal.hrac2).subscribe(
+            data => {
+                if (data.Success) {
+                    console.log("true");
+                }
+                else{
+                    console.log("false");
+                }
+            });
+            
+    }
+    deleteGoal(e){
+        this.auth.deleteGoal(this.deletegoal).subscribe(data=>
+            console.log(data));
+    }
+    striedani={
         id:0,
         cas:0,
         hrac_id_in:"",
         hrac_id_out:"",
-        zapa:0
+        zapa:{id:0}
 
     };
-    deletegoal;
-    newGoal(e){
-        this.goal.zapa=+this.id;
-        console.log(this.goal);
-    }
-    deleteGoal(e){
-        console.log(this.deletegoal);
-    }
     newStriedanie(e){
-        this.striedanie.zapa=+this.id;
+        this.striedani.zapa.id=+this.id;
         console.log(this.striedanie);
+        this.auth.sendSub(this.striedani.id,+this.striedani.cas,this.striedani.hrac_id_in,this.striedani.hrac_id_out,this.striedani.zapa).subscribe(data=>{
+            console.log(data);
+        });
+    }
+    delSub;
+    DeleteSub(e){
+        this.auth.deleteSub(this.delSub).subscribe(data=>
+            console.log(data));
     }
 }

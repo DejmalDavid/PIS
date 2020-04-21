@@ -45,7 +45,7 @@
         </table>
     </mat-grid-tile>
     <mat-grid-tile>
-                <table mat-table [dataSource]="DSmatches" matSort>
+                <table mat-table [dataSource]="DSmatches" matSort class="match">
                     <ng-container matColumnDef="id">
                         <th mat-header-cell *matHeaderCellDef mat-sort-header> ID </th>
                         <td mat-cell *matCellDef="let element"> {{element.id}} </td>

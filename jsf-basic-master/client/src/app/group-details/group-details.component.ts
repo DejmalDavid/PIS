@@ -14,7 +14,7 @@ import { flagsIcon } from '../img';
     styleUrls: ['./group-details.component.css']
 })
 
-export class GroupDetailsComponent implements OnInit {
+export class GroupDetailsComponent implements OnInit { 
 
     displayedColumns: string[] = ['position', 'flag', 'name', 'zapasy', 'skore', 'body'];
     dataSource = new MatTableDataSource();

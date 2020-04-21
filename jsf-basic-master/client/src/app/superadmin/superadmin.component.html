@@ -1,1 +1,40 @@
-<p>superadmin works!</p>
+<div class="mat-elevation-z8">
+        <table mat-table [dataSource]="dataSource" class="full-width-table">
+
+            <ng-container matColumnDef="email">
+            <th mat-header-cell *matHeaderCellDef> Email </th>
+            <td mat-cell *matCellDef="let element"> {{element.email}} </td>
+            </ng-container>
+
+            <ng-container matColumnDef="jmeno">
+            <th mat-header-cell *matHeaderCellDef> Meno </th>
+            <td mat-cell *matCellDef="let element"> {{element.jmeno}} </td>
+            </ng-container>
+
+            <ng-container matColumnDef="prijmeni">
+            <th mat-header-cell *matHeaderCellDef> Priezvisko </th>
+            <td mat-cell *matCellDef="let element"> {{element.prijmeni}} </td>
+            </ng-container>
+
+            <ng-container matColumnDef="opravneni">
+                <th mat-header-cell *matHeaderCellDef> Oprávnenie </th>
+                <td mat-cell *matCellDef="let element; let i = index">  
+                    <mat-select (selectionChange)="changeRights(i)" [(value)]="rightsArray[i].opravneni">
+                        <mat-option [value]=2>Admin</mat-option>
+                        <mat-option [value]=1>User</mat-option>
+                    </mat-select>
+                </td>
+            </ng-container>
+
+            <ng-container matColumnDef="id">
+                <th mat-header-cell *matHeaderCellDef> Odstrániť užívatela </th>
+                <td mat-cell *matCellDef="let element"> 
+                    <button mat-raised-button color="accent" (click)="deleteUser(element.id)">Vymazať</button>
+                </td>
+            </ng-container>
+
+            <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+            <tr mat-row *matRowDef="let row; columns: displayedColumns;" [hidden]="row.opravneni == 3"></tr>
+        </table>
+        <mat-paginator [pageSizeOptions]="[10, 20, 50]" showFirstLastButtons></mat-paginator>
+</div>

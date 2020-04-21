@@ -35,3 +35,6 @@ td{
 .tab-group-list {
     margin-top: 50px;
 }
+table td{
+    cursor:pointer;
+}

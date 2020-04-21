@@ -1,5 +1,5 @@
-<button mat-raised-button color="primary" [routerLink]="['/','novazostava']">Nova Zostava</button>
-<mat-grid-list cols="4" rowHeight="150px">
+<button mat-raised-button color="primary" [routerLink]="['/','novazostava']" *ngIf="isAdmin">Nova Zostava</button>
+<mat-grid-list cols="4" rowHeight="150px" *ngIf="isAdmin">
     <mat-grid-tile>
         
         <div class="addgoal">
@@ -40,17 +40,17 @@
         <div >
             <h2>Pridat striedanie</h2>
             <form (ngSubmit)="newStriedanie(form1)" #form1="ngForm"> 
-                <mat-select [(ngModel)]="striedanie.hrac_id_in" name="in" placeholder="Hrac In">
+                <mat-select [(ngModel)]="striedani.hrac_id_in" name="in" placeholder="Hrac In">
                     <mat-option *ngFor="let hrac1 of zostava" [value]=hrac1.id >
                         {{hrac1.name}}
                     </mat-option>
                 </mat-select>
-                <mat-select [(ngModel)]="striedanie.hrac_id_out" name="out" placeholder="Hrac Out">
+                <mat-select [(ngModel)]="striedani.hrac_id_out" name="out" placeholder="Hrac Out">
                     <mat-option *ngFor="let hrac1 of zostava" [value]=hrac1.id >
                         {{hrac1.name}}
                     </mat-option>
                 </mat-select>
-                <input type="text" [(ngModel)]="striedanie.cas" name="timeStriedanie" id="" placeholder="Minuta Striedania">
+                <input type="text" [(ngModel)]="striedani.cas" name="timeStriedanie" id="" placeholder="Minuta Striedania">
                 <input type="submit" name="DeleteGOal" value="Delete">
             </form>
         </div>
@@ -58,14 +58,14 @@
     <mat-grid-tile>
         <div class="addgoal">
             <h2>Zmazat gol</h2>
-            <form (ngSubmit)="deleteGoal(form1)" #form1="ngForm"> 
-                <mat-select [(ngModel)]="deletegoal" name="allGoals" placeholder="allGoals">
-                    <mat-option *ngFor="let gol of allGoals" [value]=gol.id >
-                        {{gol.cas}} {{gol.hrac1}}
+            <form (ngSubmit)="DeleteSub(form1)" #form1="ngForm"> 
+                <mat-select [(ngModel)]="delSub" name="delelteStriedanie" placeholder="zmazat striedanie">
+                    <mat-option *ngFor="let str of striedanie" [value]="str.id_stridani">
+                        {{str.id_in}} -> {{str.id_out}}
                     </mat-option>
                 </mat-select>
                 
-                <input type="submit" name="DeleteGOal" value="Delete">
+                <input type="submit" name="DeleteSub" value="DeleteSub">
             </form>
         </div>
     </mat-grid-tile>

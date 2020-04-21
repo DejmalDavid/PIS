@@ -21,6 +21,7 @@ export class TeamDetailsComponent implements OnInit {
     isLogged: boolean;
     teamId: number;
     inFavs = false;
+    matchID:string;
 
     displayedColumnsMatches: string[] = ['datum', 'home', 'score', 'away','faza'];
     DSmatches = new MatTableDataSource(mmatches);
@@ -41,6 +42,10 @@ export class TeamDetailsComponent implements OnInit {
                 this.DSplayers=new MatTableDataSource(data);
                 this.DSplayers.sort = this.sort;
             })
+            this.api.getMatchesByTeam(+this.teamId).subscribe((data: [])=>{
+                this.DSmatches=new MatTableDataSource(data);
+            })
+
         });
 
         this.api.getFavTeams(this.auth.getName).subscribe(data => {
@@ -64,5 +69,8 @@ export class TeamDetailsComponent implements OnInit {
     deleteFav() {
         console.log("delete fav")
         this.inFavs = false;
+    }
+    onHover(id) {
+        this.matchID = id;
     }
 }

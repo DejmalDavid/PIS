@@ -15,6 +15,10 @@ export interface SearchTeamItem {
   id: number;
 }
 
+export interface innerId {
+  id ? : number;
+}
+
 @Injectable({
   providedIn: 'root'
 })
@@ -23,15 +27,41 @@ export class ApiService {
 
   constructor(private http: HttpClient) { }
 
-  addFavTeam(Uzivatelid:number, Tymid:number) {
+  deleteUser(id:number) {
+    return this.http.delete<any>('rest/uzivatel/'+id);
+  }
+
+  addFavTeam(uId:number, tId:number) {
+    let uzivatel: innerId = {};
+    let tym: innerId = {};
+
+    uzivatel.id = uId;
+    tym.id = tId;
+
     return this.http.post<any>('rest/oblibenetymy', {
-      Uzivatelid,
-      Tymid
+      uzivatel,
+      tym
+    }, { responseType: 'text' as 'json' })
+  }
+
+  updateUser(id, datum_reg, email, heslo, jmeno, opravneni, prijmeni) {
+    return this.http.post<any>('rest/uzivatel', {
+      id,
+      datum_reg,
+      email,
+      heslo,
+      jmeno,
+      opravneni,
+      prijmeni
     })
   }
 
   getSearch(n:string) {
     return this.http.get<any>("rest/search/"+n);
+  }
+
+  getAllUsers() {
+    return this.http.get<any>("rest/uzivatel/list");
   }
 
   getUserInfo(n:string) {
@@ -40,6 +70,9 @@ export class ApiService {
 
   getAllMatches() {
     return this.http.get<TableMatchesItem[]>("rest/zapas/list");
+  }
+  getMatchesByTeam(id:number) {
+    return this.http.get("rest/zapas/team/"+id);
   }
 
   getFavTeams(n:string) {
@@ -61,5 +94,14 @@ export class ApiService {
   }
   getDetailMatch(n:string){
     return this.http.get("rest/zapas/"+n)
+  }
+  getAllTeam(){
+    return this.http.get("rest/tym/all");
+  }
+  getPlayers(n:number){
+    return this.http.get("rest/hrac/team/"+n);
+  }
+  getVyradovaciaFaza(){
+    return this.http.get("rest/zapas/faze");
   }
 }

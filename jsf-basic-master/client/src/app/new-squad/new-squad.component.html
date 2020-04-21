@@ -1,20 +1,106 @@
-<mat-grid-list cols="2" rowHeight="150px">
-    <mat-grid-tile>
+<mat-grid-list cols="3" rowHeight="150px" >
+    <mat-grid-tile [colspan]="3">
         <div>
             <h2>Vyber zapas a tim</h2>
-            <form (ngSubmit)="chreateSquad(form1)" #form1="ngForm">
+            <form (ngSubmit)="initSquad(form1)" #form1>
                 <mat-select [(ngModel)]="zapas.tim_id" name="tim" placeholder="tim">
-                    <mat-option *ngFor="let hrac1 of zostava" [value]=hrac1.id>
-                        {{hrac1.name}}
+                    <mat-option *ngFor="let tim of timy" [value]=tim.id>
+                        {{tim.name}}
                     </mat-option>
                 </mat-select>
 
                 <input type="text" [(ngModel)]="zapas.id" name="time" id="" placeholder="ID zapasu">
-                <input type="submit" name="createMatch" value="submit">
+                <input type="submit" name="createMatch" value="Init Squad">
             </form>
         </div>
     </mat-grid-tile>
     <mat-grid-tile>
-        
+            <form (ngSubmit)="sendSquad(form1)" #form2>
+                <mat-select [(ngModel)]="hrac1" name="hrac1" placeholder="Hrac">
+                    <mat-option *ngFor="let hrac of hraciTimu" [value]=hrac>
+                        {{hrac.name}}
+                    </mat-option>
+                </mat-select>
+                <mat-select [(ngModel)]="hrac2" name="hrac2" placeholder="Hrac">
+                    <mat-option *ngFor="let hrac of hraciTimu" [value]=hrac.name>
+                        {{hrac.name}}
+                    </mat-option>
+                </mat-select>
+                <mat-select [(ngModel)]="hrac3" name="hrac3" placeholder="Hrac">
+                    <mat-option *ngFor="let hrac of hraciTimu" [value]=hrac.name>
+                        {{hrac.name}}
+                    </mat-option>
+                </mat-select>
+                <mat-select [(ngModel)]="hrac4" name="hrac4" placeholder="Hrac">
+                    <mat-option *ngFor="let hrac of hraciTimu" [value]=hrac.name>
+                        {{hrac.name}}
+                    </mat-option>
+                </mat-select>
+                <mat-select [(ngModel)]="hrac5" name="hrac5" placeholder="Hrac">
+                    <mat-option *ngFor="let hrac of hraciTimu" [value]=hrac.name>
+                        {{hrac.name}}
+                    </mat-option>
+                </mat-select>
+            </form>
     </mat-grid-tile>
+    <mat-grid-tile>
+        <form (ngSubmit)="sendSquad(form1)" #form2>
+            <mat-select [(ngModel)]="hrac6" name="hrac6" placeholder="Hrac">
+                <mat-option *ngFor="let hrac of hraciTimu" [value]=hrac.name>
+                    {{hrac.name}}
+                </mat-option>
+            </mat-select>
+            <mat-select [(ngModel)]="hrac7" name="hrac7" placeholder="Hrac">
+                <mat-option *ngFor="let hrac of hraciTimu" [value]=hrac.name>
+                    {{hrac.name}}
+                </mat-option>
+            </mat-select>
+            <mat-select [(ngModel)]="hrac8" name="hrac8" placeholder="Hrac">
+                <mat-option *ngFor="let hrac of hraciTimu" [value]=hrac.name>
+                    {{hrac.name}}
+                </mat-option>
+            </mat-select>
+            <mat-select [(ngModel)]="hrac9" name="hrac9" placeholder="Hrac">
+                <mat-option *ngFor="let hrac of hraciTimu" [value]=hrac.name>
+                    {{hrac.name}}
+                </mat-option>
+            </mat-select>
+            <mat-select [(ngModel)]="hrac10" name="hrac10" placeholder="Hrac">
+                <mat-option *ngFor="let hrac of hraciTimu" [value]=hrac.name>
+                    {{hrac.name}}
+                </mat-option>
+            </mat-select>
+
+            <input type="submit" name="createMatch" value="submit">
+        </form>
+</mat-grid-tile>
+<mat-grid-tile>
+    <form (ngSubmit)="sendSquad(form1)" #form2>
+        <mat-select [(ngModel)]="hrac11" name="hrac11" placeholder="Hrac">
+            <mat-option *ngFor="let hrac of hraciTimu" [value]=hrac.name>
+                {{hrac.name}}
+            </mat-option>
+        </mat-select>
+        <mat-select [(ngModel)]="hrac12" name="hrac12" placeholder="Hrac">
+            <mat-option *ngFor="let hrac of hraciTimu" [value]=hrac.name>
+                {{hrac.name}}
+            </mat-option>
+        </mat-select>
+        <mat-select [(ngModel)]="hrac13" name="hrac13" placeholder="Hrac">
+            <mat-option *ngFor="let hrac of hraciTimu" [value]=hrac.name>
+                {{hrac.name}}
+            </mat-option>
+        </mat-select>
+        <mat-select [(ngModel)]="hrac14" name="hrac14" placeholder="Hrac">
+            <mat-option *ngFor="let hrac of hraciTimu" [value]=hrac.name>
+                {{hrac.name}}
+            </mat-option>
+        </mat-select>
+        <mat-select [(ngModel)]="hrac15" name="hrac15" placeholder="Hrac">
+            <mat-option *ngFor="let hrac of hraciTimu" [value]=hrac.name>
+                {{hrac.name}}
+            </mat-option>
+        </mat-select>
+    </form>
+</mat-grid-tile>
 </mat-grid-list>
