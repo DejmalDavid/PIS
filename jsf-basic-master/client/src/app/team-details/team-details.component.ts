@@ -42,6 +42,10 @@ export class TeamDetailsComponent implements OnInit {
                 this.DSplayers=new MatTableDataSource(data);
                 this.DSplayers.sort = this.sort;
             })
+            this.api.getMatchesByTeam(+this.teamId).subscribe((data: [])=>{
+                this.DSmatches=new MatTableDataSource(data);
+            })
+
         });
 
         this.api.getFavTeams(this.auth.getName).subscribe(data => {

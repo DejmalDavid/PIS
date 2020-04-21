@@ -71,6 +71,9 @@ export class ApiService {
   getAllMatches() {
     return this.http.get<TableMatchesItem[]>("rest/zapas/list");
   }
+  getMatchesByTeam(id:number) {
+    return this.http.get("rest/zapas/team/"+id);
+  }
 
   getFavTeams(n:string) {
     return this.http.get<any[]>("rest/uzivatel/oblibene/"+n);
