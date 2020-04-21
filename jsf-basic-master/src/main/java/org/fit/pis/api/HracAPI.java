@@ -93,6 +93,7 @@ public class HracAPI
     		if(hrac.getTym().getId()==Integer.valueOf(idString))
     		{
     		JSONObject hracJson = new JSONObject();
+    		hracJson.put("id", hrac.getId());
     		hracJson.put("name", hrac.getJmeno()+" "+ hrac.getPrijmeni());
     		hracJson.put("position" , hrac.getPozice());
     		hracJson.put("vek", hrac.getVek());

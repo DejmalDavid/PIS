@@ -73,9 +73,11 @@ public class GolAPI
         	golJson.put("id", gol.getId());	   
         	golJson.put("cas",  gol.getGol_cas());	
         	golJson.put("polovina", gol.getPolovina_zapasu());	   
-        	golJson.put("zapas-id", gol.getZapa().getId());	
-        	golJson.put("hrac1",  gol.getHrac1().getPrijmeni());	   
+        	golJson.put("zapas_id", gol.getZapa().getId());	
+        	golJson.put("hrac1",  gol.getHrac1().getPrijmeni());	
+        	golJson.put("hrac1_id",  gol.getHrac1().getId());
         	golJson.put("hrac2",   gol.getHrac2().getPrijmeni());	
+        	golJson.put("hrac2_id",  gol.getHrac2().getId());
         	array.add(golJson);
     	}
     	
