@@ -113,7 +113,8 @@ public class GolAPI
     {
     	golMgr.save(gol);
     	
-    	
+    	System.out.println(gol.getZapa().getSestavas());
+    	/*
 		for(Sestava sestava: gol.getZapa().getSestavas())
 		{
 			for(SestavaHrac sesHrac:sestava.getSestavaHracs2())
@@ -130,7 +131,7 @@ public class GolAPI
 					}
 				}
 			}
-		}
+		}*/
     	return "ok";
     }
 
