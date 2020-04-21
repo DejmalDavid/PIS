@@ -1,13 +1,10 @@
+<button mat-raised-button color="primary" [routerLink]="['/','novazostava']">Nova Zostava</button>
 <mat-grid-list cols="4" rowHeight="150px">
     <mat-grid-tile>
         
         <div class="addgoal">
             <h2>pridat gol</h2>
             <form (ngSubmit)="newGoal(form1)" #form1="ngForm"> 
-                <!--<mat-select matNativeControl required [(value)]="goal.id_team" placeholder="Krajina">
-                    <mat-option value="1">Volvo</mat-option>
-                    <mat-option value="2">Saab</mat-option>
-                </mat-select>-->
                 <mat-select [(ngModel)]="goal.hrac1" name="hrac1" placeholder="hrac1">
                     <mat-option *ngFor="let hrac1 of zostava" [value]=hrac1.id >
                         {{hrac1.name}}

@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { mmatches } from '../matches';
 import { ActivatedRoute } from '@angular/router';
 import { MatTableDataSource } from '@angular/material/table';
 import { players } from '../players';
