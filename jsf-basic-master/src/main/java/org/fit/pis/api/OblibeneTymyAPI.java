@@ -13,6 +13,7 @@ import javax.ws.rs.PUT;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
+import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.Context;
 import javax.ws.rs.core.UriInfo;
 import javax.ws.rs.core.MediaType;
@@ -52,8 +53,15 @@ public class OblibeneTymyAPI
     @Produces(MediaType.APPLICATION_JSON)
     public List<OblibeneTymy> getJson() throws NamingException 
     {
-    	System.out.println("API3");
     	return sMgr.findAll();
+    }
+    
+    @Path("/mylist")
+    @GET
+    @Produces(MediaType.APPLICATION_JSON)
+    public List<OblibeneTymy> getJson(@QueryParam("tymid") int tid, @QueryParam("uzivatelid") int uid) throws NamingException 
+    {
+    	return sMgr.findAllByTymUzivatel(tid,uid);
     }
 
     @Path("/{id}")

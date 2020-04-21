@@ -41,7 +41,11 @@ public class OblibeneTymyManager
     public List<OblibeneTymy> findAll()
     {
     	System.out.println("Manager");
-    	return em.createQuery("SELECT o FROM Oblibene_tymy o", OblibeneTymy.class).getResultList();
+    	return em.createQuery("SELECT o FROM OblibeneTymy o", OblibeneTymy.class).getResultList();
     }
+
+	public List<OblibeneTymy> findAllByTymUzivatel(int tid, int uid) {
+		return em.createQuery("SELECT o FROM OblibeneTymy o WHERE o.tym.id = :tid AND o.uzivatel.id = :uid", OblibeneTymy.class).setParameter("tid", tid).setParameter("uid", uid).getResultList();
+	}
 
 }
