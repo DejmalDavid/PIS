@@ -61,7 +61,7 @@ public class SearchAPI
     {
     }
     
-    
+ /*   
     @SuppressWarnings("unchecked")
 	@Path("/{string}")
     @GET
@@ -85,9 +85,9 @@ public class SearchAPI
         	}
     	}
     	tymyJson.put("Tymy", tymypoleJson);
-    	allJson.add(tymyJson);
-    	
-    	//Kala je kus lamaka
+    	allJson.add(tymyJson);  	
+
+
     	for(Zapa zapas : zapaMgr.findAll()) {
 
     			Boolean flag = false;
@@ -142,6 +142,98 @@ public class SearchAPI
 					zapasJson.put("stadion",zapas.getStadion());
 					zapasJson.put("skupina",zapas.getSkupina());
 					zapasypoleJson.add(zapasJson);
+					flag=false;
+				}
+	    	}
+    	
+    	zapasyJson.put("Zapasy",zapasypoleJson);
+    	allJson.add(zapasyJson);
+    	
+    	
+    	return allJson;
+    }
+    */
+    
+    
+      
+    @SuppressWarnings("unchecked")
+	@Path("/{string}")
+    @GET
+    @Produces(MediaType.APPLICATION_JSON)
+    public List<JSONObject> getJsonSingle(@PathParam("string") String string) throws NamingException 
+    {
+
+    	JSONObject tymyJson = new JSONObject();
+    	JSONObject zapasyJson = new JSONObject();
+    	JSONArray allJson = new JSONArray();
+    	JSONArray zapasypoleJson = new JSONArray();
+    	JSONArray tymypoleJson = new JSONArray();
+    	
+    	
+    	for(Tym tym : tymMgr.Search(string)) {
+    		if(tym != null) {
+        		JSONObject tymJson = new JSONObject();
+        		tymJson.put("id", tym.getId());
+        		tymJson.put("nazev", tym.getNazev());
+        		tymypoleJson.add(tymJson);
+        	}
+    	}
+    	tymyJson.put("Tymy", tymypoleJson);
+    	allJson.add(tymyJson);  	
+
+
+    	for(Zapa zapas : zapaMgr.findAll()) {
+
+    			Boolean flag = false;
+		    	JSONObject zapasJson = new JSONObject();
+				
+
+				for(Sestava sestava: zapas.getSestavas())
+				{
+					System.out.println("NAZEV:" + sestava.getTym().getNazev().toLowerCase() + " obsahuje:" + string + "?" + sestava.getTym().getNazev().toLowerCase().contains(string.toLowerCase()));
+					if(sestava.getTym().getNazev().toLowerCase().contains(string.toLowerCase())) {
+						flag = true;
+						System.out.println("ID:" + zapas.getId());
+					}
+
+
+				}
+				if(flag) {	
+					for(Sestava sestava: zapas.getSestavas())
+					{
+						System.out.println("NAZEV:" + sestava.getTym().getNazev().toLowerCase() + " obsahuje:" + string + "?" + sestava.getTym().getNazev().toLowerCase().contains(string.toLowerCase()));
+						if(sestava.getTym().getNazev().toLowerCase().contains(string.toLowerCase())) {
+							flag = true;
+							System.out.println("ID:" + zapas.getId());
+						}
+					
+						//0=domaci
+	        			if(sestava.getHostujici()==0)
+	        			{
+	        				zapasJson.put("home", sestava.getTym().getNazev());
+	        				String pattern = "hh:mm dd.MM";
+	        				SimpleDateFormat simpleDateFormat = new SimpleDateFormat(pattern);
+	        				String date = simpleDateFormat.format(zapas.getDatum());
+	        				
+	        				zapasJson.put("datum",date);
+	        				zapasJson.put("score", zapas.getDomaci_tym_skore()+":"+zapas.getHost_tym_skore());
+	        			}
+	        			//1=hoste
+	        			else if(sestava.getHostujici()==1)
+	        			{
+	        				zapasJson.put("away", sestava.getTym().getNazev());
+	        			}	
+
+
+					}
+					
+					zapasJson.put("id",zapas.getId());
+					
+					if(zapasJson.isEmpty()==false)
+		        	{
+						zapasypoleJson.add(zapasJson);
+		        	}
+					
 					flag=false;
 				}
 	    	}
