@@ -1,6 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { MatTableDataSource } from '@angular/material/table';
 import { ApiService } from '../api.service';
+import { MatPaginator } from '@angular/material/paginator';
 
 export interface rights {
   id: number;
@@ -21,6 +22,7 @@ export class SuperadminComponent implements OnInit {
   displayedColumns: string[] = ['email', 'jmeno', 'prijmeni', 'id', 'opravneni'];
   dataSource = new MatTableDataSource();
   rightsArray: rights[] = [];
+  @ViewChild(MatPaginator, {static: true}) paginator: MatPaginator;
 
   constructor(private api: ApiService) {}
 
@@ -32,6 +34,7 @@ export class SuperadminComponent implements OnInit {
       this.dataSource = new MatTableDataSource(data);
       console.log(this.rightsArray)
     })
+    this.dataSource.paginator = this.paginator;
   }
 
   changeRights(i) {
