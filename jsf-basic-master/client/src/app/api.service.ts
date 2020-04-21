@@ -104,4 +104,8 @@ export class ApiService {
   getVyradovaciaFaza(){
     return this.http.get("rest/zapas/faze");
   }
+  getSquad(teamid:number,zapasid:number){
+    return this.http.get("rest/sestava?id_team="+teamid+"&id_zapas="+zapasid);
+
+  }
 }

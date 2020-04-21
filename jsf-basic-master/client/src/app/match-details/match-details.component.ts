@@ -172,24 +172,20 @@ export class MatchDetailsComponent implements OnInit {
         gol_cas:0,
         gol_typ:"",
         polovina_zapasu:"",
-        zapa:0,
-        hrac1:"",
-        hrac2:""
+        zapa:{id:0},
+        hrac1:{id:0},
+        hrac2:{id:0}
         
     };
 
     deletegoal;
     newGoal(e){
-        this.goal.zapa=+this.id;
+        this.goal.zapa.id=+this.id;
+        
         //console.log(this.goal);
-        this.auth.sendGoal(this.goal.id,this.goal.gol_cas,this.goal.gol_typ,this.goal.polovina_zapasu,this.goal.zapa,this.goal.hrac1,this.goal.hrac2).subscribe(
+        this.auth.sendGoal(this.goal.gol_cas,this.goal.gol_typ,this.goal.polovina_zapasu,this.goal.zapa,this.goal.hrac1,this.goal.hrac2).subscribe(
             data => {
-                if (data.Success) {
-                    console.log("true");
-                }
-                else{
-                    console.log("false");
-                }
+                console.log(data);
             });
             
     }
