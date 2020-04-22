@@ -68,7 +68,7 @@ export class AuthService {
       hrac_id_in,
       hrac_id_out,
       zapa
-    })
+    },{ responseType: 'text' as 'json' })
   }
   deleteSub(id) {
     return this.http.delete('rest/stridani/'+id, {
@@ -91,10 +91,10 @@ export class AuthService {
     },{ responseType: 'text' as 'json' })
   }
   updateMatch(stadion,pocet_divaku,rozhodci,id:number){
-    return this.http.post('rest/zapas/'+id,{
+    return this.http.post('rest/zapas/',{
+        id,
         stadion,
-        pocet_divaku,
-        rozhodci
+        pocet_divaku
     })
   }
   setRights(value: number) {
