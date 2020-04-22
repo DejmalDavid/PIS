@@ -38,20 +38,32 @@ export class MatchDetailsComponent implements OnInit {
     striedanie;
     homeIsEmpty;
     awayIsEmpty;
+    rozhod;
+    rozhodci={jmeno:""};
+    domaciSkore;
+    hostiaSkore;
+    skupina;
     constructor(private route: ActivatedRoute, private api: ApiService, private auth: AuthService) {
     }
     ngOnInit() {
         this.route.paramMap.subscribe(params => {
             this.id = params.get('matchID');
             this.api.getDetailMatch(this.id).subscribe(data => {
-                var r = data['Rozhodci'][0];
-                if (typeof r === 'undefined')
+                this.rozhod = data['Rozhodci'][0];
+                if (typeof this.rozhod === 'undefined'){
                     this.rozhodca = "";
-                else
-                    this.rozhodca = r['jmeno'];
+                    this.rozhodci.jmeno="";
+                }
+                else{
+                    this.rozhodca = this.rozhod['jmeno'];
+                    this.rozhodci.jmeno=this.rozhod.jmeno;
+                }
+                this.skupina=data['skupina'];
                 this.datum = (data['datum']);
                 this.divaci = data['pocet_divaku'];
+                this.pocet_divakov=this.divaci;
                 this.stadion = data['stadion'];
+                this.stadion1=this.stadion;
                 var hoste = data['hoste'];
                 var domaci = data['domaci'];
                 var goly = data['Goly'];
@@ -150,7 +162,8 @@ export class MatchDetailsComponent implements OnInit {
                 this.dataSourceSquadAway = hosteSquad;
                 
                 this.score = data['domaci_goly'] + ":" + data['hoste_goly']
-
+                this.domaciSkore=data['domaci_goly'];
+                this.hostiaSkore=data['hoste_goly']
 
             })
         })
@@ -188,12 +201,13 @@ export class MatchDetailsComponent implements OnInit {
         if (n.goals > 0)
             n.goals--;
     }
-    stadion1;pocet_divakov;rozhodci={jmeno:""}
+    stadion1;pocet_divakov=this.divaci;
     updateMatchInfo() {
         this.route.paramMap.subscribe(params => {
             var i = params.get('matchID');
             this.auth.updateMatch(this.stadion1,this.pocet_divakov,this.rozhodci.jmeno,+i).subscribe(data=>{
-                console.log(data);
+                console.log(this.stadion1,this.pocet_divakov,this.rozhodci.jmeno,+i)
+                console.log("aaa"+data);
             })
         });
         
