@@ -74,8 +74,9 @@ export class AuthService {
     return this.http.delete('rest/stridani/'+id, {
     })
   }
-  initSquad(zapa,tym){
+  initSquad(zapa,tym,hostujuci){
     return this.http.post('rest/sestava/', {
+      hostujuci,
       zapa,
       tym
     })
@@ -88,6 +89,13 @@ export class AuthService {
       hrac
    
     },{ responseType: 'text' as 'json' })
+  }
+  updateMatch(stadion,pocet_divaku,rozhodci,id:number){
+    return this.http.post('rest/zapas/'+id,{
+        stadion,
+        pocet_divaku,
+        rozhodci
+    })
   }
   setRights(value: number) {
       if (value == 1) {

@@ -30,9 +30,14 @@ export class NewSquadComponent implements OnInit {
     zapa.id = +this.zapas.id;
     var tym = { id: 0 };
     tym.id = this.zapas.tim_id;
-    this.auth.initSquad(zapa, tym).subscribe(data => {
-      console.log(data);
+    this.route.paramMap.subscribe(params=>{
+      
+      var hostujuci=+params.get('id');
+      this.auth.initSquad(zapa, tym,hostujuci).subscribe(data => {
+        console.log(data);
+      })
     })
+    
     this.api.getPlayers(this.zapas.tim_id).subscribe(hraci => {
       console.log(hraci);
       this.hraciTimu = hraci;
