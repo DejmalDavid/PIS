@@ -6,6 +6,7 @@ import java.util.List;
 
 
 import org.codehaus.jackson.annotate.JsonIgnore;
+import org.codehaus.jackson.annotate.JsonProperty;
 
 /**
  * The persistent class for the rozhodci database table.
@@ -37,7 +38,7 @@ public class Rozhodci implements Serializable {
 	public int getId() {
 		return this.id;
 	}
-
+	@JsonProperty
 	public void setId(int id) {
 		this.id = id;
 	}
@@ -45,7 +46,7 @@ public class Rozhodci implements Serializable {
 	public String getJmeno() {
 		return this.jmeno;
 	}
-
+	@JsonProperty
 	public void setJmeno(String jmeno) {
 		this.jmeno = jmeno;
 	}
@@ -53,7 +54,7 @@ public class Rozhodci implements Serializable {
 	public String getPrijmeni() {
 		return this.prijmeni;
 	}
-
+	@JsonProperty
 	public void setPrijmeni(String prijmeni) {
 		this.prijmeni = prijmeni;
 	}
@@ -61,7 +62,7 @@ public class Rozhodci implements Serializable {
 	public String getZeme() {
 		return this.zeme;
 	}
-
+	@JsonProperty
 	public void setZeme(String zeme) {
 		this.zeme = zeme;
 	}

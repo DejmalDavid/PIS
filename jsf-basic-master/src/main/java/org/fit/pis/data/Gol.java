@@ -84,7 +84,7 @@ public class Gol implements Serializable {
 		this.polovina_zapasu = polovina_zapasu;
 	}
 
-	//@JsonIgnore
+	@JsonIgnore
 	public Zapa getZapa() {
 		return this.zapa;
 	}
@@ -93,7 +93,7 @@ public class Gol implements Serializable {
 		this.zapa = zapa;
 	}
 	
-	//@JsonIgnore
+	@JsonIgnore
 	public Hrac getHrac1() {
 		return this.hrac1;
 	}
@@ -102,7 +102,7 @@ public class Gol implements Serializable {
 		this.hrac1 = hrac1;
 	}
 
-	//@JsonIgnore
+	@JsonIgnore
 	public Hrac getHrac2() {
 		return this.hrac2;
 	}
