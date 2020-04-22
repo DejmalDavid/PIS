@@ -37,19 +37,19 @@ public class Zapa implements Serializable {
 	private int skupina;
 
 	//bi-directional many-to-one association to Gol
-	@OneToMany(mappedBy="zapa",orphanRemoval=true)
+	@OneToMany(mappedBy="zapa",cascade=CascadeType.REFRESH)
 	private List<Gol> gols;
 
 	//bi-directional many-to-one association to RozhodciZapa
-	@OneToMany(mappedBy="zapa",orphanRemoval=true)
+	@OneToMany(mappedBy="zapa",cascade=CascadeType.REFRESH)
 	private List<RozhodciZapa> rozhodciZapas;
 
 	//bi-directional many-to-one association to Sestava
-	@OneToMany(mappedBy="zapa",orphanRemoval=true)
+	@OneToMany(mappedBy="zapa",cascade=CascadeType.REFRESH)
 	private List<Sestava> sestavas;
 
 	//bi-directional many-to-one association to Stridani
-	@OneToMany(mappedBy="zapa",orphanRemoval=true)
+	@OneToMany(mappedBy="zapa",cascade=CascadeType.REFRESH)
 	private List<Stridani> stridanis;
 
 	public Zapa() {

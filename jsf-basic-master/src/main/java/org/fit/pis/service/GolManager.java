@@ -29,7 +29,9 @@ public class GolManager
 	
     public void remove(Gol p)
     {
+    
     	em.remove(em.merge(p));
+    	
     }
     
     public Gol find(int id)

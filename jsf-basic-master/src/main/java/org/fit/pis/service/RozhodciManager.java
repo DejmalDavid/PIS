@@ -29,7 +29,9 @@ public class RozhodciManager
 	
     public void remove(Rozhodci p)
     {
+
     	em.remove(em.merge(p));
+
     }
     
     public Rozhodci find(int id)

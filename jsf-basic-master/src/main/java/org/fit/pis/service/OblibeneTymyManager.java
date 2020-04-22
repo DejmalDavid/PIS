@@ -30,7 +30,9 @@ public class OblibeneTymyManager
 	
     public void remove(OblibeneTymy p)
     {
+
     	em.remove(em.merge(p));
+
     }
     
     public OblibeneTymy find(int id)
