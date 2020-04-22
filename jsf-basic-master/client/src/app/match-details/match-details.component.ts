@@ -38,24 +38,27 @@ export class MatchDetailsComponent implements OnInit {
     homeIsEmpty;
     awayIsEmpty;
     rozhod;
-    rozhodci={jmeno:""};
+    rozhodcaAll;
+    rozhodci={id:0}
     domaciSkore;
     hostiaSkore;
     skupina;
     constructor(private route: ActivatedRoute, private api: ApiService, private auth: AuthService) {
     }
     ngOnInit() {
+        this.api.getAllRozhodca().subscribe(data=>{
+           this.rozhodcaAll=data;
+        });
         this.route.paramMap.subscribe(params => {
             this.id = params.get('matchID');
             this.api.getDetailMatch(this.id).subscribe(data => {
                 this.rozhod = data['Rozhodci'][0];
                 if (typeof this.rozhod === 'undefined'){
                     this.rozhodca = "";
-                    this.rozhodci.jmeno="";
                 }
                 else{
                     this.rozhodca = this.rozhod['jmeno'];
-                    this.rozhodci.jmeno=this.rozhod.jmeno;
+                    this.rozhodci = this.rozhod;
                 }
                 this.skupina=data['skupina'];
                 this.datum = (data['datum']);
@@ -235,10 +238,16 @@ export class MatchDetailsComponent implements OnInit {
     updateMatchInfo() {
         this.route.paramMap.subscribe(params => {
             var i = params.get('matchID');
-            this.auth.updateMatch(this.stadion1,this.pocet_divakov,this.rozhodci.jmeno,+i).subscribe(data=>{
-                console.log(this.stadion1,this.pocet_divakov,this.rozhodci.jmeno,+i)
+            /*this.auth.updateMatch(this.stadion1,this.pocet_divakov,this.rozhodci.id,+i).subscribe(data=>{
+                console.log(this.stadion1,this.pocet_divakov,this.rozhodci.id,+i)
                 console.log("aaa"+data);
-            })
+            });*/
+            console.log("rozhodca"+this.rozhodci);
+            var zapass={id:+this.id}
+            this.auth.updateReferee(zapass,this.rozhodci).subscribe(data=>
+                {
+                    console.log(data);
+                })
         });
         
     }

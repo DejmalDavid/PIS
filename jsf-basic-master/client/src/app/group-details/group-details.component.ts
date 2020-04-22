@@ -142,7 +142,6 @@ export class GroupDetailsComponent implements OnInit {
                     })
                     break;
                 default:
-                    this.dataSource = new MatTableDataSource(GROUPH);
                     this.api.getGroup("8").subscribe(data => {
                         var team = (data[0]);
                         var t = team[8];

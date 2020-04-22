@@ -97,6 +97,12 @@ export class AuthService {
         pocet_divaku
     })
   }
+  updateReferee(zapa,rozhodci){
+    return this.http.post('rest/rozhodcizapas',{
+      zapa,
+      rozhodci
+    },{ responseType: 'text' as 'json' })
+  }
   setRights(value: number) {
       if (value == 1) {
         localStorage.setItem('valid', value.toString());

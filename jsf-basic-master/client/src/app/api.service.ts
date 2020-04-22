@@ -121,4 +121,7 @@ export class ApiService {
     return this.http.get("rest/sestava?id_team="+teamid+"&id_zapas="+zapasid);
 
   }
+  getAllRozhodca(){
+    return this.http.get('rest/rozhodci/list');
+  }
 }

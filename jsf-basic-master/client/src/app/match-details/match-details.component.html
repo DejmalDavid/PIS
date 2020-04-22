@@ -89,7 +89,12 @@
             <form (ngSubmit)="updateMatchInfo()" #form1="ngForm" class="infoMatch"> 
                 <h3>Štadión:</h3><input class="infoInput1" type="text" name="stadion" placeholder={{stadion}} [(ngModel)]="stadion1" value={{stadion}}>
                 <h3> | Diváci:</h3><input class="infoInput2" type="text" name="divaci" placeholder={{divaci}} value={{divaci}} [(ngModel)]="pocet_divakov">
-                <h3> | Rozhodca:</h3><input class="infoInput3" type="text" name="rozhodca" placeholder={{rozhodca}} value={{rozhodca}} [(ngModel)]="rozhodci.jmeno">
+                <h3> | Rozhodca:</h3>
+                <mat-select required class="infoInput3" [(ngModel)]="rozhodci" name="in" placeholder="Rozhodca">
+                    <mat-option *ngFor="let roz of rozhodcaAll" [value]=roz >
+                        {{roz.jmeno}} {{roz.prijmeni}}
+                    </mat-option>
+                </mat-select>
                 <input type="submit" name="Save" value="Save">
             </form>
         </div>

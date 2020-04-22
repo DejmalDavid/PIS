@@ -24,10 +24,10 @@ export class TeamDetailsComponent implements OnInit {
     matchID:string;
 
     displayedColumnsMatches: string[] = ['datum', 'home', 'score', 'away','faza'];
-    DSmatches = new MatTableDataSource(mmatches);
+    DSmatches = new MatTableDataSource();
     
     displayedColumnsPlayers: string[] = ['number', 'name', 'vek','position','matches','goals','assist'];
-    DSplayers = new MatTableDataSource(players);
+    DSplayers = new MatTableDataSource();
     
     @ViewChild(MatSort, {static: true}) sort: MatSort;
 
