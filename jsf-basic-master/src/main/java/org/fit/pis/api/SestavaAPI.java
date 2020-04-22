@@ -21,6 +21,7 @@ import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import javax.ws.rs.core.Response.Status;
 
+import org.fit.pis.data.OblibeneTymy;
 import org.fit.pis.data.Sestava;
 import org.fit.pis.data.SestavaHrac;
 import org.fit.pis.service.SestavaManager;
@@ -121,5 +122,17 @@ public class SestavaAPI
     	sestavaMgr.save(sestava);
     	return "ok";
     }
+    
+    @Path("/{id}")
+   	@DELETE
+   	@Produces({ MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML })
+   	public Response deleteSestavaById(@PathParam("id") int id) {
+       	Sestava ot = sestavaMgr.find(id);
+       	sestavaMgr.remove(ot);
+       	if (ot != null)
+       		return Response.status(Status.OK).entity("{\"Success\": \"true\"}").build();
+       	else
+       		return Response.status(Status.NOT_FOUND).entity("{\"Success\": \"false\"}").build();
+   	}
 
 }

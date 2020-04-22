@@ -36,7 +36,7 @@ public class Uzivatel implements Serializable {
 	private String prijmeni;
 
 	//bi-directional many-to-one association to OblibeneTymy
-	@OneToMany(mappedBy="uzivatel",cascade=CascadeType.REFRESH)
+	@OneToMany(mappedBy="uzivatel",cascade=CascadeType.REFRESH, orphanRemoval=true)
 	private List<OblibeneTymy> oblibeneTymies;
 
 	public Uzivatel() {

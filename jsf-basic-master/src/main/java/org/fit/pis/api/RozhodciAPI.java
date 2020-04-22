@@ -7,6 +7,7 @@ import javax.ejb.EJB;
 import javax.ejb.Stateless;
 import javax.naming.NamingException;
 import javax.ws.rs.Consumes;
+import javax.ws.rs.DELETE;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
 import javax.ws.rs.PUT;
@@ -19,6 +20,7 @@ import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import javax.ws.rs.core.Response.Status;
 
+import org.fit.pis.data.OblibeneTymy;
 import org.fit.pis.data.Rozhodci;
 import org.fit.pis.service.RozhodciManager;
 
@@ -95,5 +97,17 @@ public class RozhodciAPI
     	rozhodciMgr.save(person);
     	return "ok";
     }
+    
+    @Path("/{id}")
+   	@DELETE
+   	@Produces({ MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML })
+   	public Response deleteRozhodciyById(@PathParam("id") int id) {
+       	Rozhodci o = rozhodciMgr.find(id);
+       	rozhodciMgr.remove(o);
+       	if (o != null)
+       		return Response.status(Status.OK).entity("{\"Success\": \"true\"}").build();
+       	else
+       		return Response.status(Status.NOT_FOUND).entity("{\"Success\": \"false\"}").build();
+   	}
 
 }
