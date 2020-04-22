@@ -4,6 +4,7 @@ import java.io.Serializable;
 import javax.persistence.*;
 
 import org.codehaus.jackson.annotate.JsonIgnore;
+import org.codehaus.jackson.annotate.JsonProperty;
 
 import java.sql.Timestamp;
 import java.util.List;
@@ -49,15 +50,18 @@ public class Uzivatel implements Serializable {
 	      this.prijmeni = prijmeni;
 	      this.opravneni = opravneni;
 	}
-
+	//kala
+	@JsonIgnore
 	public int getId() {
 		return this.id;
 	}
-
+	//kala
+	@JsonProperty
 	public void setId(int id) {
 		this.id = id;
 	}
-
+	//kala
+	@JsonIgnore
 	public Timestamp getDatum_reg() {
 		return this.datum_reg;
 	}
@@ -65,7 +69,8 @@ public class Uzivatel implements Serializable {
 	public void setDatum_reg(Timestamp datum_reg) {
 		this.datum_reg = datum_reg;
 	}
-
+	//kala
+	@JsonIgnore
 	public String getEmail() {
 		return this.email;
 	}
@@ -73,7 +78,8 @@ public class Uzivatel implements Serializable {
 	public void setEmail(String email) {
 		this.email = email;
 	}
-
+	//kala
+	@JsonIgnore
 	public String getHeslo() {
 		return this.heslo;
 	}
@@ -81,7 +87,8 @@ public class Uzivatel implements Serializable {
 	public void setHeslo(String heslo) {
 		this.heslo = heslo;
 	}
-
+	//kala
+	@JsonIgnore
 	public String getJmeno() {
 		return this.jmeno;
 	}
@@ -89,7 +96,8 @@ public class Uzivatel implements Serializable {
 	public void setJmeno(String jmeno) {
 		this.jmeno = jmeno;
 	}
-
+	//kala
+	@JsonIgnore
 	public int getOpravneni() {
 		return this.opravneni;
 	}
@@ -97,7 +105,8 @@ public class Uzivatel implements Serializable {
 	public void setOpravneni(int opravneni) {
 		this.opravneni = opravneni;
 	}
-
+	//kala
+	@JsonIgnore
 	public String getPrijmeni() {
 		return this.prijmeni;
 	}
@@ -105,7 +114,7 @@ public class Uzivatel implements Serializable {
 	public void setPrijmeni(String prijmeni) {
 		this.prijmeni = prijmeni;
 	}
-
+	
 	@JsonIgnore
 	public List<OblibeneTymy> getOblibeneTymies() {
 		return this.oblibeneTymies;
