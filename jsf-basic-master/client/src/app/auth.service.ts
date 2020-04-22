@@ -87,7 +87,7 @@ export class AuthService {
       sestava2,
       hrac
    
-    })
+    },{ responseType: 'text' as 'json' })
   }
   setRights(value: number) {
       if (value == 1) {
