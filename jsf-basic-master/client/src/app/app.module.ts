@@ -96,7 +96,7 @@ import { NewSquadComponent } from './new-squad/new-squad.component';
       { path: 'search/matches/:name', component:SearchMatchComponent},
       { path: 'search/teams/:name', component:SearchTeamComponent},
       { path: 'loading/:url/:data', component:LoadingComponent},
-      { path: 'novazostava', component:NewSquadComponent}
+      { path: 'novazostava/:id', component:NewSquadComponent}
     ]),
     LayoutModule,
     MatToolbarModule,

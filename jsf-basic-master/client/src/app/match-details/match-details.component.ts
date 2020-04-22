@@ -36,6 +36,8 @@ export class MatchDetailsComponent implements OnInit {
     allGoals;
     id;
     striedanie;
+    homeIsEmpty;
+    awayIsEmpty;
     constructor(private route: ActivatedRoute, private api: ApiService, private auth: AuthService) {
     }
     ngOnInit() {
@@ -61,22 +63,26 @@ export class MatchDetailsComponent implements OnInit {
                     this.hostiaFlag = "";
                     hosteSquad = [];
                     this.hostiaTim="";
+                    this.awayIsEmpty=true;
                 }
                 else {
                     this.hostiaFlag = flags[hoste['id_team'] - 1];
                     hosteSquad = hoste['sestava'];
                     this.hostiaTim = hoste['tym'];
+                    this.awayIsEmpty=false;
                 }
                 var domaciSquad;
                 if (typeof domaci === 'undefined') {
                     this.domaciFlag = "";
                     domaciSquad =[];
                     this.domaciTim="";
+                    this.homeIsEmpty=true;
                 }
                 else {
                     this.domaciFlag = flags[domaci['id_team'] - 1];
                     domaciSquad = domaci['sestava'];
                     this.domaciTim = domaci['tym'];
+                    this.homeIsEmpty=false;
                     
                 }
 
@@ -182,8 +188,15 @@ export class MatchDetailsComponent implements OnInit {
         if (n.goals > 0)
             n.goals--;
     }
-    sendPost() {
-
+    stadion1;pocet_divakov;rozhodci={jmeno:""}
+    updateMatchInfo() {
+        this.route.paramMap.subscribe(params => {
+            var i = params.get('matchID');
+            this.auth.updateMatch(this.stadion1,this.pocet_divakov,this.rozhodci.jmeno,+i).subscribe(data=>{
+                console.log(data);
+            })
+        });
+        
     }
     showTime(n, id) {
         return "minuta:" + n.goalsTime[id] + "| assist:" + n.ass[id];

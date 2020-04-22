@@ -93,3 +93,18 @@ mat-select{
 ::ng-deep mat-select .mat-select-trigger{
   width: 200px;
 }
+.infoInput2{
+  height: 20px;
+  width:50px;
+}
+.infoInput1{
+  height: 20px;
+  width:85px;
+}
+.infoInput3{
+  height: 20px;
+  width:85px;
+}
+.saveDiv{
+  text-align: center;
+}
