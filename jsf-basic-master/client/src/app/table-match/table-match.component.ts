@@ -22,7 +22,7 @@ export class TableMatchComponent implements OnInit {
 
       switch (this.source) {
         case "8":
-          this.dataSource = new MatTableDataSource(mmatches8);
+          this.dataSource = new MatTableDataSource(matches[0][10]);
           this.faza = "Osemfinále";
           break;
         case "4":
