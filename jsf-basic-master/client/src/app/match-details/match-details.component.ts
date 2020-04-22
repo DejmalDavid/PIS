@@ -238,10 +238,10 @@ export class MatchDetailsComponent implements OnInit {
     updateMatchInfo() {
         this.route.paramMap.subscribe(params => {
             var i = params.get('matchID');
-            /*this.auth.updateMatch(this.stadion1,this.pocet_divakov,this.rozhodci.id,+i).subscribe(data=>{
+            this.auth.updateMatch(this.stadion1,this.pocet_divakov,this.rozhodci.id,+i).subscribe(data=>{
                 console.log(this.stadion1,this.pocet_divakov,this.rozhodci.id,+i)
                 console.log("aaa"+data);
-            });*/
+            });
             console.log("rozhodca"+this.rozhodci);
             var zapass={id:+this.id}
             this.auth.updateReferee(zapass,this.rozhodci).subscribe(data=>
@@ -252,7 +252,7 @@ export class MatchDetailsComponent implements OnInit {
         
     }
     showTime(n, id) {
-        console.log("lala",id);
+        //console.log("lala",id);
         return "minuta:" + n.goalsTime[id] + "| assist:" + n.ass[id];
     }
     selected: string;

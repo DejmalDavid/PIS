@@ -91,8 +91,7 @@ export class AuthService {
     },{ responseType: 'text' as 'json' })
   }
   updateMatch(stadion,pocet_divaku,rozhodci,id:number){
-    return this.http.post('rest/zapas/',{
-        id,
+    return this.http.post('rest/zapas/'+id,{
         stadion,
         pocet_divaku
     })
