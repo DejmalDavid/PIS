@@ -45,4 +45,8 @@ public class RozhodciManager
     	return em.createQuery("SELECT r FROM Rozhodci r", Rozhodci.class).getResultList();
     }
 
+	public List<Rozhodci> findAllByZapas(int id) {
+		return em.createQuery("SELECT r FROM Rozhodci r JOIN r.rozhodciZapas o WHERE o.zapa.id = :id", Rozhodci.class).setParameter("id", id).getResultList();
+	}
+
 }

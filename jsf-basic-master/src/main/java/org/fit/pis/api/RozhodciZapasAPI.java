@@ -19,6 +19,7 @@ import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import javax.ws.rs.core.Response.Status;
 
+import org.fit.pis.data.Rozhodci;
 import org.fit.pis.data.RozhodciZapa;
 import org.fit.pis.service.RozhodciZapaManager;
 
@@ -55,6 +56,7 @@ public class RozhodciZapasAPI
     	System.out.println("API3");
     	return sMgr.findAll();
     }
+    
 
     @Path("/{id}")
     @GET

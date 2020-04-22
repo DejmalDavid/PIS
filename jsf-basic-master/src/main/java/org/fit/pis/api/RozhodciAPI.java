@@ -47,6 +47,15 @@ public class RozhodciAPI
     {
     }
     
+    @Path("/zapas/{id}")
+    @GET
+    @Produces(MediaType.APPLICATION_JSON)
+    public List<Rozhodci> getRozhodciAll(@PathParam("id") int id) throws NamingException 
+    {
+
+    	return rozhodciMgr.findAllByZapas(id);
+    }
+    
     @Path("/list")
     @GET
     @Produces(MediaType.APPLICATION_JSON)
