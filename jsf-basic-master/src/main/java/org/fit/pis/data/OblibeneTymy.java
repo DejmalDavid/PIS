@@ -3,6 +3,8 @@ package org.fit.pis.data;
 import java.io.Serializable;
 import javax.persistence.*;
 
+import org.codehaus.jackson.annotate.JsonProperty;
+
 
 /**
  * The persistent class for the oblibene_tymy database table.
