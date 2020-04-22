@@ -29,9 +29,9 @@ export class MatchDetailsComponent implements OnInit {
     stadion: string; divaci: string; datum: string; rozhodca: string
 
     isAdmin = this.auth.getIsSuperAdmin;
-    assistIn:string;timeIn:any;
-    showAddGoal=false;
-    showAddGoalText="+1";
+    assistIn: string; timeIn: any;
+    showAddGoal = false;
+    showAddGoalText = "+1";
     zostava;
     allGoals;
     id;
@@ -43,37 +43,60 @@ export class MatchDetailsComponent implements OnInit {
             this.id = params.get('matchID');
             this.api.getDetailMatch(this.id).subscribe(data => {
                 var r = data['Rozhodci'][0];
-                this.rozhodca = r['jmeno'];
+                if (typeof r === 'undefined')
+                    this.rozhodca = "";
+                else
+                    this.rozhodca = r['jmeno'];
                 this.datum = (data['datum']);
                 this.divaci = data['pocet_divaku'];
                 this.stadion = data['stadion'];
                 var hoste = data['hoste'];
                 var domaci = data['domaci'];
                 var goly = data['Goly'];
-                this.allGoals=goly;
+                this.allGoals = goly;
                 this.striedanie = data['Stridani'];
-                var s=data['Stridani']
-                this.hostiaFlag = flags[hoste['id_team'] - 1];
-                this.domaciFlag = flags[domaci['id_team'] - 1];
+                var s = data['Stridani'];
+                var hosteSquad;
+                if (typeof hoste === 'undefined') {
+                    this.hostiaFlag = "";
+                    hosteSquad = [];
+                    this.hostiaTim="";
+                }
+                else {
+                    this.hostiaFlag = flags[hoste['id_team'] - 1];
+                    hosteSquad = hoste['sestava'];
+                    this.hostiaTim = hoste['tym'];
+                }
+                var domaciSquad;
+                if (typeof domaci === 'undefined') {
+                    this.domaciFlag = "";
+                    domaciSquad =[];
+                    this.domaciTim="";
+                }
+                else {
+                    this.domaciFlag = flags[domaci['id_team'] - 1];
+                    domaciSquad = domaci['sestava'];
+                    this.domaciTim = domaci['tym'];
+                    
+                }
 
-                var domaciSquad = domaci['sestava'];
-                
-                var hosteSquad = hoste['sestava'];
-                this.zostava=domaciSquad.concat(hosteSquad);
+
+
+                this.zostava = domaciSquad.concat(hosteSquad);
                 domaciSquad.forEach(function (element, i) {
                     if (i < 11)
                         element.poz = "11";
                     else
                         element.poz = "N";
-                    element.goals=0;
-                    element.goalsTime=[];
-                    element.ass=[];
+                    element.goals = 0;
+                    element.goalsTime = [];
+                    element.ass = [];
                     goly.forEach(element2 => {
-                        if (element['name'].includes(element2['hrac1'])){
+                        if (element['name'].includes(element2['hrac1'])) {
                             element.goals++;
                             element.goalsTime.push(element2.cas);
                             element.ass.push(element2.hrac2);
-                            console.log(element['name'],element2['hrac1'],element.goals)
+                            console.log(element['name'], element2['hrac1'], element.goals)
                         }
                     });
                 });
@@ -119,8 +142,7 @@ export class MatchDetailsComponent implements OnInit {
 
                 this.dataSourceSquadHome = domaciSquad;
                 this.dataSourceSquadAway = hosteSquad;
-                this.domaciTim = domaci['tym'];
-                this.hostiaTim = hoste['tym'];
+                
                 this.score = data['domaci_goly'] + ":" + data['hoste_goly']
 
 
@@ -133,22 +155,22 @@ export class MatchDetailsComponent implements OnInit {
 
         return arr;
     }
-    addGoal(n,a:string) {
-        
-        if (this.showAddGoalText=="+1"){ 
-            this.showAddGoalText="OK";
-            this.showAddGoal=true;
+    addGoal(n, a: string) {
+
+        if (this.showAddGoalText == "+1") {
+            this.showAddGoalText = "OK";
+            this.showAddGoal = true;
         }
-        else{
-            this.showAddGoalText="OK";
+        else {
+            this.showAddGoalText = "OK";
             n.goalsTime.push(a);
             n.ass.push(n.assistIn);
-            this.showAddGoalText="+1";
-            this.showAddGoal=false;
+            this.showAddGoalText = "+1";
+            this.showAddGoal = false;
             n.goals++;
             console.log(this.timeIn);
         }
-        
+
     }
     loginUser(event) {
         event.preventDefault()
@@ -160,61 +182,57 @@ export class MatchDetailsComponent implements OnInit {
         if (n.goals > 0)
             n.goals--;
     }
-    sendPost(){
+    sendPost() {
 
     }
-    showTime(n,id){
-        return "minuta:"+n.goalsTime[id]+"| assist:"+n.ass[id];
+    showTime(n, id) {
+        return "minuta:" + n.goalsTime[id] + "| assist:" + n.ass[id];
     }
-    selected:string;
-    goal={
-        id:0,
-        gol_cas:0,
-        gol_typ:"",
-        polovina_zapasu:"",
-        zapa:0,
-        hrac1:"",
-        hrac2:""
-        
+    selected: string;
+    goal = {
+        id: 0,
+        gol_cas: 0,
+        gol_typ: "",
+        polovina_zapasu: "",
+        zapa: { id: 0 },
+        hrac1: { id: 0 },
+        hrac2: { id: 0 }
+
     };
 
     deletegoal;
-    newGoal(e){
-        this.goal.zapa=+this.id;
+    newGoal(e) {
+        this.goal.zapa.id = +this.id;
+
         //console.log(this.goal);
-        this.auth.sendGoal(this.goal.id,this.goal.gol_cas,this.goal.gol_typ,this.goal.polovina_zapasu,this.goal.zapa,this.goal.hrac1,this.goal.hrac2).subscribe(
+        this.auth.sendGoal(this.goal.gol_cas, this.goal.gol_typ, this.goal.polovina_zapasu, this.goal.zapa, this.goal.hrac1, this.goal.hrac2).subscribe(
             data => {
-                if (data.Success) {
-                    console.log("true");
-                }
-                else{
-                    console.log("false");
-                }
+                console.log(data);
             });
-            
+
     }
-    deleteGoal(e){
-        this.auth.deleteGoal(this.deletegoal).subscribe(data=>
+    deleteGoal(e) {
+        this.auth.deleteGoal(this.deletegoal).subscribe(data =>
             console.log(data));
     }
-    striedani={
-        id:0,
-        cas:0,
-        hrac_id_in:"",
-        hrac_id_out:"",
-        zapa:{id:0}
+    striedani = {
+        id: 0,
+        cas: 0,
+        hrac_id_in: "",
+        hrac_id_out: "",
+        zapa: { id: 0 }
 
     };
-    newStriedanie(e){
-        this.striedani.zapa.id=+this.id;
+    newStriedanie(e) {
+        this.striedani.zapa.id = +this.id;
         console.log(this.striedanie);
-        this.auth.sendSub(this.striedani.id,+this.striedani.cas,this.striedani.hrac_id_in,this.striedani.hrac_id_out,this.striedani.zapa).subscribe(data=>{
+        this.auth.sendSub(this.striedani.id, +this.striedani.cas, this.striedani.hrac_id_in, this.striedani.hrac_id_out, this.striedani.zapa).subscribe(data => {
             console.log(data);
         });
     }
     delSub;
-    DeleteSub(e){
-        this.auth.deleteSub(this.delSub).subscribe(data=>
+    DeleteSub(e) {
+        this.auth.deleteSub(this.delSub).subscribe(data =>
             console.log(data));
     }
 }

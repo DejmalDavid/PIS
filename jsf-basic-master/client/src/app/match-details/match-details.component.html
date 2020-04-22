@@ -5,14 +5,14 @@
         <div class="addgoal">
             <h2>pridat gol</h2>
             <form (ngSubmit)="newGoal(form1)" #form1="ngForm"> 
-                <mat-select [(ngModel)]="goal.hrac1" name="hrac1" placeholder="hrac1">
+                <mat-select [(ngModel)]="goal.hrac1.id" name="hrac1" placeholder="hrac1">
                     <mat-option *ngFor="let hrac1 of zostava" [value]=hrac1.id >
                         {{hrac1.name}}
                     </mat-option>
                 </mat-select>
         
                 <input type="text" [(ngModel)]="goal.gol_cas" name="time" id="" placeholder="Minuta">
-                <mat-select [(ngModel)]="goal.hrac2" name="hrac2" placeholder="hrac2">
+                <mat-select [(ngModel)]="goal.hrac2.id" name="hrac2" placeholder="hrac2">
                     <mat-option *ngFor="let hrac2 of zostava" [value]=hrac2.id >
                         {{hrac2.name}}
                     </mat-option>

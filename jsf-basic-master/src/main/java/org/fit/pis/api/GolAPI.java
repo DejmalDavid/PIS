@@ -31,8 +31,10 @@ import org.fit.pis.data.Gol;
 import org.fit.pis.data.Sestava;
 import org.fit.pis.data.SestavaHrac;
 import org.fit.pis.data.Stridani;
+import org.fit.pis.data.Zapa;
 import org.fit.pis.models.GolOutput;
 import org.fit.pis.service.GolManager;
+import org.fit.pis.service.ZapaManager;
 
 /*
  * TEST URL:
@@ -44,6 +46,8 @@ public class GolAPI
 {
 	@EJB
 	private GolManager golMgr; 
+	@EJB
+	private ZapaManager zapaMgr;
     @Context
     private UriInfo context;
 
@@ -112,9 +116,10 @@ public class GolAPI
     public String postJson(Gol gol)
     {
     	golMgr.save(gol);
-    	
-    	
-		for(Sestava sestava: gol.getZapa().getSestavas())
+
+    	Zapa zapas = zapaMgr.find(gol.getZapa().getId());
+    		
+		for(Sestava sestava: zapas.getSestavas())
 		{
 			for(SestavaHrac sesHrac:sestava.getSestavaHracs2())
 			{
@@ -122,11 +127,11 @@ public class GolAPI
 				{
 					if(sestava.getHostujici()==0)
 					{//sem domaci
-						gol.getZapa().setDomaci_tym_skore(gol.getZapa().getDomaci_tym_skore()+1);
+						zapas.setDomaci_tym_skore(zapas.getDomaci_tym_skore()+1);
 					}
 					else 
 					{
-						gol.getZapa().setHost_tym_skore(gol.getZapa().getHost_tym_skore()+1);
+						zapas.setHost_tym_skore(zapas.getHost_tym_skore()+1);
 					}
 				}
 			}

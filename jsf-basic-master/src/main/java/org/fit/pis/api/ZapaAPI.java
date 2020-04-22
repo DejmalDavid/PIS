@@ -74,6 +74,14 @@ public class ZapaAPI
     	{
     		JSONObject zapasJson = new JSONObject();
     		
+			String pattern = "hh:mm dd.MM";
+			SimpleDateFormat simpleDateFormat = new SimpleDateFormat(pattern);
+			String date = simpleDateFormat.format(zapas.getDatum());
+			
+			zapasJson.put("datum",date);
+			zapasJson.put("id", zapas.getId());
+			zapasJson.put("score", zapas.getDomaci_tym_skore()+":"+zapas.getHost_tym_skore());
+    		
         	for(Sestava sestava:zapas.getSestavas())
         	{
 			
@@ -81,13 +89,6 @@ public class ZapaAPI
         			if(sestava.getHostujici()==0)
         			{
         				zapasJson.put("home", sestava.getTym().getNazev());
-        				String pattern = "hh:mm dd.MM";
-        				SimpleDateFormat simpleDateFormat = new SimpleDateFormat(pattern);
-        				String date = simpleDateFormat.format(zapas.getDatum());
-        				
-        				zapasJson.put("datum",date);
-        				zapasJson.put("id", zapas.getId());
-        				zapasJson.put("score", zapas.getDomaci_tym_skore()+":"+zapas.getHost_tym_skore());
         			}
         			//1=hoste
         			else if(sestava.getHostujici()==1)
@@ -96,13 +97,7 @@ public class ZapaAPI
         			}	
         		
         	}
-        	//neni prazdny
-        	if(zapasJson.isEmpty()==false)
-        	{
-        		array.add(zapasJson);
-        	}
-      	
-        	
+        	array.add(zapasJson);      	
     	}
     	
     	

@@ -67,9 +67,22 @@ export class TeamDetailsComponent implements OnInit {
     }
 
     deleteFav() {
-        console.log("delete fav")
-        this.inFavs = false;
+        this.api.getUserInfo(this.auth.getName).subscribe(data => {
+            this.api.getFavAll().subscribe(info => {
+                if (info.length > 0) {
+                    for (let i = 0; i<info.length; i++) {
+                        if (info[i].uzivatel.id == data.id && info[i].tym.id == this.teamId) {
+                            this.api.deleteFav(info[i].id).subscribe(() => {
+                                console.log("fav removed")
+                            })
+                            this.inFavs = false;
+                        }
+                    }
+                }
+            })
+        });
     }
+
     onHover(id) {
         this.matchID = id;
     }
