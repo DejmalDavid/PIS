@@ -63,7 +63,6 @@ public class HracAPI
     @Produces(MediaType.APPLICATION_JSON)
     public List<Hrac> getJson() throws NamingException 
     {
-    	System.out.println("API3");
     	return hracMgr.findAll();
     }
 

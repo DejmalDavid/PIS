@@ -54,7 +54,6 @@ public class StridaniAPI
     @Produces(MediaType.APPLICATION_JSON)
     public List<Stridani> getJson() throws NamingException 
     {
-    	System.out.println("API3");
     	return sMgr.findAll();
     }
 
@@ -64,9 +63,9 @@ public class StridaniAPI
     public Response getJsonSingle(@PathParam("id") String idString) throws NamingException 
     {
     	int id = Integer.valueOf(idString);
-    	Stridani p = sMgr.find(id);
-    	if (p != null)
-    		return Response.ok(p).build();
+    	Stridani s = sMgr.find(id);
+    	if (s != null)
+    		return Response.ok(s).build();
     	else
     		return Response.status(Status.NOT_FOUND).entity("{\"Success\": \"false\"}").build();
     }
@@ -93,9 +92,9 @@ public class StridaniAPI
 	@DELETE
 	@Produces(MediaType.APPLICATION_JSON)
 	public Response deleteStridaniById(@PathParam("id") int id) {
-    	Stridani p = sMgr.find(id);
-    	sMgr.remove(p);
-    	if (p != null)
+    	Stridani s = sMgr.find(id);
+    	sMgr.remove(s);
+    	if (s != null)
     		return Response.status(Status.OK).entity("{\"Success\": \"true\"}").build();
     	else
     		return Response.status(Status.NOT_FOUND).entity("{\"Success\": \"false\"}").build();

@@ -75,17 +75,13 @@ public class AuthAPI
         	Uzivatel foundUser = uzivatelMgr.findWithEmail(email);
         	 
         	if(password.contentEquals(foundUser.getHeslo())) {
-        		//final Token token = AuthUtils.createToken(request.getRemoteHost(), foundUser.get().id);
         		response.put("Success", true);
-        		//return Response.status(Status.OK).entity("LOGIN_OK_MSG").build();
         	}
         	else
         		response.put("Success", false);
-        		//return Response.status(Status.UNAUTHORIZED).entity("LOGIN_ERROR_MSG").build();
           }
         else
         	response.put("Success", false);
-        	//return Response.status(Status.UNAUTHORIZED).entity("LOGIN_ERROR_MSG").build();
         return response;
         
     	 
@@ -106,14 +102,11 @@ public class AuthAPI
       
         if (uzivatelMgr.existWithEmail(email)) {
         	 response.put("Success", false);
-        	 //return Response.status(Status.NOT_ACCEPTABLE).entity("REG_EXIST_MSG").build();
           }
         else {
         	Uzivatel uzivatelNew = new Uzivatel(email, password, fname, lname, role);
         	uzivatelMgr.insert(uzivatelNew);
-        	response.put("Success", true);
-        	//return Response.status(Status.OK).entity("REG_OK_MSG").build();
-    	 
+        	response.put("Success", true);   	 
         }
         return response;
     } 

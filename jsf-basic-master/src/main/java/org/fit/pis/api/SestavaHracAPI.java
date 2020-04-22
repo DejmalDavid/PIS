@@ -54,7 +54,6 @@ public class SestavaHracAPI
     @Produces(MediaType.APPLICATION_JSON)
     public List<SestavaHrac> getJson() throws NamingException 
     {
-    	System.out.println("API3");
     	return shMgr.findAll();
     }
 
@@ -64,9 +63,9 @@ public class SestavaHracAPI
     public Response getJsonSingle(@PathParam("id") String idString) throws NamingException 
     {
     	int id = Integer.valueOf(idString);
-    	SestavaHrac p = shMgr.find(id);
-    	if (p != null)
-    		return Response.ok(p).build();
+    	SestavaHrac s = shMgr.find(id);
+    	if (s != null)
+    		return Response.ok(s).build();
     	else
     		return Response.status(Status.NOT_FOUND).entity("{\"error\": \"No such person\"}").build();
     }
@@ -93,9 +92,9 @@ public class SestavaHracAPI
    	@DELETE
    	@Produces({ MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML })
    	public Response deleteSestavaHracById(@PathParam("id") int id) {
-       	SestavaHrac ot = shMgr.find(id);
-       	shMgr.remove(ot);
-       	if (ot != null)
+       	SestavaHrac s = shMgr.find(id);
+       	shMgr.remove(s);
+       	if (s != null)
        		return Response.status(Status.OK).entity("{\"Success\": \"true\"}").build();
        	else
        		return Response.status(Status.NOT_FOUND).entity("{\"Success\": \"false\"}").build();
