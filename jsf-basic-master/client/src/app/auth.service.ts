@@ -47,9 +47,8 @@ export class AuthService {
     })
   }*/
 
-  sendGoal(id,gol_cas,gol_typ,polovina_zapasu,zapa,hrac1,hrac2) {
-    return this.http.post<myData>('rest/gol', {
-      id,
+  sendGoal(gol_cas,gol_typ,polovina_zapasu,zapa,hrac1,hrac2) {
+    return this.http.post('rest/gol', {
       gol_cas,
       gol_typ,
       polovina_zapasu,
@@ -82,8 +81,10 @@ export class AuthService {
     })
     
   }
-  sendSquad(hrac:string){
-    return this.http.post('rest/sestavahrac/',{
+  sendSquad(sestava1,sestava2,hrac,id){
+    return this.http.post('rest/sestavahrac',{
+      sestava1,
+      sestava2,
       hrac
    
     })

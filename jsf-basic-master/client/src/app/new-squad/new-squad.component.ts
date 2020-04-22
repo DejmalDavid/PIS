@@ -13,50 +13,96 @@ export class NewSquadComponent implements OnInit {
   constructor(private route: ActivatedRoute, private api: ApiService, private auth: AuthService) { }
   timy;
   ngOnInit(): void {
-    this.api.getAllTeam().subscribe(data=>{
-      this.timy=data;
+    this.api.getAllTeam().subscribe(data => {
+      this.timy = data;
     })
-    
+
   }
   zapas = {
-    id:"",
-    tim_id:0
+    id: "",
+    tim_id: 0
   };
   hraciTimu;
-  hrac1;hrac2;hrac3;hrac4;hrac5;hrac6;hrac7;hrac8;hrac9;hrac10;hrac11;hrac12;hrac13;hrac14;hrac15;
+  hrac1; hrac2; hrac3; hrac4; hrac5; hrac6; hrac7; hrac8; hrac9; hrac10; hrac11; hrac12; hrac13; hrac14; hrac15;
   initSquad(e) {
     console.log(this.zapas);
-    var zapa={id:0};
-    zapa.id=+this.zapas.id;
-    var tym={id:0};
-    tym.id=this.zapas.tim_id;
-    this.auth.initSquad(zapa,tym).subscribe(data=>{
+    var zapa = { id: 0 };
+    zapa.id = +this.zapas.id;
+    var tym = { id: 0 };
+    tym.id = this.zapas.tim_id;
+    this.auth.initSquad(zapa, tym).subscribe(data => {
       console.log(data);
     })
     this.api.getPlayers(this.zapas.tim_id).subscribe(hraci => {
       console.log(hraci);
-      this.hraciTimu=hraci;
-      })
+      this.hraciTimu = hraci;
+    })
   }
-  newPlayer={
-    jmeno:"",
-    pozice:0,
-    prijmeni:"",
-    skill:"",
-    vek:0
+  newPlayer = {
+    jmeno: "",
+    pozice: 0,
+    prijmeni: "",
+    skill: "",
+    vek: 0
   }
-  sendSquad(e){
-    var meno=this.hrac1+'';
-    var m=meno.split(" ");
-    var sestava={
-      jmeno:meno[0],
-      pozice:this.hrac1.pozice,
-      prijmeni:meno[1],
-      vek:this.hrac1.vek
-    }
-    this.auth.sendSquad(meno).subscribe(hraci => {
-      console.log(hraci);
+  sendSquad(e) {
+    var sestavaid = 0;
+    this.api.getSquad(this.zapas.tim_id, +this.zapas.id).subscribe(data => {
+      sestavaid = data[0]['id_sestava'];
+      var sestava1 = {
+        id: sestavaid,
+        zapa: { id: this.zapas.id },
+        tym: { id: this.zapas.tim_id }
+      }
+      var sestava2 = {
+        id: sestavaid,
+        zapa: { id: this.zapas.id },
+        tym: { id: this.zapas.tim_id }
+      }
+      var hracc1 = { id: this.hrac1.id }
+      var hracc2 = { id: this.hrac2.id }
+      var hracc3 = { id: this.hrac3.id }
+      var hracc4 = { id: this.hrac4.id }
+      var hracc5 = { id: this.hrac5.id }
+      var hracc6 = { id: this.hrac6.id }
+      var hracc7 = { id: this.hrac7.id }
+      var hracc8 = { id: this.hrac8.id }
+      var hracc9 = { id: this.hrac9.id }
+      var hracc10 = { id: this.hrac10.id }
+
+      this.auth.sendSquad(sestava1, sestava2, hracc1, sestavaid).subscribe(hraci => {
+        console.log(hraci);
       })
-    console.log(this.hrac1);
+      this.auth.sendSquad(sestava1, sestava2, hracc2, sestavaid).subscribe(hraci => {
+        console.log(hraci);
+      })
+      this.auth.sendSquad(sestava1, sestava2, hracc3, sestavaid).subscribe(hraci => {
+        console.log(hraci);
+      })
+      this.auth.sendSquad(sestava1, sestava2, hracc4, sestavaid).subscribe(hraci => {
+        console.log(hraci);
+      })
+      this.auth.sendSquad(sestava1, sestava2, hracc5, sestavaid).subscribe(hraci => {
+        console.log(hraci);
+      })
+      this.auth.sendSquad(sestava1, sestava2, hracc6, sestavaid).subscribe(hraci => {
+        console.log(hraci);
+      })
+      this.auth.sendSquad(sestava1, sestava2, hracc7, sestavaid).subscribe(hraci => {
+        console.log(hraci);
+      })
+      this.auth.sendSquad(sestava1, sestava2, hracc8, sestavaid).subscribe(hraci => {
+        console.log(hraci);
+      })
+      this.auth.sendSquad(sestava1, sestava2, hracc9, sestavaid).subscribe(hraci => {
+        console.log(hraci);
+      })
+      this.auth.sendSquad(sestava1, sestava2, hracc10, sestavaid).subscribe(hraci => {
+        console.log(hraci);
+      })
+    })
+
+
+
   }
 }

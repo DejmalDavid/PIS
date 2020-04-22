@@ -94,7 +94,7 @@ public class GolAPI
     	if (p != null)
     		return Response.ok(p).build();
     	else
-    		return Response.status(Status.NOT_FOUND).entity("{\"error\": \"No such person\"}").build();
+    		return Response.status(Status.NOT_FOUND).entity("{\"Success\": \"false\"}").build();
     }
 
     
@@ -113,7 +113,8 @@ public class GolAPI
     {
     	golMgr.save(gol);
     	
-    	
+    	System.out.println(gol.getZapa().getSestavas());
+    	/*
 		for(Sestava sestava: gol.getZapa().getSestavas())
 		{
 			for(SestavaHrac sesHrac:sestava.getSestavaHracs2())
@@ -130,7 +131,7 @@ public class GolAPI
 					}
 				}
 			}
-		}
+		}*/
     	return "ok";
     }
 
