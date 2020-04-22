@@ -59,7 +59,6 @@ public class SestavaAPI
     @Produces(MediaType.APPLICATION_JSON)
     public List<Sestava> getJson() throws NamingException 
     {
-    	System.out.println("API3");
     	return sestavaMgr.findAll();
     }
 
@@ -69,9 +68,9 @@ public class SestavaAPI
     public Response getJsonSingle(@PathParam("id") String idString) throws NamingException 
     {
     	int id = Integer.valueOf(idString);
-    	Sestava p = sestavaMgr.find(id);
-    	if (p != null)
-    		return Response.ok(p).build();
+    	Sestava s = sestavaMgr.find(id);
+    	if (s != null)
+    		return Response.ok(s).build();
     	else
     		return Response.status(Status.NOT_FOUND).entity("{\"error\": \"No such sestava\"}").build();
     }
@@ -79,7 +78,6 @@ public class SestavaAPI
     
 
     @SuppressWarnings("unchecked")
-	//@Path("/zapas/team/{id_team}{id_zapas}")
     @GET
     @Produces(MediaType.APPLICATION_JSON)
     public List<JSONObject> getByIDs(@QueryParam("id_team") String idTeam,@QueryParam("id_zapas") String idZapas) throws NamingException 
@@ -127,9 +125,9 @@ public class SestavaAPI
    	@DELETE
    	@Produces({ MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML })
    	public Response deleteSestavaById(@PathParam("id") int id) {
-       	Sestava ot = sestavaMgr.find(id);
-       	sestavaMgr.remove(ot);
-       	if (ot != null)
+       	Sestava s = sestavaMgr.find(id);
+       	sestavaMgr.remove(s);
+       	if (s != null)
        		return Response.status(Status.OK).entity("{\"Success\": \"true\"}").build();
        	else
        		return Response.status(Status.NOT_FOUND).entity("{\"Success\": \"false\"}").build();

@@ -109,7 +109,7 @@ public class UzivatelAPI
     @Path("/{id}")
    	@DELETE
    	@Produces({ MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML })
-   	public Response deleteZapaById(@PathParam("id") int id) {
+   	public Response deleteUzivatelById(@PathParam("id") int id) {
        	Uzivatel u = uzivatelMgr.find(id);
        	uzivatelMgr.remove(u);
        	if (u != null)

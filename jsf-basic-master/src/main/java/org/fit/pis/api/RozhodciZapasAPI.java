@@ -55,7 +55,6 @@ public class RozhodciZapasAPI
     @Produces(MediaType.APPLICATION_JSON)
     public List<RozhodciZapa> getJson() throws NamingException 
     {
-    	System.out.println("API3");
     	return sMgr.findAll();
     }
     
@@ -66,9 +65,9 @@ public class RozhodciZapasAPI
     public Response getJsonSingle(@PathParam("id") String idString) throws NamingException 
     {
     	int id = Integer.valueOf(idString);
-    	RozhodciZapa p = sMgr.find(id);
-    	if (p != null)
-    		return Response.ok(p).build();
+    	RozhodciZapa r = sMgr.find(id);
+    	if (r != null)
+    		return Response.ok(r).build();
     	else
     		return Response.status(Status.NOT_FOUND).entity("{\"Success\": \"false\"}").build();
     }
@@ -95,9 +94,9 @@ public class RozhodciZapasAPI
    	@DELETE
    	@Produces({ MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML })
    	public Response deleteOblibeneTymyById(@PathParam("id") int id) {
-       	RozhodciZapa ot = sMgr.find(id);
-       	sMgr.remove(ot);
-       	if (ot != null)
+       	RozhodciZapa r = sMgr.find(id);
+       	sMgr.remove(r);
+       	if (r != null)
        		return Response.status(Status.OK).entity("{\"Success\": \"true\"}").build();
        	else
        		return Response.status(Status.NOT_FOUND).entity("{\"Success\": \"false\"}").build();

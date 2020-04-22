@@ -63,7 +63,6 @@ public class RozhodciAPI
     @Produces(MediaType.APPLICATION_JSON)
     public List<Rozhodci> getJson() throws NamingException 
     {
-    	System.out.println("API3");
     	return rozhodciMgr.findAll();
     }
 
@@ -73,9 +72,9 @@ public class RozhodciAPI
     public Response getJsonSingle(@PathParam("id") String idString) throws NamingException 
     {
     	int id = Integer.valueOf(idString);
-    	Rozhodci p = rozhodciMgr.find(id);
-    	if (p != null)
-    		return Response.ok(p).build();
+    	Rozhodci r = rozhodciMgr.find(id);
+    	if (r != null)
+    		return Response.ok(r).build();
     	else
     		return Response.status(Status.NOT_FOUND).entity("{\"error\": \"No such person\"}").build();
     }
@@ -102,9 +101,9 @@ public class RozhodciAPI
    	@DELETE
    	@Produces({ MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML })
    	public Response deleteRozhodciyById(@PathParam("id") int id) {
-       	Rozhodci o = rozhodciMgr.find(id);
-       	rozhodciMgr.remove(o);
-       	if (o != null)
+       	Rozhodci r = rozhodciMgr.find(id);
+       	rozhodciMgr.remove(r);
+       	if (r != null)
        		return Response.status(Status.OK).entity("{\"Success\": \"true\"}").build();
        	else
        		return Response.status(Status.NOT_FOUND).entity("{\"Success\": \"false\"}").build();

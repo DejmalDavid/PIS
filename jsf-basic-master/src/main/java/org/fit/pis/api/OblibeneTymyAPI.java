@@ -72,9 +72,9 @@ public class OblibeneTymyAPI
     public Response getJsonSingle(@PathParam("id") String idString) throws NamingException 
     {
     	int id = Integer.valueOf(idString);
-    	OblibeneTymy p = sMgr.find(id);
-    	if (p != null)
-    		return Response.ok(p).build();
+    	OblibeneTymy ot = sMgr.find(id);
+    	if (ot != null)
+    		return Response.ok(ot).build();
     	else
     		return Response.status(Status.NOT_FOUND).entity("{\"Success\": \"false\"}").build();
     }
