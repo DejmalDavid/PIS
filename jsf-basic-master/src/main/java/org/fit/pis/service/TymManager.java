@@ -29,7 +29,9 @@ public class TymManager
 	
     public void remove(Tym p)
     {
+
     	em.remove(em.merge(p));
+
     }
     
     public Tym find(int id)

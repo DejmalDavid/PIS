@@ -29,7 +29,9 @@ public class RozhodciZapaManager
 	
     public void remove(RozhodciZapa p)
     {
+
     	em.remove(em.merge(p));
+
     }
     
     public RozhodciZapa find(int id)

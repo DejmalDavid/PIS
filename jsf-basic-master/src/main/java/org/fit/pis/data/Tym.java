@@ -31,15 +31,15 @@ public class Tym implements Serializable {
 	private int skupina;
 
 	//bi-directional many-to-one association to Gol
-	@OneToMany(mappedBy="tym",orphanRemoval=true)
+	@OneToMany(mappedBy="tym",cascade=CascadeType.REFRESH)
 	private List<Hrac> hracs;
 		
 	//bi-directional many-to-one association to OblibeneTymy
-	@OneToMany(mappedBy="tym",orphanRemoval=true)
+	@OneToMany(mappedBy="tym",cascade=CascadeType.REFRESH)
 	private List<OblibeneTymy> oblibeneTymies;
 
 	//bi-directional many-to-one association to Sestava
-	@OneToMany(mappedBy="tym",orphanRemoval=true)
+	@OneToMany(mappedBy="tym",cascade=CascadeType.REFRESH)
 	private List<Sestava> sestavas;
 
 	public Tym() {

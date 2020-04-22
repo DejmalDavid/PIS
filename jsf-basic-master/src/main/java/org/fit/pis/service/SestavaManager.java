@@ -30,7 +30,9 @@ public class SestavaManager
 	
     public void remove(Sestava p)
     {
+
     	em.remove(em.merge(p));
+
     }
     
     public Sestava find(int id)

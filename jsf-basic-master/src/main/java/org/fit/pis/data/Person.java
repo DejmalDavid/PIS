@@ -28,7 +28,7 @@ public class Person
     @Temporal(TemporalType.DATE)
     @JsonbDateFormat("yyyy-MM-dd")
     private Date born;
-    @OneToMany(cascade = { ALL }, fetch = EAGER, mappedBy = "owner", orphanRemoval = true)
+    @OneToMany(cascade = { ALL }, fetch = EAGER, mappedBy = "owner")
     @JsonbTransient
 	private Collection<Car> cars;
 

@@ -39,15 +39,15 @@ public class Hrac implements Serializable {
 	private Tym tym;
 
 	//bi-directional many-to-one association to Gol
-	@OneToMany(mappedBy="hrac1",orphanRemoval=true)
+	@OneToMany(mappedBy="hrac1",cascade=CascadeType.REFRESH)
 	private List<Gol> gols1;
 
 	//bi-directional many-to-one association to Gol
-	@OneToMany(mappedBy="hrac2",orphanRemoval=true)
+	@OneToMany(mappedBy="hrac2",cascade=CascadeType.REFRESH)
 	private List<Gol> gols2;
 
 	//bi-directional many-to-one association to SestavaHrac
-	@OneToMany(mappedBy="hrac", orphanRemoval=true)
+	@OneToMany(mappedBy="hrac", cascade=CascadeType.REFRESH)
 	private List<SestavaHrac> sestavaHracs;
 
 	public Hrac() {

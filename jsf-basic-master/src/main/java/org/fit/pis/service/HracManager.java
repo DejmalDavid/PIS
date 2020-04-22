@@ -29,7 +29,9 @@ public class HracManager
 	
     public void remove(Hrac p)
     {
+
     	em.remove(em.merge(p));
+
     }
     
     public Hrac find(int id)

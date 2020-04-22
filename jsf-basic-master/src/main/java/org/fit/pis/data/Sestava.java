@@ -37,11 +37,11 @@ public class Sestava implements Serializable {
 	private Tym tym;
 
 	//bi-directional many-to-one association to SestavaHrac
-	@OneToMany(mappedBy="sestava1",orphanRemoval=true)
+	@OneToMany(mappedBy="sestava1",cascade=CascadeType.REFRESH)
 	private List<SestavaHrac> sestavaHracs1;
 
 	//bi-directional many-to-one association to SestavaHrac
-	@OneToMany(mappedBy="sestava2",orphanRemoval=true)
+	@OneToMany(mappedBy="sestava2",cascade=CascadeType.REFRESH)
 	private List<SestavaHrac> sestavaHracs2;
 
 	public Sestava() {

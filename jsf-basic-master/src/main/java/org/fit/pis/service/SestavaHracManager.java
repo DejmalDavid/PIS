@@ -29,7 +29,9 @@ public class SestavaHracManager
 	
     public void remove(SestavaHrac p)
     {
+
     	em.remove(em.merge(p));
+
     }
     
     public SestavaHrac find(int id)

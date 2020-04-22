@@ -30,7 +30,9 @@ public class UzivatelManager
 	
     public void remove(Uzivatel p)
     {
+
     	em.remove(em.merge(p));
+
     }
     
     public Uzivatel find(int id)

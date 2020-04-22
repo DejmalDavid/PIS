@@ -29,7 +29,9 @@ public class StridaniManager
 	
     public void remove(Stridani p)
     {
+    	 
     	em.remove(em.merge(p));
+    	 
     }
     
     public Stridani find(int id)
