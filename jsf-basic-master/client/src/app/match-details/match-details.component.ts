@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { MatTableDataSource } from '@angular/material/table';
-import { players } from '../players';
 import { ApiService } from '../api.service';
 import { flags } from '../img';
 import { AuthService } from '../auth.service';
@@ -20,7 +19,7 @@ export class MatchDetailsComponent implements OnInit {
     displayedColumnsSquadAway: string[] = ['playerAway', 'numberAway'];
 
     dataSourceSquadHome = new MatTableDataSource();
-    dataSourceSquadAway = new MatTableDataSource(players);
+    dataSourceSquadAway = new MatTableDataSource();
     goalsByPlayer: Int8Array;
     domaciTim: string;
     hostiaTim: string;
@@ -38,20 +37,32 @@ export class MatchDetailsComponent implements OnInit {
     striedanie;
     homeIsEmpty;
     awayIsEmpty;
+    rozhod;
+    rozhodci={jmeno:""};
+    domaciSkore;
+    hostiaSkore;
+    skupina;
     constructor(private route: ActivatedRoute, private api: ApiService, private auth: AuthService) {
     }
     ngOnInit() {
         this.route.paramMap.subscribe(params => {
             this.id = params.get('matchID');
             this.api.getDetailMatch(this.id).subscribe(data => {
-                var r = data['Rozhodci'][0];
-                if (typeof r === 'undefined')
+                this.rozhod = data['Rozhodci'][0];
+                if (typeof this.rozhod === 'undefined'){
                     this.rozhodca = "";
-                else
-                    this.rozhodca = r['jmeno'];
+                    this.rozhodci.jmeno="";
+                }
+                else{
+                    this.rozhodca = this.rozhod['jmeno'];
+                    this.rozhodci.jmeno=this.rozhod.jmeno;
+                }
+                this.skupina=data['skupina'];
                 this.datum = (data['datum']);
                 this.divaci = data['pocet_divaku'];
+                this.pocet_divakov=this.divaci;
                 this.stadion = data['stadion'];
+                this.stadion1=this.stadion;
                 var hoste = data['hoste'];
                 var domaci = data['domaci'];
                 var goly = data['Goly'];
@@ -103,7 +114,32 @@ export class MatchDetailsComponent implements OnInit {
                             element.goalsTime.push(element2.cas);
                             element.ass.push(element2.hrac2);
                             console.log(element['name'], element2['hrac1'], element.goals)
+                            
                         }
+                    });
+                    s.forEach(element3 => {
+                        if (element['id'] == element3['id_out']) {
+                            element.out = element3['id_in'];
+                        }
+                        if (element['id'] == element3['id_in']) {
+                            element.in = element3['id_out'];
+
+                        }
+                    });
+                    domaciSquad.forEach(element => {
+                        if (element.hasOwnProperty('in')) {
+                            domaciSquad.forEach(element2 => {
+                                if (element['in'] == element2['id'])
+                                    element.in = element2.name;
+                            });
+                        }
+                        if (element.hasOwnProperty('out')) {
+                            domaciSquad.forEach(element2 => {
+                                if (element['out'] == element2['id'])
+                                    element.out = element2.name;
+                            });
+                        }
+    
                     });
                 });
                 hosteSquad.forEach(function (element, i) {
@@ -112,10 +148,16 @@ export class MatchDetailsComponent implements OnInit {
                     else
                         element.poz = "N";
                     element.goals = 0;
-
+                    element.goalsTime = [];
+                    element.ass = [];
                     goly.forEach(element2 => {
-                        if (element['name'].includes(element2['hrac1']))
+                        if (element['name'].includes(element2['hrac1'])) {
                             element.goals++;
+                            element.goalsTime.push(element2.cas);
+                            element.ass.push(element2.hrac2);
+                            console.log(element['name'], element2['hrac1'], element.goals)
+                            console.log("kuk",element.goalsTime)
+                        }
                     });
                     s.forEach(element3 => {
                         if (element['id'] == element3['id_out']) {
@@ -150,7 +192,8 @@ export class MatchDetailsComponent implements OnInit {
                 this.dataSourceSquadAway = hosteSquad;
                 
                 this.score = data['domaci_goly'] + ":" + data['hoste_goly']
-
+                this.domaciSkore=data['domaci_goly'];
+                this.hostiaSkore=data['hoste_goly']
 
             })
         })
@@ -188,17 +231,19 @@ export class MatchDetailsComponent implements OnInit {
         if (n.goals > 0)
             n.goals--;
     }
-    stadion1;pocet_divakov;rozhodci={jmeno:""}
+    stadion1;pocet_divakov=this.divaci;
     updateMatchInfo() {
         this.route.paramMap.subscribe(params => {
             var i = params.get('matchID');
             this.auth.updateMatch(this.stadion1,this.pocet_divakov,this.rozhodci.jmeno,+i).subscribe(data=>{
-                console.log(data);
+                console.log(this.stadion1,this.pocet_divakov,this.rozhodci.jmeno,+i)
+                console.log("aaa"+data);
             })
         });
         
     }
     showTime(n, id) {
+        console.log("lala",id);
         return "minuta:" + n.goalsTime[id] + "| assist:" + n.ass[id];
     }
     selected: string;
