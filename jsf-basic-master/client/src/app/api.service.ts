@@ -1,5 +1,5 @@
 import { Injectable, Output, EventEmitter } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpParams } from '@angular/common/http';
 import { Observable, of as observableOf, merge } from 'rxjs';
 
 export interface TableMatchesItem {
@@ -42,6 +42,19 @@ export class ApiService {
       uzivatel,
       tym
     }, { responseType: 'text' as 'json' })
+  }
+
+  getFavId(uId:number, tId:number) {
+    let customParams = new HttpParams().set('uzivatelid', uId.toString()).set("tymid", tId.toString());
+    return this.http.get('rest/oblibenetymy/mylist', {params: customParams});
+  }
+
+  getFavAll() {
+    return this.http.get<any[]>('rest/oblibenetymy/list');
+  }
+
+  deleteFav(id:number) {
+    return this.http.delete<any>('rest/oblibenetymy/'+id);
   }
 
   updateUser(id, datum_reg, email, heslo, jmeno, opravneni, prijmeni) {

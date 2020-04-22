@@ -10,7 +10,7 @@
         <span *ngIf="isLogged || isAdmin || isSuperAdmin"><a  [routerLink]="['/']" (click)="logout()">Odhlásiť</a></span>
     </div>
     <div>
-        <mat-form-field appearance="fill" class="search-input comb">
+        <mat-form-field appearance="fill" class="search-input combik">
             <mat-select [(value)]="searchMode">
             <mat-option value="Tymy">Tím</mat-option>
             <mat-option value="Zapasy">Zápas</mat-option>

@@ -2,8 +2,9 @@
     <mat-grid-tile>
         <img src={{imgSrc}} atl="image" />
     </mat-grid-tile>
-    <mat-grid-tile [rowspan]="2" colWidth="50%" class="zapasy">
-        <table mat-table [dataSource]="DSmatches" class="match">
+    <mat-grid-tile [rowspan]="2" colWidth="50%" class="zapasy ">
+        <mat-card class="match mat-elevation-z8">
+        <table mat-table [dataSource]="DSmatches" class="matchTable">
             <ng-container matColumnDef="datum">
                 <th mat-header-cell *matHeaderCellDef > Datum </th>
                 <td mat-cell *matCellDef="let element"> {{element.datum}} </td>
@@ -33,6 +34,7 @@
             <tr mat-header-row *matHeaderRowDef="displayedColumnsMatches"></tr>
             <tr mat-row *matRowDef="let row; columns: displayedColumnsMatches;"  (mouseenter)="onHover(row.id)" [routerLink]="['/','match',matchID]"></tr>
         </table>
+        </mat-card>
     </mat-grid-tile>
     <mat-grid-tile class="inline">
         <h3>Hlavný tréner: Pavel Hapal</h3>
