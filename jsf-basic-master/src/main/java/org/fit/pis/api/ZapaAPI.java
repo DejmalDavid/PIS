@@ -15,8 +15,10 @@ import javax.ws.rs.PUT;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
+import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.Context;
 import javax.ws.rs.core.UriInfo;
+import javax.xml.bind.annotation.XmlRootElement;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import javax.ws.rs.core.Response.Status;
@@ -29,6 +31,7 @@ import org.fit.pis.data.Sestava;
 import org.fit.pis.data.SestavaHrac;
 import org.fit.pis.data.Stridani;
 import org.fit.pis.data.Tym;
+import org.fit.pis.data.UpdateZapas;
 import org.fit.pis.data.Zapa;
 import org.fit.pis.service.SestavaManager;
 import org.fit.pis.service.ZapaManager;
@@ -394,12 +397,25 @@ public class ZapaAPI
     {
     	return Response.status(Response.Status.NOT_IMPLEMENTED).entity("This is not available now").build();
     }
-    
     @POST
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
     public Response postJson(Zapa zapas)
     {
+    	zapaMgr.save(zapas);
+    	return Response.status(Status.OK).entity("{\"Success\": \"true\"}").build();
+    }
+    
+    
+    @Path("/{id}")
+    @POST
+    @Consumes(MediaType.APPLICATION_JSON)
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response postUpdateJson(@PathParam("id") int id, UpdateZapas uz)
+    {
+    	Zapa zapas = zapaMgr.find(id);
+    	zapas.setStadion(uz.stadion);
+    	zapas.setPocet_divaku(uz.pocet_divaku);
     	zapaMgr.save(zapas);
     	return Response.status(Status.OK).entity("{\"Success\": \"true\"}").build();
     }
