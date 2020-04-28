@@ -32,6 +32,7 @@ public class OblibeneTymyManager
     {
 
     	em.remove(em.merge(p));
+    	em.getEntityManagerFactory().getCache().evictAll();
 
     }
     

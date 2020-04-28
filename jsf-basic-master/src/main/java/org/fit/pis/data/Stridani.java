@@ -1,6 +1,8 @@
 package org.fit.pis.data;
 
 import java.io.Serializable;
+
+import javax.json.bind.annotation.JsonbTransient;
 import javax.persistence.*;
 import java.sql.Timestamp;
 
@@ -28,6 +30,7 @@ public class Stridani implements Serializable {
 	//bi-directional many-to-one association to Zapa
 	@ManyToOne
 	@JoinColumn(name="Zapas_id")
+	@JsonbTransient
 	private Zapa zapa;
 
 	public Stridani() {

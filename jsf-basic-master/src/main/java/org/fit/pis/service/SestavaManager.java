@@ -32,6 +32,7 @@ public class SestavaManager
     {
 
     	em.remove(em.merge(p));
+    	em.getEntityManagerFactory().getCache().evictAll();
 
     }
     

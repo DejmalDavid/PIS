@@ -1,6 +1,8 @@
 package org.fit.pis.data;
 
 import java.io.Serializable;
+
+import javax.json.bind.annotation.JsonbTransient;
 import javax.persistence.*;
 
 import org.codehaus.jackson.annotate.JsonIgnore;
@@ -38,18 +40,22 @@ public class Zapa implements Serializable {
 
 	//bi-directional many-to-one association to Gol
 	@OneToMany(mappedBy="zapa",cascade=CascadeType.REFRESH,orphanRemoval=true)
+	@JsonbTransient
 	private List<Gol> gols;
 
 	//bi-directional many-to-one association to RozhodciZapa
 	@OneToMany(mappedBy="zapa",cascade=CascadeType.REFRESH, orphanRemoval=true)
+	@JsonbTransient
 	private List<RozhodciZapa> rozhodciZapas;
 
 	//bi-directional many-to-one association to Sestava
 	@OneToMany(mappedBy="zapa",cascade=CascadeType.REFRESH, orphanRemoval=true)
+	@JsonbTransient
 	private List<Sestava> sestavas;
 
 	//bi-directional many-to-one association to Stridani
 	@OneToMany(mappedBy="zapa",cascade=CascadeType.REFRESH, orphanRemoval=true)
+	@JsonbTransient
 	private List<Stridani> stridanis;
 
 	public Zapa() {

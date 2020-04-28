@@ -31,7 +31,7 @@ public class RozhodciManager
     {
 
     	em.remove(em.merge(p));
-
+    	em.getEntityManagerFactory().getCache().evictAll();
     }
     
     public Rozhodci find(int id)

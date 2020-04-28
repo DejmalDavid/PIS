@@ -31,6 +31,7 @@ public class TymManager
     {
 
     	em.remove(em.merge(p));
+    	em.getEntityManagerFactory().getCache().evictAll();
 
     }
     

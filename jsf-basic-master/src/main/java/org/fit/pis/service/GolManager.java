@@ -31,6 +31,7 @@ public class GolManager
     {
     
     	em.remove(em.merge(p));
+    	em.getEntityManagerFactory().getCache().evictAll();
     	
     }
     

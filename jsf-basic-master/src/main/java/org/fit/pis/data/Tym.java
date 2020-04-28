@@ -1,6 +1,8 @@
 package org.fit.pis.data;
 
 import java.io.Serializable;
+
+import javax.json.bind.annotation.JsonbTransient;
 import javax.persistence.*;
 
 import org.codehaus.jackson.annotate.JsonIgnore;
@@ -32,14 +34,17 @@ public class Tym implements Serializable {
 
 	//bi-directional many-to-one association to Gol
 	@OneToMany(mappedBy="tym",cascade=CascadeType.REFRESH, orphanRemoval=true)
+	@JsonbTransient
 	private List<Hrac> hracs;
 		
 	//bi-directional many-to-one association to OblibeneTymy
 	@OneToMany(mappedBy="tym",cascade=CascadeType.REFRESH, orphanRemoval=true)
+	@JsonbTransient
 	private List<OblibeneTymy> oblibeneTymies;
 
 	//bi-directional many-to-one association to Sestava
 	@OneToMany(mappedBy="tym",cascade=CascadeType.REFRESH, orphanRemoval=true)
+	@JsonbTransient
 	private List<Sestava> sestavas;
 
 	public Tym() {
