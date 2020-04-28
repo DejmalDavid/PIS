@@ -74,12 +74,12 @@ export class AuthService {
     return this.http.delete('rest/stridani/'+id, {
     })
   }
-  initSquad(zapa,tym,hostujuci){
+  initSquad(zapa,tym,hostujici){
     return this.http.post('rest/sestava/', {
-      hostujuci,
+      hostujici,
       zapa,
       tym
-    })
+    },{ responseType: 'text' as 'json' })
     
   }
   sendSquad(sestava1,sestava2,hrac,id){

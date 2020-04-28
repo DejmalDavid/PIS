@@ -147,6 +147,41 @@ export class NewSquadComponent implements OnInit {
           console.log(hraci);
         })
       }
+      if (typeof this.hrac11 === 'undefined') { }
+      else {
+        var hracc11 = { id: this.hrac11.id }
+        this.auth.sendSquad(sestava1, sestava2, hracc11, sestavaid).subscribe(hraci => {
+          console.log(hraci);
+        })
+      }
+      if (typeof this.hrac12 === 'undefined') { }
+      else {
+        var hracc12 = { id: this.hrac12.id }
+        this.auth.sendSquad(sestava1, sestava2, hracc12, sestavaid).subscribe(hraci => {
+          console.log(hraci);
+        })
+      }
+      if (typeof this.hrac13 === 'undefined') { }
+      else {
+        var hracc13 = { id: this.hrac13.id }
+        this.auth.sendSquad(sestava1, sestava2, hracc13, sestavaid).subscribe(hraci => {
+          console.log(hraci);
+        })
+      }
+      if (typeof this.hrac14 === 'undefined') { }
+      else {
+        var hracc14 = { id: this.hrac14.id }
+        this.auth.sendSquad(sestava1, sestava2, hracc14, sestavaid).subscribe(hraci => {
+          console.log(hraci);
+        })
+      }
+      if (typeof this.hrac15 === 'undefined') { }
+      else {
+        var hracc15 = { id: this.hrac15.id }
+        this.auth.sendSquad(sestava1, sestava2, hracc15, sestavaid).subscribe(hraci => {
+          console.log(hraci);
+        })
+      }
     })
 
 
