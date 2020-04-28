@@ -2,7 +2,7 @@
     <mat-grid-tile>
         
         <div class="addgoal">
-            <h2>pridat gol</h2>
+            <h2>Pridat gol</h2>
             <form (ngSubmit)="newGoal(form1)" #form1="ngForm"> 
                 <mat-select [(ngModel)]="goal.hrac1.id" name="hrac1" placeholder="hrac1">
                     <mat-option *ngFor="let hrac1 of zostava" [value]=hrac1.id >
@@ -17,7 +17,7 @@
                     </mat-option>
                 </mat-select>
                 
-                <input type="submit" name="AddGoal" value="submit">
+                <input type="submit" name="AddGoal" value="Add goal">
             </form>
         </div>
     </mat-grid-tile>
@@ -31,7 +31,7 @@
                     </mat-option>
                 </mat-select>
                 
-                <input type="submit" name="DeleteGOal" value="Delete">
+                <input type="submit" name="DeleteGOal" value="Delete goal">
             </form>
         </div>
     </mat-grid-tile>
@@ -50,13 +50,13 @@
                     </mat-option>
                 </mat-select>
                 <input type="text" [(ngModel)]="striedani.cas" name="timeStriedanie" id="" placeholder="Minuta Striedania">
-                <input type="submit" name="DeleteGOal" value="Delete">
+                <input type="submit" name="DeleteGOal" value="Add Sub">
             </form>
         </div>
     </mat-grid-tile>
     <mat-grid-tile>
         <div class="addgoal">
-            <h2>Zmazat gol</h2>
+            <h2>Zmazat striedanie</h2>
             <form (ngSubmit)="DeleteSub(form1)" #form1="ngForm"> 
                 <mat-select [(ngModel)]="delSub" name="delelteStriedanie" placeholder="zmazat striedanie">
                     <mat-option *ngFor="let str of striedanie" [value]="str.id_stridani">
@@ -64,7 +64,7 @@
                     </mat-option>
                 </mat-select>
                 
-                <input type="submit" name="DeleteSub" value="DeleteSub">
+                <input type="submit" name="DeleteSub" value="Delete Sub">
             </form>
         </div>
     </mat-grid-tile>
