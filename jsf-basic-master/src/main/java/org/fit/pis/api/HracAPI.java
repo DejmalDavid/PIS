@@ -61,9 +61,9 @@ public class HracAPI
     @Path("/list")
     @GET
     @Produces(MediaType.APPLICATION_JSON)
-    public List<Hrac> getJson() throws NamingException 
+    public Response getJson() throws NamingException 
     {
-    	return hracMgr.findAll();
+    	return Response.ok().entity(hracMgr.findAll()).build();
     }
 
     @Path("/{id}")

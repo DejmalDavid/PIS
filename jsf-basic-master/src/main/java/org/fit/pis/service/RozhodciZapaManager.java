@@ -31,7 +31,7 @@ public class RozhodciZapaManager
     {
 
     	em.remove(em.merge(p));
-
+    	em.getEntityManagerFactory().getCache().evictAll();
     }
     
     public RozhodciZapa find(int id)

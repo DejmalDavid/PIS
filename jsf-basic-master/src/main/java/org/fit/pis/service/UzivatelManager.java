@@ -32,7 +32,7 @@ public class UzivatelManager
     {
 
     	em.remove(em.merge(p));
-
+    	em.getEntityManagerFactory().getCache().evictAll();
     }
     
     public Uzivatel find(int id)
@@ -59,10 +59,7 @@ public class UzivatelManager
     }
 
     public Uzivatel findWithEmail(String email) {
-         List<Uzivatel> results = em
-                .createQuery("SELECT u FROM Uzivatel u WHERE u.email = :email", Uzivatel.class)
-                .setParameter("email", email).getResultList();
-          return results.isEmpty() ? null : results.get(0);
+         	return em.createQuery("SELECT u FROM Uzivatel u WHERE u.email = :email", Uzivatel.class).setParameter("email", email).getSingleResult();
     }
     
     public boolean existWithEmail(String email) {

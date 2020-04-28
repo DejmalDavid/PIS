@@ -31,7 +31,7 @@ public class SestavaHracManager
     {
 
     	em.remove(em.merge(p));
-
+    	em.getEntityManagerFactory().getCache().evictAll();
     }
     
     public SestavaHrac find(int id)

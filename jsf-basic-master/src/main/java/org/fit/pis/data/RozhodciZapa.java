@@ -1,6 +1,8 @@
 package org.fit.pis.data;
 
 import java.io.Serializable;
+
+import javax.json.bind.annotation.JsonbTransient;
 import javax.persistence.*;
 
 
@@ -21,11 +23,13 @@ public class RozhodciZapa implements Serializable {
 	//bi-directional many-to-one association to Zapa
 	@ManyToOne
 	@JoinColumn(name="ZapasID")
+	@JsonbTransient
 	private Zapa zapa;
 
 	//bi-directional many-to-one association to Rozhodci
 	@ManyToOne
 	@JoinColumn(name="RozhodciID")
+	@JsonbTransient
 	private Rozhodci rozhodci;
 
 	public RozhodciZapa() {

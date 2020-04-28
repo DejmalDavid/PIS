@@ -1,5 +1,6 @@
 package org.fit.pis.data;
 
+import static javax.persistence.CascadeType.ALL;
 import static javax.persistence.FetchType.EAGER;
 
 import java.io.Serializable;
@@ -35,18 +36,21 @@ public class Gol implements Serializable {
 	private String polovina_zapasu;
 
 	//bi-directional many-to-one association to Zapa
-	@ManyToOne
+	@ManyToOne(cascade=CascadeType.REFRESH)
 	@JoinColumn(name="ZapasId")
+	@JsonbTransient
 	private Zapa zapa;
 
 	//bi-directional many-to-one association to Hrac
-	@ManyToOne
+	@ManyToOne(cascade=CascadeType.REFRESH)
 	@JoinColumn(name="HracId_assist")
+	@JsonbTransient
 	private Hrac hrac1;
 
 	//bi-directional many-to-one association to Hrac
-	@ManyToOne
+	@ManyToOne(cascade=CascadeType.REFRESH)
 	@JoinColumn(name="HracId")
+	@JsonbTransient
 	private Hrac hrac2;
 
 	public Gol() {

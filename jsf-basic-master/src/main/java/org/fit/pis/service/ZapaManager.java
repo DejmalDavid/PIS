@@ -30,6 +30,7 @@ public class ZapaManager
     public void remove(Zapa p)
     {
     	em.remove(em.merge(p));
+    	em.getEntityManagerFactory().getCache().evictAll();
     }
     
     public Zapa find(int id)

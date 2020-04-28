@@ -1,6 +1,10 @@
 package org.fit.pis.data;
 
+import static javax.persistence.CascadeType.ALL;
+
 import java.io.Serializable;
+
+import javax.json.bind.annotation.JsonbTransient;
 import javax.persistence.*;
 
 import org.codehaus.jackson.annotate.JsonIgnore;
@@ -37,7 +41,8 @@ public class Uzivatel implements Serializable {
 	private String prijmeni;
 
 	//bi-directional many-to-one association to OblibeneTymy
-	@OneToMany(mappedBy="uzivatel",cascade=CascadeType.REFRESH, orphanRemoval=true)
+	@OneToMany(mappedBy="uzivatel",cascade = { ALL }, orphanRemoval=true)
+	@JsonbTransient
 	private List<OblibeneTymy> oblibeneTymies;
 
 	public Uzivatel() {

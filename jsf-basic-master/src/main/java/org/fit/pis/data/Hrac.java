@@ -1,6 +1,10 @@
 package org.fit.pis.data;
 
+import static javax.persistence.CascadeType.ALL;
+
 import java.io.Serializable;
+
+import javax.json.bind.annotation.JsonbTransient;
 import javax.persistence.*;
 
 import org.codehaus.jackson.annotate.JsonIgnore;
@@ -36,18 +40,22 @@ public class Hrac implements Serializable {
 	//bi-directional many-to-one association to Tym
 	@ManyToOne
 	@JoinColumn(name="Tym_id")
+	@JsonbTransient
 	private Tym tym;
 
 	//bi-directional many-to-one association to Gol
-	@OneToMany(mappedBy="hrac1",cascade=CascadeType.REFRESH, orphanRemoval=true)
+	@OneToMany(mappedBy="hrac1",cascade = { ALL }, orphanRemoval=true)
+	@JsonbTransient
 	private List<Gol> gols1;
 
 	//bi-directional many-to-one association to Gol
-	@OneToMany(mappedBy="hrac2",cascade=CascadeType.REFRESH, orphanRemoval=true)
+	@OneToMany(mappedBy="hrac2",cascade = { ALL }, orphanRemoval=true)
+	@JsonbTransient
 	private List<Gol> gols2;
 
 	//bi-directional many-to-one association to SestavaHrac
-	@OneToMany(mappedBy="hrac", cascade=CascadeType.REFRESH)
+	@OneToMany(mappedBy="hrac", cascade = { ALL })
+	@JsonbTransient
 	private List<SestavaHrac> sestavaHracs;
 
 	public Hrac() {

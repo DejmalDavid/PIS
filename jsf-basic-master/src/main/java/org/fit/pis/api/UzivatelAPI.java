@@ -68,9 +68,8 @@ public class UzivatelAPI
     @Path("/list")
     @GET
     @Produces(MediaType.APPLICATION_JSON)
-    public List<Uzivatel> getJson() throws NamingException 
+    public List<Uzivatel> getJson()
     {
-    	System.out.println("API3");
     	return uzivatelMgr.findAll();
     }
 
@@ -125,7 +124,7 @@ public class UzivatelAPI
     {
     	Uzivatel ot = uzivatelMgr.findWithEmail(email);
     	
-    	if(ot != null)
+    	if(uzivatelMgr.existWithEmail(email))
     		return Response.ok(ot).build();
     	else	
     		return Response.status(Status.NOT_FOUND).entity("{\"Success\": \"false\"}").build();
