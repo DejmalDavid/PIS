@@ -24,13 +24,11 @@ public class OblibeneTymy implements Serializable {
 
 	//bi-directional many-to-one association to Uzivatel
 	@ManyToOne
-	@JsonbTransient
 	private Uzivatel uzivatel;
 
 	//bi-directional many-to-one association to Tym
 	@ManyToOne
 	@JoinColumn(name="Tymid")
-	@JsonbTransient
 	private Tym tym;
 
 	public OblibeneTymy() {

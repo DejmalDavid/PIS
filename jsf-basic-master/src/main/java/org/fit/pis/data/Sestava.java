@@ -31,23 +31,19 @@ public class Sestava implements Serializable {
 	//bi-directional many-to-one association to Zapa
 	@ManyToOne
 	@JoinColumn(name="ZapasID")
-	@JsonbTransient
 	private Zapa zapa;
 
 	//bi-directional many-to-one association to Tym
 	@ManyToOne
 	@JoinColumn(name="TymID")
-	@JsonbTransient
 	private Tym tym;
 
 	//bi-directional many-to-one association to SestavaHrac
 	@OneToMany(mappedBy="sestava1",cascade=CascadeType.REFRESH, orphanRemoval=true)
-	@JsonbTransient
 	private List<SestavaHrac> sestavaHracs1;
 
 	//bi-directional many-to-one association to SestavaHrac
 	@OneToMany(mappedBy="sestava2",cascade=CascadeType.REFRESH, orphanRemoval=true)
-	@JsonbTransient
 	private List<SestavaHrac> sestavaHracs2;
 
 	public Sestava() {

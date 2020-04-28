@@ -30,7 +30,6 @@ public class Stridani implements Serializable {
 	//bi-directional many-to-one association to Zapa
 	@ManyToOne
 	@JoinColumn(name="Zapas_id")
-	@JsonbTransient
 	private Zapa zapa;
 
 	public Stridani() {

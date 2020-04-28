@@ -38,19 +38,16 @@ public class Gol implements Serializable {
 	//bi-directional many-to-one association to Zapa
 	@ManyToOne(cascade=CascadeType.REFRESH)
 	@JoinColumn(name="ZapasId")
-	@JsonbTransient
 	private Zapa zapa;
 
 	//bi-directional many-to-one association to Hrac
 	@ManyToOne(cascade=CascadeType.REFRESH)
 	@JoinColumn(name="HracId_assist")
-	@JsonbTransient
 	private Hrac hrac1;
 
 	//bi-directional many-to-one association to Hrac
 	@ManyToOne(cascade=CascadeType.REFRESH)
 	@JoinColumn(name="HracId")
-	@JsonbTransient
 	private Hrac hrac2;
 
 	public Gol() {

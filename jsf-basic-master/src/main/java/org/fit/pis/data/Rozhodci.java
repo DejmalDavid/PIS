@@ -32,7 +32,6 @@ public class Rozhodci implements Serializable {
 
 	//bi-directional many-to-one association to RozhodciZapa
 	@OneToMany(mappedBy="rozhodci",cascade=CascadeType.REFRESH, orphanRemoval=true)
-	@JsonbTransient
 	private List<RozhodciZapa> rozhodciZapas;
 
 	public Rozhodci() {

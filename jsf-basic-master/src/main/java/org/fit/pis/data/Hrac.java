@@ -40,22 +40,18 @@ public class Hrac implements Serializable {
 	//bi-directional many-to-one association to Tym
 	@ManyToOne
 	@JoinColumn(name="Tym_id")
-	@JsonbTransient
 	private Tym tym;
 
 	//bi-directional many-to-one association to Gol
 	@OneToMany(mappedBy="hrac1",cascade = { ALL }, orphanRemoval=true)
-	@JsonbTransient
 	private List<Gol> gols1;
 
 	//bi-directional many-to-one association to Gol
 	@OneToMany(mappedBy="hrac2",cascade = { ALL }, orphanRemoval=true)
-	@JsonbTransient
 	private List<Gol> gols2;
 
 	//bi-directional many-to-one association to SestavaHrac
 	@OneToMany(mappedBy="hrac", cascade = { ALL })
-	@JsonbTransient
 	private List<SestavaHrac> sestavaHracs;
 
 	public Hrac() {
