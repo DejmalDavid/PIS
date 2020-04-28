@@ -67,11 +67,14 @@ td p{
 }
 ::ng-deep .skoreClass .mat-figure{
   display: grid !important;
-  grid-template-rows: 1fr 1fr 5fr;
+  grid-template-rows: 1fr  1fr 5fr;
 }
 ::ng-deep .skoreClass .mat-figure h1, ::ng-deep .skoreClass .mat-figure h3{
 text-align: center;
 }
+::ng-deep .skoreClass .mat-figure h1, ::ng-deep .skoreClass .mat-figure button{
+  align-items: center;
+  }
 
 .editGoals{
   float:right;
@@ -80,9 +83,16 @@ text-align: center;
 .save{
   text-align: center;
 }
-.infoMatch{
+.info{
   display: flex;
 }
+.ingoMatch{
+  display: block;
+}
+.centerButton{
+  text-align: center;
+}
+
 .timeInput{
   width: 30px;
 }
@@ -103,8 +113,23 @@ mat-select{
 }
 .infoInput3{
   height: 20px;
-  width:85px;
+  width:115px;
 }
 .saveDiv{
   text-align: center;
+}
+button{
+width: 156px;
+height: 20px;
+line-height: 20px;
+min-height: 20px;
+vertical-align: top;
+font-size: 12px;
+padding: 0 0;
+margin: 0;
+}
+
+button:hover {
+  background-color: rgb(6, 0, 90); /* Green */
+  color: white;
 }
