@@ -42,6 +42,7 @@ public class Uzivatel implements Serializable {
 
 	//bi-directional many-to-one association to OblibeneTymy
 	@OneToMany(mappedBy="uzivatel",cascade = { ALL }, orphanRemoval=true)
+	@JsonbTransient
 	private List<OblibeneTymy> oblibeneTymies;
 
 	public Uzivatel() {
