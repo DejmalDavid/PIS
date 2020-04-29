@@ -10,7 +10,7 @@
                     </mat-option>
                 </mat-select>
 
-                <input type="text" [(ngModel)]="goal.gol_cas" name="time" id="" placeholder="Minuta">
+                <input type="text" [(ngModel)]="goal.gol_cas" name="time"  placeholder="Minuta">
                 <mat-select [(ngModel)]="goal.hrac2.id" name="hrac2" placeholder="Gol-asistencia">
                     <mat-option *ngFor="let hrac2 of zostava" [value]=hrac2.id>
                         {{hrac2.name}}
@@ -46,7 +46,7 @@
                         {{hrac1.name}}
                     </mat-option>
                 </mat-select>
-                <input type="text" [(ngModel)]="striedani.cas" name="timeStriedanie" id=""
+                <input type="text" [(ngModel)]="striedani.cas" name="timeStriedanie" 
                     placeholder="Minuta Striedania">
                 <mat-select [(ngModel)]="striedani.hrac_id_out" name="out" placeholder="Hrac Out">
                     <mat-option *ngFor="let hrac1 of zostava" [value]=hrac1.id>
@@ -85,7 +85,7 @@
     </mat-grid-tile>
     <mat-grid-tile [colspan]="2" class="skoreClass">
         <h3>Dátum: {{datum}}</h3>
-        <div class="infoMatch" *ngIf="!isAdmin">
+        <div class="infoMatch1" *ngIf="!isAdmin">
             <h3>Štadión: {{stadion}}</h3>
             <h3> | Počet divákov:</h3>
             <h3>{{divaci}}</h3>

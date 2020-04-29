@@ -86,8 +86,11 @@ text-align: center;
 .info{
   display: flex;
 }
-.ingoMatch{
+.infoMatch{
   display: block;
+}
+.infoMatch1{
+  display: flex;
 }
 .centerButton{
   text-align: center;
